@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Midori.Core;
 using Midori.GameObjects.Units;
+using System.Collections.Generic;
 
 namespace Midori
 {
@@ -15,6 +17,7 @@ namespace Midori
         Texture2D texture;
         Unit unit;
         Texture2D groundTexture;
+        List<Tile> ground;
 
         public Game1()
         {
@@ -22,6 +25,8 @@ namespace Midori
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             this.Window.AllowUserResizing = true;
+            this.IsMouseVisible = true;
+            this.ground = new List<Tile>();
             Content.RootDirectory = "Content";
         }
 
@@ -38,7 +43,7 @@ namespace Midori
             texture = Content.Load<Texture2D>("Background/bg edit");
             groundTexture = Content.Load<Texture2D>("Tiles/Tile1");
 
-            unit = new TempHero(new Vector2(720, 586));
+            unit = new TempHero(new Vector2(720, 588));
             
             base.Initialize();
         }
@@ -75,9 +80,10 @@ namespace Midori
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+
             unit.Update(gameTime);
-       
+            World.isCollidedWithWorldBounds(graphics, unit);
+            
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -95,7 +101,9 @@ namespace Midori
             spriteBatch.Draw(texture, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
             for (int i = 0; i < 1920; i += 128)
             {
-                spriteBatch.Draw(groundTexture, new Vector2(i, 600));
+                var tile = new Tile(Content.Load<Texture2D>("Tiles/Tile1"), new Vector2(i, 600));
+                ground.Add(tile);
+                tile.Draw(spriteBatch);
             }
             //spriteBatch.Draw(groundTexture, new Rectangle(0, 600, 1920, 128), Color.White);
             unit.Draw(spriteBatch);

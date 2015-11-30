@@ -13,7 +13,7 @@ namespace Midori.GameObjects.Units
         private const int textureWidth = 32;
         private const int textureHeight = 64;
         private const int delay = 100;
-        private const float defaultMovementSpeed = 1;
+        private const float defaultMovementSpeed = 3;
         private const int frameCount = 6;
 
         public TempHero(Vector2 position)
@@ -30,6 +30,7 @@ namespace Midori.GameObjects.Units
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
+
         }
 
     }

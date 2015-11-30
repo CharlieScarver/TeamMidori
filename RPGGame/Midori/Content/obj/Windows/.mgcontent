@@ -4,8 +4,8 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/Background/bg edit.png</File>
-    <File>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/Sprites/old_guy.png</File>
-    <File>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/Tiles/Tile1.png</File>
+    <File>E:/Projects/TeamMidori/RPGGame/Midori/Content/Background/bg edit.png</File>
+    <File>E:/Projects/TeamMidori/RPGGame/Midori/Content/Sprites/old_guy.png</File>
+    <File>E:/Projects/TeamMidori/RPGGame/Midori/Content/Tiles/Tile1.png</File>
   </SourceFiles>
 </SourceFileCollection>

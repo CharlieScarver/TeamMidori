@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public abstract class Unit : GameObject, Interfaces.IDrawable
+    public abstract class Unit : GameObject, Interfaces.IDrawable, Interfaces.ICollidable
     {
         private readonly float defaultMovementSpeed;
         private readonly int textureWidth;
@@ -25,6 +25,8 @@ namespace Midori.GameObjects.Units
         private int currentFrame;
         private double timer;
         private float movementSpeed;
+        private int jumpSpeed;
+        private Rectangle boundingBox;
 
         public Unit(Vector2 position, float defaultMovementSpeed, int textureWidth, int textureHeight, int delay, int frameCount)
         {
@@ -35,11 +37,18 @@ namespace Midori.GameObjects.Units
             this.delay = delay;
             this.frameCount = frameCount;
 
+            this.boundingBox = new Rectangle((int)this.X + (this.textureWidth / 2), (int)Position.Y, this.textureWidth / 2, this.textureHeight);
             this.sourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
             this.CurrentFrame = 0;
             this.timer = 0.0;
-
+            
             this.MovementSpeed = defaultMovementSpeed;
+        }
+
+        public int JumpSpeed
+        {
+            get { return this.jumpSpeed; }
+            set { this.jumpSpeed = value; }
         }
 
         public int CurrentFrame
@@ -88,8 +97,15 @@ namespace Midori.GameObjects.Units
             get { return this.sourceRect;  }
             set { this.sourceRect = value; }
         }
-        
-      
+
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void Load(ContentManager content)
         {
             this.SpriteSheet = content.Load<Texture2D>("Sprites/old_guy");
@@ -138,6 +154,11 @@ namespace Midori.GameObjects.Units
             }
 
             this.SourceRect = new Rectangle(this.CurrentFrame * this.textureWidth, this.textureHeight * 2, this.textureWidth, this.textureHeight);
+        }
+
+        public void Idle()
+        {
+            this.SourceRect = new Rectangle(0, 0, this.textureWidth, this.textureHeight);
         }
     }
 }
