@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Midori.Core;
 using Midori.Interfaces;
 using System;
@@ -10,27 +11,49 @@ using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public class Unit : GameObject, Interfaces.IDrawable
+    public abstract class Unit : GameObject, Interfaces.IDrawable
     {
-        private const int textureWidth = 32;
-        private const int textureHeight = 64;
-        private const int delay = 200;
-        private const float defaultMovementSpeed = 1;
+        private readonly float defaultMovementSpeed;
+        private readonly int textureWidth;
+        private readonly int textureHeight;
+        private readonly int delay;
+        private readonly int frameCount;
 
         private Vector2 position;
         private Texture2D spriteSheet;
         private Rectangle sourceRect;
         private int currentFrame;
         private double timer;
-        public float movementSpeed;
+        private float movementSpeed;
 
-        public Unit(Vector2 position)
+        public Unit(Vector2 position, float defaultMovementSpeed, int textureWidth, int textureHeight, int delay, int frameCount)
         {
             this.position = position;
-            this.sourceRect = new Rectangle(0, 192, textureWidth, textureHeight);
-            this.currentFrame = 0;
+            this.defaultMovementSpeed = defaultMovementSpeed;
+            this.textureWidth = textureWidth;
+            this.textureHeight = textureHeight;
+            this.delay = delay;
+            this.frameCount = frameCount;
+
+            this.sourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
+            this.CurrentFrame = 0;
             this.timer = 0.0;
-            this.movementSpeed = Unit.defaultMovementSpeed;
+
+            this.MovementSpeed = defaultMovementSpeed;
+        }
+
+        public int CurrentFrame
+        {
+            get { return this.currentFrame; }
+            set
+            {
+                if (value < 0 || value > this.frameCount)
+                {
+                    throw new ArgumentOutOfRangeException("Current frame should be between 0 and the amount of frames");
+                }
+
+                this.currentFrame = value;
+            }
         }
 
         public Vector2 Position 
@@ -56,43 +79,65 @@ namespace Midori.GameObjects.Units
             }
         }
 
-        //protected Texture2D SpriteSheet { get; set; }
+        public float MovementSpeed { get; set; }
 
-        //protected Rectangle SourceRect { get; set; }
+        protected Texture2D SpriteSheet { get; set; }
 
-        //protected int CurrentFrame { get; set; }
-
+        protected Rectangle SourceRect 
+        {
+            get { return this.sourceRect;  }
+            set { this.sourceRect = value; }
+        }
+        
+      
         public void Load(ContentManager content)
         {
-            this.spriteSheet = content.Load<Texture2D>("Sprites/old_guy");
+            this.SpriteSheet = content.Load<Texture2D>("Sprites/old_guy");
         }
 
-        public void Update(GameTime gameTime)
-        {
-            InputHandler.HandleInput(gameTime, this);
-        }
+        public abstract void Update(GameTime gameTime);
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.spriteSheet, this.Position, this.sourceRect, Color.White);
-        }
+        public abstract void Draw(SpriteBatch spriteBatch);
 
-        public void Animate(GameTime gameTime)
+        public void AnimateRight(GameTime gameTime)
         {
             this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.timer >= Unit.delay)
+            if (this.timer >= this.delay)
             {
-                this.currentFrame++;
+                this.CurrentFrame++;
 
-                if (this.currentFrame == 6)
+                if (this.CurrentFrame == this.frameCount)
                 {
-                    this.currentFrame = 0;
+                    this.CurrentFrame = 0;
                 }
 
-                this.sourceRect = new Rectangle(this.currentFrame * Unit.textureWidth, 192, Unit.textureWidth, Unit.textureHeight);
+                    
                 this.timer = 0.0;
             }
+
+            this.SourceRect = new Rectangle(this.CurrentFrame * this.textureWidth, this.textureHeight * 3, this.textureWidth, this.textureHeight);
+        }
+
+        public void AnimateLeft(GameTime gameTime)
+        {
+            this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+
+            if (this.timer >= this.delay)
+            {
+                this.CurrentFrame++;
+
+                if (this.CurrentFrame == this.frameCount)
+                {
+                    this.CurrentFrame = 0;
+                }
+
+                  
+                this.timer = 0.0;
+            }
+
+            this.SourceRect = new Rectangle(this.CurrentFrame * this.textureWidth, this.textureHeight * 2, this.textureWidth, this.textureHeight);
         }
     }
 }

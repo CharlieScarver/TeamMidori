@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/Tiles/Tile1.png</SourceFile>
-  <SourceTime>2015-11-30T01:47:20.9122961+02:00</SourceTime>
+  <SourceTime>2015-11-30T02:12:24.3072854+02:00</SourceTime>
   <DestFile>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/bin/Windows/Tiles/Tile1.xnb</DestFile>
-  <DestTime>2015-11-30T02:10:14.3538525+02:00</DestTime>
+  <DestTime>2015-11-30T19:19:09.4539374+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T20:14:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

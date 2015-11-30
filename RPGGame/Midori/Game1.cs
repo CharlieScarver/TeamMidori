@@ -19,9 +19,9 @@ namespace Midori
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            this.Window.AllowUserResizing = true;
             Content.RootDirectory = "Content";
         }
 
@@ -38,7 +38,7 @@ namespace Midori
             texture = Content.Load<Texture2D>("Background/bg edit");
             groundTexture = Content.Load<Texture2D>("Tiles/Tile1");
 
-            unit = new Unit(new Vector2(720, 586));
+            unit = new TempHero(new Vector2(720, 586));
             
             base.Initialize();
         }

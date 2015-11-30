@@ -15,19 +15,26 @@ namespace Midori.Core
 
         public static void HandleInput(GameTime gameTime, Unit unit)
         {
+            previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
+
+            if (currentKeyboardState != previousKeyboardState)
+            {
+                unit.CurrentFrame = 0;
+            }
 
             if (currentKeyboardState.IsKeyDown(Keys.Right))
             {
-                unit.X += unit.movementSpeed;
-                unit.Animate(gameTime);
+                unit.X += unit.MovementSpeed;
+                unit.AnimateRight(gameTime);
             }
             else if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                unit.X -= unit.movementSpeed;
+                unit.X -= unit.MovementSpeed;
+                unit.AnimateLeft(gameTime);
             }
-
-            previousKeyboardState = currentKeyboardState;
+            
+            
         }
     }
 }

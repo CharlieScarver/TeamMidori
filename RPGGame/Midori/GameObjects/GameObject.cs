@@ -7,6 +7,10 @@ namespace Midori.GameObjects
 {
     public abstract class GameObject
     {
+        public int Id { get; set; }
+
+        public bool IsActive { get; set; }
+
 
     }
 }
