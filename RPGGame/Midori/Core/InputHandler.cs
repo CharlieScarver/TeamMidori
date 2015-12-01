@@ -12,7 +12,6 @@ namespace Midori.Core
     {
         private static KeyboardState previousKeyboardState;
         private static KeyboardState currentKeyboardState;
-        private static bool isJumping;
 
         public static void HandleInput(GameTime gameTime, Unit unit)
         {
@@ -21,7 +20,7 @@ namespace Midori.Core
 
             if (currentKeyboardState.GetPressedKeys().Length == 0)
             {
-                unit.Idle();
+                unit.AnimateIdle();
             }
 
             if (currentKeyboardState != previousKeyboardState)
@@ -29,44 +28,67 @@ namespace Midori.Core
                 unit.CurrentFrame = 0;
             }
 
+            // Move Right
             if (currentKeyboardState.IsKeyDown(Keys.Right))
-            {
-                MoveRight(gameTime, unit);                
+            { 
+                
+                MoveRight(gameTime, unit);
+                              
             }
 
+            // Move Left
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
+                
                 MoveLeft(gameTime, unit);
+                
             }
 
-            if (isJumping)
+            // Jumping
+            if (currentKeyboardState.IsKeyDown(Keys.Up) 
+                && previousKeyboardState.IsKeyUp(Keys.Up) 
+                && (unit.JumpCounter < 2) )
             {
-                unit.Y += unit.JumpSpeed;
-                unit.JumpSpeed++;
-                if (unit.Y >= 588)
-                {
-                    unit.Y = 588;
-                    isJumping = false;
-                }
+                
+                unit.IsJumping = true;
+                unit.IsFalling = false;
+                unit.JumpSpeed = unit.DefaultJumpSpeed;
+                unit.JumpCounter++;
+                
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.Up) && previousKeyboardState.IsKeyUp(Keys.Up))
-            {
-                isJumping = true;
-                unit.JumpSpeed = -10;
-            }
+
+            
             
         }
 
         private static void MoveRight(GameTime gameTime, Unit unit)
         {
-            unit.X += unit.MovementSpeed;
-            unit.AnimateRight(gameTime);
+            // compensating because origin is in the left top corner
+            var futurePosition = new Rectangle(
+                        (int)(unit.Position.X + unit.BoundingBox.Width + unit.MovementSpeed),
+                        (int)unit.Position.Y,
+                        unit.BoundingBox.Width,
+                        unit.BoundingBox.Height);
+            if (World.ValidateFuturePosition(futurePosition))
+            {
+                //unit.IsMovingRight = true;
+                unit.X += unit.MovementSpeed;
+                unit.AnimateRight(gameTime);
+            }
         }
 
         private static void MoveLeft(GameTime gameTime, Unit unit)
         {
-            unit.X -= unit.MovementSpeed;
-            unit.AnimateLeft(gameTime);
+            var futurePosition = new Rectangle(
+                        (int)(unit.Position.X - unit.MovementSpeed),
+                        (int)unit.Position.Y,
+                        unit.BoundingBox.Width,
+                        unit.BoundingBox.Height);
+            if (World.ValidateFuturePosition(futurePosition))
+            {
+                unit.X -= unit.MovementSpeed;
+                unit.AnimateLeft(gameTime);
+            }
         }
 
     }

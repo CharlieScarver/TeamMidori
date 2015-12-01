@@ -1,4 +1,5 @@
-﻿using Midori.GameObjects.Units;
+﻿using Microsoft.Xna.Framework;
+using Midori.GameObjects.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,19 @@ namespace Midori.Interfaces
 {
     public interface IAnimatable : IDrawable
     {
-        void Animate(Unit unit);
+        int CurrentFrame { get; set; }
+
+        int Delay { get; }
+
+        double Timer { get; }
+
+        int FrameCount { get; }
+
+        void AnimateLeft(GameTime gameTime);
+
+        void AnimateRight(GameTime gameTime);
+
+        void AnimateIdle();
+
     }
 }

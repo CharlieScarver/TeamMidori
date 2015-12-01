@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Midori.Core;
+using Midori.Core.TextureLoading;
+using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Midori
 {
@@ -14,19 +17,19 @@ namespace Midori
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Texture2D texture;
-        Unit unit;
-        Texture2D groundTexture;
-        List<Tile> ground;
+        List<GameObject> objects;
+        PlayableCharacter player;
+
+        bool isPlayerCollidingWithSomething;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
-            this.ground = new List<Tile>();
+            this.objects = new List<GameObject>();
             Content.RootDirectory = "Content";
         }
 
@@ -39,13 +42,12 @@ namespace Midori
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
-            texture = Content.Load<Texture2D>("Background/bg edit");
-            groundTexture = Content.Load<Texture2D>("Tiles/Tile1");
+            isPlayerCollidingWithSomething = false;
 
-            unit = new TempHero(new Vector2(720, 588));
-            
-            base.Initialize();
+            base.Initialize();            
+            Engine.InitializeTiles();
+            player = Engine.InitializePlayer();
+            Engine.InitializeEnemies();
         }
 
         /// <summary>
@@ -56,7 +58,9 @@ namespace Midori
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            unit.Load(Content);
+            TextureLoader.Load(this.Content);
+
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -81,10 +85,38 @@ namespace Midori
                 Exit();
 
 
-            unit.Update(gameTime);
-            World.isCollidedWithWorldBounds(graphics, unit);
+
+            World.isCollidedWithWorldBounds(graphics, player);
+
+            isPlayerCollidingWithSomething = false;
+            foreach (Tile tile in Engine.Tiles)
+            {
+                if (World.CollidesWith(player, tile))
+                {
+                    player.IsFalling = false;
+                    //player.HasCollided = true;
+                    //player.IsMovingLeft = false;
+                    //player.IsMovingRight = false;
+                    //player.IsJumping = false; // to be removed
+
+                    isPlayerCollidingWithSomething = true;
+                    break;
+                }
+
+            }
+
+            if (!(isPlayerCollidingWithSomething) && !player.IsJumping)
+            {
+                player.IsFalling = true;
+            }
             
             // TODO: Add your update logic here
+            player.Update(gameTime);
+
+            foreach (TempEnemy en in Engine.Enemies)
+            {
+                en.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -98,16 +130,26 @@ namespace Midori
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
-            for (int i = 0; i < 1920; i += 128)
+            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
+
+            foreach (Tile tile in Engine.Tiles)
             {
-                var tile = new Tile(Content.Load<Texture2D>("Tiles/Tile1"), new Vector2(i, 600));
-                ground.Add(tile);
                 tile.Draw(spriteBatch);
+                tile.DrawBB(spriteBatch, Content);
             }
-            //spriteBatch.Draw(groundTexture, new Rectangle(0, 600, 1920, 128), Color.White);
-            unit.Draw(spriteBatch);
+            
+
+            player.Draw(spriteBatch);
+            player.DrawBB(spriteBatch, Content);
+
+            foreach (TempEnemy en in Engine.Enemies)
+            {
+                en.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
+        
+
 
             // TODO: Add your drawing code here
 

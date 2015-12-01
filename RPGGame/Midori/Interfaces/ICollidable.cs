@@ -9,5 +9,15 @@ namespace Midori.Interfaces
     public interface ICollidable
     {
         Rectangle BoundingBox { get; }
+
+        int BoundingBoxX { get; set; }
+
+        int BoundingBoxY { get; set; }
+
+        Rectangle FutureBoundingBox { get; }
+
+        int FutureBoundingBoxX { get; set; }
+
+        int FutureBoundingBoxY { get; set; }
     }
 }

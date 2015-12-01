@@ -11,45 +11,57 @@ using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public abstract class Unit : GameObject, Interfaces.IDrawable, Interfaces.ICollidable
+    public abstract class Unit : GameObject, Interfaces.IAnimatable, Interfaces.ICollidable
     {
-        private readonly float defaultMovementSpeed;
         private readonly int textureWidth;
         private readonly int textureHeight;
         private readonly int delay;
         private readonly int frameCount;
+        private readonly float defaultJumpSpeed;
+        private readonly float defaultMovementSpeed;
+        private const int gravity = 10;
+        private const int consequentJumps = 2;
 
-        private Vector2 position;
-        private Texture2D spriteSheet;
-        private Rectangle sourceRect;
         private int currentFrame;
         private double timer;
         private float movementSpeed;
-        private int jumpSpeed;
-        private Rectangle boundingBox;
+        private float jumpSpeed;
+        private int jumpCounter;
 
-        public Unit(Vector2 position, float defaultMovementSpeed, int textureWidth, int textureHeight, int delay, int frameCount)
+        private bool isJumping;
+        private bool isFalling;
+        private bool isOnGround;
+
+        public Unit(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
         {
-            this.position = position;
-            this.defaultMovementSpeed = defaultMovementSpeed;
+            this.Position = position;
             this.textureWidth = textureWidth;
             this.textureHeight = textureHeight;
             this.delay = delay;
             this.frameCount = frameCount;
+            this.defaultMovementSpeed = defaultMovementSpeed;
+            this.defaultJumpSpeed = defaultJumpSpeed;
 
-            this.boundingBox = new Rectangle((int)this.X + (this.textureWidth / 2), (int)Position.Y, this.textureWidth / 2, this.textureHeight);
-            this.sourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
-            this.CurrentFrame = 0;
             this.timer = 0.0;
-            
-            this.MovementSpeed = defaultMovementSpeed;
+            this.CurrentFrame = 0;
+            this.SourceRect = new Rectangle();
+            this.BoundingBox = new Rectangle(
+                (int)this.X + (this.textureWidth / 4), 
+                (int)this.Y, 
+                this.textureWidth / 2, 
+                this.textureHeight);
+            this.FutureBoundingBox = new Rectangle(this.BoundingBox.X, this.BoundingBox.Y, this.textureWidth / 2, this.textureHeight);
+
+            this.MovementSpeed = defaultMovementSpeed; 
+            this.JumpSpeed = defaultJumpSpeed;
+            this.jumpCounter = 0;
+
+            this.IsJumping = false;
+            this.IsFalling = true;
         }
 
-        public int JumpSpeed
-        {
-            get { return this.jumpSpeed; }
-            set { this.jumpSpeed = value; }
-        }
+        // Properties
+        
 
         public int CurrentFrame
         {
@@ -65,100 +77,133 @@ namespace Midori.GameObjects.Units
             }
         }
 
-        public Vector2 Position 
-        {
-            get { return this.position; }
+        public float MovementSpeed {
+            get { return this.movementSpeed;  }
+            set { this.movementSpeed = value; }
         }
 
-        public float X
+        public float JumpSpeed
         {
-            get { return this.position.X; }
-            set
-            {
-                this.position.X = value;
-            }
+            get { return this.jumpSpeed; }
+            set { this.jumpSpeed = value; }
         }
 
-        public float Y
+        public int Delay
         {
-            get { return this.position.Y; }
-            set
-            {
-                this.position.Y = value;
-            }
+            get { return this.delay; }
         }
 
-        public float MovementSpeed { get; set; }
-
-        protected Texture2D SpriteSheet { get; set; }
-
-        protected Rectangle SourceRect 
+        public double Timer
         {
-            get { return this.sourceRect;  }
-            set { this.sourceRect = value; }
+            get { return this.timer; }
+            protected set { this.timer = value; }
         }
 
-        public Rectangle BoundingBox
+        public int FrameCount
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return this.frameCount; }
         }
 
-        public void Load(ContentManager content)
+        public int TextureWidth { get { return this.textureWidth; } }
+
+        public int TextureHeight { get { return this.textureHeight; } }
+
+        public float DefaultJumpSpeed
         {
-            this.SpriteSheet = content.Load<Texture2D>("Sprites/old_guy");
+            get { return this.defaultJumpSpeed; }
         }
 
+        public int JumpCounter
+        {
+            get { return this.jumpCounter; }
+            set { this.jumpCounter = value; }
+        }
+
+        public bool IsJumping
+        {
+            get { return this.isJumping; }
+            set { this.isJumping = value; }
+        }
+
+        public bool IsFalling
+        {
+            get { return this.isFalling; }
+            set { this.isFalling = value; }
+        }
+
+        public bool IsOnGround
+        {
+            get { return this.isOnGround; }
+            set { this.isOnGround = value; }
+        }
+
+        // Abstract Methods
         public abstract void Update(GameTime gameTime);
 
-        public abstract void Draw(SpriteBatch spriteBatch);
 
-        public void AnimateRight(GameTime gameTime)
+        // Non-abstract Methods
+        protected void ManageMovement()
         {
-            this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.timer >= this.delay)
+            this.BoundingBoxX = this.FutureBoundingBoxX;
+            this.BoundingBoxY = this.FutureBoundingBoxY;
+            
+
+            if (this.IsFalling)
             {
-                this.CurrentFrame++;
-
-                if (this.CurrentFrame == this.frameCount)
+                var futurePosition = new Rectangle(
+                     (int)this.Position.X,
+                     (int)(this.Position.Y + gravity),
+                     this.BoundingBox.Width,
+                     this.BoundingBox.Height);
+                if (World.ValidateFuturePosition(futurePosition))
                 {
-                    this.CurrentFrame = 0;
+                    this.Y += gravity;
                 }
-
-                    
-                this.timer = 0.0;
+                else
+                {
+                    this.IsOnGround = true;
+                    this.JumpCounter = 0;
+                }
+                 
+            }
+            else
+            {
+                var futurePosition = new Rectangle(
+                    (int)this.Position.X,
+                    (int)(this.Position.Y + gravity),
+                    this.BoundingBox.Width,
+                    this.BoundingBox.Height);
+                if (World.ValidateFuturePosition(futurePosition))
+                {
+                    this.IsFalling = true;
+                    this.IsOnGround = false;
+                }
+                 
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * this.textureWidth, this.textureHeight * 3, this.textureWidth, this.textureHeight);
-        }
-
-        public void AnimateLeft(GameTime gameTime)
-        {
-            this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-
-            if (this.timer >= this.delay)
+            if (this.IsJumping)
             {
-                this.CurrentFrame++;
-
-                if (this.CurrentFrame == this.frameCount)
+                this.Y -= this.JumpSpeed;
+                this.JumpSpeed--;
+                if (this.JumpSpeed < 0)
                 {
-                    this.CurrentFrame = 0;
+                    this.IsJumping = false;
+                    this.IsFalling = true;
                 }
-
-                  
-                this.timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * this.textureWidth, this.textureHeight * 2, this.textureWidth, this.textureHeight);
+
+            this.FutureBoundingBoxX = (int)this.X + (this.textureWidth / 4);
+            this.FutureBoundingBoxY = (int)this.Y;
+            
         }
 
-        public void Idle()
-        {
-            this.SourceRect = new Rectangle(0, 0, this.textureWidth, this.textureHeight);
-        }
+
+        public abstract void AnimateRight(GameTime gameTime);
+
+        public abstract void AnimateLeft(GameTime gameTime);
+
+        public abstract void AnimateIdle();
     }
 }

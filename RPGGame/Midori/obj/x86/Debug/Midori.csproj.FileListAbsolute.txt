@@ -1,0 +1,33 @@
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\obj\x86\Debug\Midori.csprojResolveAssemblyReference.cache
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Background\bg edit.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Sprites\old_guy.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Tiles\Tile1.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Midori.exe
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Midori.pdb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\MonoGame.Framework.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.XAudio2.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct3D11.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.DXGI.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct2D1.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.XInput.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.RawInput.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct3D9.dll
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\MonoGame.Framework.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.XAudio2.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct3D11.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.DXGI.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct2D1.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.XInput.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.RawInput.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\SharpDX.Direct3D9.xml
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\obj\x86\Debug\Midori.exe
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\obj\x86\Debug\Midori.pdb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Sprites\TheOnePixel.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Tiles\End road left.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Tiles\End road right.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Tiles\Main road.xnb
+D:\Admin\Programming 2\SoftUni\3. Front-End\Teamwork\TeamMidori\RPGGame\Midori\bin\Windows\Debug\Content\Sprites\enemy.xnb

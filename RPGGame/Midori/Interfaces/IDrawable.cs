@@ -12,6 +12,14 @@ namespace Midori.Interfaces
     {
         Vector2 Position { get; }
 
+        float X { get; set; }
+
+        float Y { get; set; }
+
+        Texture2D SpriteSheet { get; }
+
+        Rectangle SourceRect { get; }
+
         void Draw(SpriteBatch spriteBatch);
     }
 }
