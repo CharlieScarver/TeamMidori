@@ -21,7 +21,10 @@ namespace Midori.DebugSystem
             this.Content = content;
             this.SpriteBatch = spriteBatch;
             List<GameObject> gameObjects = Engine.Objects;
+            this.AnchoredObjects = new List<GameObject>();
         }
+
+        private List<GameObject> AnchoredObjects { get; set; }
 
         private SpriteBatch SpriteBatch { get; set; }
 
@@ -32,17 +35,18 @@ namespace Midori.DebugSystem
 
         public void UnitPosition(GameObject unit)
         {
-            string text = string.Format("{0}/{1}", unit.X, unit.Y);
-            SpriteBatch.DrawString(TextureLoader.Font, text, unit.Position, Color.White);
-        }
+            StringBuilder sb = new StringBuilder();
+            foreach (var prop in unit.GetType().GetProperties())
+            {
+                sb.Append(string.Format("{0}={1}", prop.Name, prop.GetValue(unit, null)));
+                sb.Append("\n");
+            }
 
-        public void DrawMouseBB()
-        {
-            //SpriteBatch.Draw(TextureLoader.SingleWhitePixel, this.MouseBoundingBox, Color.White);
+            SpriteBatch.DrawString(TextureLoader.Font, sb.ToString(), new Vector2(unit.Position.X, unit.Position.Y - sb.Length/2), Color.White);
         }
 
         //TODO: Figure a way to get mouse position relative to the current position because
-        //Mouse.GetState().Position returns point relative to the monitor
+        //if in window Mouse.GetState() returns point relative to the border of the window
         public void StatsOnHover()
         {
             foreach (var item in Engine.Objects)
@@ -50,11 +54,34 @@ namespace Midori.DebugSystem
                 if (item.BoundingBox.Contains(this.MousePosition))
                 {
                     this.UnitPosition(item);
+                    this.Anchor(item);
                 }
             }
+
             if (Engine.Player.BoundingBox.Contains(this.MousePosition))
             {
                 this.UnitPosition(Engine.Player);
+                this.Anchor(Engine.Player);
+            }
+
+            foreach (var item in this.AnchoredObjects)
+            {
+                this.UnitPosition(item);
+            }
+        }
+
+        private void Anchor(GameObject item)
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                if (!this.AnchoredObjects.Contains(item))
+                {
+                    this.AnchoredObjects.Add(item);
+                }
+                else
+                {
+                    this.AnchoredObjects.Remove(item);
+                }
             }
         }
     }

@@ -4,14 +4,14 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Background/bg edit.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Sprites/old_guy.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Tiles/Tile1.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Sprites/TheOnePixel.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Tiles/End road left.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Tiles/End road right.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Tiles/Main road.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Sprites/enemy.png</File>
-    <File>E:/Projects/teammidori/RPGGame/Midori/Content/Fonts/Font.spritefont</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Background/bg edit.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Sprites/old_guy.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Tiles/Tile1.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Sprites/TheOnePixel.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Tiles/End road left.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Tiles/End road right.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Tiles/Main road.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Sprites/enemy.png</File>
+    <File>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Fonts/Font.spritefont</File>
   </SourceFiles>
 </SourceFileCollection>

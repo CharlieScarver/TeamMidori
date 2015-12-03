@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>E:/Projects/teammidori/RPGGame/Midori/Content/Tiles/End road right.png</SourceFile>
-  <SourceTime>2015-11-30T19:34:22.6895739+02:00</SourceTime>
-  <DestFile>E:/Projects/teammidori/RPGGame/Midori/Content/bin/Windows/Tiles/End road right.xnb</DestFile>
-  <DestTime>2015-12-02T17:05:43.316534+02:00</DestTime>
+  <SourceFile>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/Tiles/End road right.png</SourceFile>
+  <SourceTime>2015-12-03T21:31:48.9406126+02:00</SourceTime>
+  <DestFile>E:/Projects/TeamMidoriTest/TeamMidori/RPGGame/Midori/Content/bin/Windows/Tiles/End road right.xnb</DestFile>
+  <DestTime>2015-12-03T22:45:05.1135913+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T20:14:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
