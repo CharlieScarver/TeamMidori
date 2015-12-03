@@ -16,7 +16,7 @@ namespace Midori.GameObjects.Units
         private const int textureHeight = 64;
         private const int delay = 200;
         private const int frameCount = 6;
-        private const float defaultMovementSpeed = 10;
+        private const float defaultMovementSpeed = 5;
         private const float defaultJumpSpeed = 30;
 
         public TempHero(Vector2 position)

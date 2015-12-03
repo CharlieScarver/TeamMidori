@@ -33,7 +33,6 @@ namespace Midori.Core
 
         public static bool CollidesWith(ICollidable firstObj, ICollidable secondObj)
         {
-
             return firstObj.FutureBoundingBox.Intersects(secondObj.FutureBoundingBox);
         }
 
@@ -49,7 +48,7 @@ namespace Midori.Core
 
             return true;
         }
-
+        
 
         public static void Gravity(List<Unit> units)
         {

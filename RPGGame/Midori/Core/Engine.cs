@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Midori.GameObjects.Units;
 using Midori.Core.TextureLoading;
+using Midori.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,23 @@ namespace Midori.Core
         private static List<Tile> tiles = new List<Tile>();
         private static PlayableCharacter player;
         private static List<TempEnemy> enemies = new List<TempEnemy>();
+        private static List<GameObject> objects = new List<GameObject>();
+
+        public static PlayableCharacter Player
+        {
+            get { return player; }
+        }
+
+        public static List<GameObject> Objects
+        {
+            get
+            {
+                var list = new List<GameObject>();
+                list.AddRange(enemies);
+                list.AddRange(tiles);
+                return list;
+            }
+        }
 
         public static List<Tile> Tiles 
         { 
@@ -42,6 +60,8 @@ namespace Midori.Core
                         break;
                     case 4:
                         tiles.Add(new Tile(new Vector2(i, 700), 3));
+                        tiles.Add(new Tile(new Vector2(i, 650), 3));
+
                         break;
                 }
 

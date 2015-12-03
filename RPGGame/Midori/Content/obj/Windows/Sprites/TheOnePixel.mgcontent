@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/Sprites/TheOnePixel.png</SourceFile>
-  <SourceTime>2015-12-01T01:43:46.9158928+02:00</SourceTime>
-  <DestFile>D:/Admin/Programming 2/SoftUni/3. Front-End/Teamwork/TeamMidori/RPGGame/Midori/Content/bin/Windows/Sprites/TheOnePixel.xnb</DestFile>
-  <DestTime>2015-12-01T01:46:44.6610592+02:00</DestTime>
+  <SourceFile>E:/Projects/teammidori/RPGGame/Midori/Content/Sprites/TheOnePixel.png</SourceFile>
+  <SourceTime>2015-12-01T09:14:38.0682843+02:00</SourceTime>
+  <DestFile>E:/Projects/teammidori/RPGGame/Midori/Content/bin/Windows/Sprites/TheOnePixel.xnb</DestFile>
+  <DestTime>2015-12-02T17:05:43.2915166+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T20:14:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

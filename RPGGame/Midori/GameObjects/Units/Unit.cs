@@ -32,6 +32,10 @@ namespace Midori.GameObjects.Units
         private bool isFalling;
         private bool isOnGround;
 
+        //Testing
+        public float scale;
+
+
         public Unit(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
         {
             this.Position = position;
@@ -186,6 +190,7 @@ namespace Midori.GameObjects.Units
             {
                 this.Y -= this.JumpSpeed;
                 this.JumpSpeed--;
+                
                 if (this.JumpSpeed < 0)
                 {
                     this.IsJumping = false;
@@ -198,8 +203,6 @@ namespace Midori.GameObjects.Units
             this.FutureBoundingBoxY = (int)this.Y;
             
         }
-
-
         public abstract void AnimateRight(GameTime gameTime);
 
         public abstract void AnimateLeft(GameTime gameTime);

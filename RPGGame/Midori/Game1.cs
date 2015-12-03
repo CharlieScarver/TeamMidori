@@ -3,114 +3,72 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Midori.Core;
 using Midori.Core.TextureLoading;
+using Midori.DebugSystem;
 using Midori.GameObjects;
 using Midori.GameObjects.Units;
+using MonoGame.Extended;
 using System.Collections.Generic;
 using System.Linq;
+using Midori.DebugSystem;
 
 namespace Midori
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         List<GameObject> objects;
         PlayableCharacter player;
+        Camera2D camera;
+        MidoriDebug debug;
 
         bool isPlayerCollidingWithSomething;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            //graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1680;
+            graphics.PreferredBackBufferHeight = 1050;
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
             this.objects = new List<GameObject>();
             Content.RootDirectory = "Content";
+            //Mouse.WindowHandle = Window.Handle;
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             isPlayerCollidingWithSomething = false;
 
             base.Initialize();            
             Engine.InitializeTiles();
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
+            camera = new Camera2D(GraphicsDevice);
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             TextureLoader.Load(this.Content);
+            debug = new MidoriDebug(Content, spriteBatch);
 
-            
-
-            // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
+            var state = Keyboard.GetState();
 
             World.isCollidedWithWorldBounds(graphics, player);
 
-            isPlayerCollidingWithSomething = false;
-            foreach (Tile tile in Engine.Tiles)
-            {
-                if (World.CollidesWith(player, tile))
-                {
-                    player.IsFalling = false;
-                    //player.HasCollided = true;
-                    //player.IsMovingLeft = false;
-                    //player.IsMovingRight = false;
-                    //player.IsJumping = false; // to be removed
-
-                    isPlayerCollidingWithSomething = true;
-                    break;
-                }
-
-            }
-
-            if (!(isPlayerCollidingWithSomething) && !player.IsJumping)
-            {
-                player.IsFalling = true;
-            }
-            
-            // TODO: Add your update logic here
             player.Update(gameTime);
 
             foreach (TempEnemy en in Engine.Enemies)
@@ -121,10 +79,6 @@ namespace Midori
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -137,21 +91,18 @@ namespace Midori
                 tile.Draw(spriteBatch);
                 tile.DrawBB(spriteBatch, Content);
             }
-            
 
-            player.Draw(spriteBatch);
             player.DrawBB(spriteBatch, Content);
 
-            foreach (TempEnemy en in Engine.Enemies)
-            {
-                en.Draw(spriteBatch);
-            }
+            player.Draw(spriteBatch);
+            debug.StatsOnHover();
 
+            //foreach (TempEnemy en in Engine.Enemies)
+            //{
+            //    en.Draw(spriteBatch);
+            //}
+            //debug.DrawMouseBB();
             spriteBatch.End();
-        
-
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

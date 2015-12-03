@@ -102,7 +102,7 @@ namespace Midori.GameObjects
             Texture2D texture = content.Load<Texture2D>("Sprites/TheOnePixel");
 
             spriteBatch.Draw(texture, this.BoundingBox, Color.White);
-            spriteBatch.Draw(texture, this.FutureBoundingBox, Color.Orange);
+            spriteBatch.Draw(texture: texture, destinationRectangle: futureBoundingBox, color: Color.Orange, layerDepth: 0);
         }
 
         // Abstract Methods        

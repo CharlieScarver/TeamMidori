@@ -31,17 +31,24 @@ namespace Midori.Core
             // Move Right
             if (currentKeyboardState.IsKeyDown(Keys.Right))
             { 
-                
                 MoveRight(gameTime, unit);
-                              
             }
 
             // Move Left
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
-                
                 MoveLeft(gameTime, unit);
-                
+            }
+
+            //Blinks(Test)
+            if (currentKeyboardState.IsKeyDown(Keys.Right) && currentKeyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
+            {
+                BlinkRight(gameTime, unit);
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.Left) && currentKeyboardState.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
+            {
+                BlinkLeft(gameTime, unit);
             }
 
             // Jumping
@@ -49,16 +56,37 @@ namespace Midori.Core
                 && previousKeyboardState.IsKeyUp(Keys.Up) 
                 && (unit.JumpCounter < 2) )
             {
-                
                 unit.IsJumping = true;
                 unit.IsFalling = false;
                 unit.JumpSpeed = unit.DefaultJumpSpeed;
                 unit.JumpCounter++;
-                
             }
+        }
 
-            
-            
+        private static void BlinkRight(GameTime gameTime, Unit unit)
+        {
+            var futurePosition = new Rectangle(
+                        (int)(unit.Position.X + unit.BoundingBox.Width + 200),
+                        (int)unit.Position.Y,
+                        unit.BoundingBox.Width,
+                        unit.BoundingBox.Height);
+            if (World.ValidateFuturePosition(futurePosition))
+            {
+                unit.X += 200;
+            }
+        }
+
+        private static void BlinkLeft(GameTime gameTime, Unit unit)
+        {
+            var futurePosition = new Rectangle(
+                        (int)(unit.Position.X - 200),
+                        (int)unit.Position.Y,
+                        unit.BoundingBox.Width,
+                        unit.BoundingBox.Height);
+            if (World.ValidateFuturePosition(futurePosition))
+            {
+                unit.X -= 200;
+            }
         }
 
         private static void MoveRight(GameTime gameTime, Unit unit)
@@ -69,6 +97,8 @@ namespace Midori.Core
                         (int)unit.Position.Y,
                         unit.BoundingBox.Width,
                         unit.BoundingBox.Height);
+            var units = 0;
+
             if (World.ValidateFuturePosition(futurePosition))
             {
                 //unit.IsMovingRight = true;

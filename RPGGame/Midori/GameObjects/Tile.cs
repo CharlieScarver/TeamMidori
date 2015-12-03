@@ -38,7 +38,7 @@ namespace Midori.Core
 
             this.textureWidth = 128;
             this.textureHeight = 128;
-            this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 5);
+            this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 20);
             this.FutureBoundingBox = this.BoundingBox;
 
             this.isSolid = true;
@@ -57,7 +57,7 @@ namespace Midori.Core
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.SpriteSheet, this.Position);
+            spriteBatch.Draw(this.SpriteSheet, this.Position, layerDepth: 1);
         }
 
     }
