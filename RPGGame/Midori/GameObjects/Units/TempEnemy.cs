@@ -10,23 +10,45 @@ namespace Midori.GameObjects.Units
 {
     public class TempEnemy : Enemy
     {
-        private const int textureWidth = 160;
-        private const int textureHeight = 145;
-        private const int delay = 200;
-        private const int frameCount = 10;
+        private const int textureWidth = 162;//160;
+        private const int textureHeight = 128;//145;
+        private const int delay = 100;
+        private const int frameCount = 6;//10;
         private const float defaultMovementSpeed = 10;
         private const float defaultJumpSpeed = 30;
+
+        private int animCounter;
 
         public TempEnemy(Vector2 position)
             : base(position, TempEnemy.textureWidth, TempEnemy.textureHeight, TempEnemy.delay, TempEnemy.frameCount, TempEnemy.defaultMovementSpeed, TempEnemy.defaultJumpSpeed)
         {
-            this.SpriteSheet = TextureLoader.TempEnemySheet;
+            //this.SpriteSheet = TextureLoader.TempEnemySheet;
+            this.SpriteSheet = TextureLoader.DaniRight;
+
+            this.animCounter = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
             ManageMovement();
-            this.AnimateRight(gameTime);
+
+            if (this.animCounter >= 0 && this.animCounter <= 150)
+            {
+                this.AnimateRight(gameTime);
+                this.X += 6;
+            }
+            else if (this.animCounter >= 150 && this.animCounter <= 300)
+            {
+                this.AnimateLeft(gameTime);
+                this.X -= 6;
+            }
+
+            this.animCounter++;
+
+            if (this.animCounter > 400)
+            {
+                this.animCounter = 0;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -78,7 +100,7 @@ namespace Midori.GameObjects.Units
                 this.Timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * this.TextureWidth, 0, this.TextureWidth, this.TextureHeight);
+            this.SourceRect = new Rectangle(this.CurrentFrame * this.TextureWidth, 128, this.TextureWidth, this.TextureHeight);
         }
 
         public override void AnimateIdle()

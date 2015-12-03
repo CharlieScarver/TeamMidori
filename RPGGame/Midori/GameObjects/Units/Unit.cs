@@ -13,6 +13,7 @@ namespace Midori.GameObjects.Units
 {
     public abstract class Unit : GameObject, Interfaces.IAnimatable, Interfaces.ICollidable
     {
+        //ADD PROPS FOR MOVING STATE
         private readonly int textureWidth;
         private readonly int textureHeight;
         private readonly int delay;
@@ -27,10 +28,6 @@ namespace Midori.GameObjects.Units
         private float movementSpeed;
         private float jumpSpeed;
         private int jumpCounter;
-
-        private bool isJumping;
-        private bool isFalling;
-        private bool isOnGround;
 
         public Unit(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
         {
@@ -119,23 +116,11 @@ namespace Midori.GameObjects.Units
             set { this.jumpCounter = value; }
         }
 
-        public bool IsJumping
-        {
-            get { return this.isJumping; }
-            set { this.isJumping = value; }
-        }
+        public bool IsJumping { get; set; }
 
-        public bool IsFalling
-        {
-            get { return this.isFalling; }
-            set { this.isFalling = value; }
-        }
+        public bool IsFalling { get; set; }
 
-        public bool IsOnGround
-        {
-            get { return this.isOnGround; }
-            set { this.isOnGround = value; }
-        }
+        public bool IsOnGround { get; set; }
 
         // Abstract Methods
         public abstract void Update(GameTime gameTime);

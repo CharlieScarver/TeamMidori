@@ -14,8 +14,8 @@ namespace Midori.Core.TextureLoading
         public static Texture2D GreenTileStart { get; set; }
         public static Texture2D GreenTileEnd { get; set; }
         public static Texture2D Background { get; set; }
-
         public static Texture2D TempEnemySheet { get; set; }
+        public static Texture2D DaniRight { get; set; }
 
         public static void Load(ContentManager content)
         {
@@ -25,6 +25,7 @@ namespace Midori.Core.TextureLoading
             GreenTileEnd = content.Load<Texture2D>("Tiles/End road right");
             Background = content.Load<Texture2D>("Background/bg edit");
             TempEnemySheet = content.Load<Texture2D>("Sprites/enemy");
+            DaniRight = content.Load<Texture2D>("Sprites/run 162 x 128");
         }
     }
 }

@@ -116,6 +116,9 @@ namespace Midori
             foreach (TempEnemy en in Engine.Enemies)
             {
                 en.Update(gameTime);
+                World.isCollidedWithWorldBounds(graphics, en);
+                
+
             }
 
             base.Update(gameTime);
@@ -135,7 +138,7 @@ namespace Midori
             foreach (Tile tile in Engine.Tiles)
             {
                 tile.Draw(spriteBatch);
-                tile.DrawBB(spriteBatch, Content);
+                //tile.DrawBB(spriteBatch, Content);
             }
             
 
@@ -145,6 +148,7 @@ namespace Midori
             foreach (TempEnemy en in Engine.Enemies)
             {
                 en.Draw(spriteBatch);
+                //en.DrawBB(spriteBatch, Content);
             }
 
             spriteBatch.End();

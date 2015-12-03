@@ -52,6 +52,13 @@ namespace Midori.Core
                     i += 128;
                 }
             }
+
+            for (int i = 10; i < 1920; i += 128)
+            {
+
+                tiles.Add(new Tile(new Vector2(i, 350), 2));
+
+            }
                 
             
         }
@@ -59,7 +66,7 @@ namespace Midori.Core
 
         public static PlayableCharacter InitializePlayer()
         {
-            player = new TempHero(new Vector2(720, 300));
+            player = new TempHero(new Vector2(720, 200));
             return player;
         }
 
@@ -73,8 +80,8 @@ namespace Midori.Core
 
         public static void InitializeEnemies()
         {
-            enemies.Add(new TempEnemy(new Vector2(200, 300)));
-            enemies.Add(new TempEnemy(new Vector2(850, 300)));
+            enemies.Add(new TempEnemy(new Vector2(200, 200)));
+            enemies.Add(new TempEnemy(new Vector2(850, 200)));
         }
 
         
