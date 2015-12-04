@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Core.TextureLoading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,31 +79,10 @@ namespace Midori.GameObjects
             set { this.boundingBox.Y = value; }
         }
 
-        public Rectangle FutureBoundingBox
-        {
-            get { return this.futureBoundingBox;  }
-            set { this.futureBoundingBox = value; }
-        }
-
-        public int FutureBoundingBoxX
-        {
-            get { return this.futureBoundingBox.X; }
-            set { this.futureBoundingBox.X = value; }
-        }
-
-        public int FutureBoundingBoxY
-        {
-            get { return this.futureBoundingBox.Y; }
-            set { this.futureBoundingBox.Y = value; }
-        }
-
         // Methods
-        public void DrawBB(SpriteBatch spriteBatch, ContentManager content)
+        public void DrawBB(SpriteBatch spriteBatch, ContentManager content, Color boundingBoxColor)
         {
-            Texture2D texture = content.Load<Texture2D>("Sprites/TheOnePixel");
-
-            spriteBatch.Draw(texture, this.BoundingBox, Color.White);
-            spriteBatch.Draw(texture, this.FutureBoundingBox, Color.Orange);
+            spriteBatch.Draw(TextureLoader.TheOnePixel, this.BoundingBox, boundingBoxColor);
         }
 
         // Abstract Methods        

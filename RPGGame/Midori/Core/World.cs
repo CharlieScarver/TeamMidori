@@ -34,29 +34,21 @@ namespace Midori.Core
         public static bool CollidesWith(ICollidable firstObj, ICollidable secondObj)
         {
 
-            return firstObj.FutureBoundingBox.Intersects(secondObj.FutureBoundingBox);
+            return firstObj.BoundingBox.Intersects(secondObj.BoundingBox);
         }
 
-        public static bool ValidateFuturePosition(Rectangle futurePosition)
+        // return true if the position collides with a tile
+        public static bool CheckForCollisionWithTiles(Rectangle futurePosition)
         {
             foreach (Tile tile in Engine.Tiles)
             {
                 if (futurePosition.Intersects(tile.BoundingBox))
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
-        }
-
-
-        public static void Gravity(List<Unit> units)
-        {
-            foreach (Unit unit in units)
-            {
-                unit.Y += 2;
-            }
+            return false;
         }
         
     }

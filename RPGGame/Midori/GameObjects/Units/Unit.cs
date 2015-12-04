@@ -17,37 +17,40 @@ namespace Midori.GameObjects.Units
         private readonly int textureWidth;
         private readonly int textureHeight;
         private readonly int delay;
-        private readonly int frameCount;
+        private readonly int runningAndIdleFrameCount;
+        private readonly int jumpFrameCount;
         private readonly float defaultJumpSpeed;
         private readonly float defaultMovementSpeed;
-        private const int gravity = 10;
+        private const int gravity = 13;
         private const int consequentJumps = 2;
 
-        private int currentFrame;
+        private int currentFrameRunningAndIdle;
+        private int currentFrameJump;
         private double timer;
         private float movementSpeed;
         private float jumpSpeed;
         private int jumpCounter;
 
-        public Unit(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
+        public Unit(Vector2 position, int textureWidth, int textureHeight, int delay, int runningAndIdleFrameCount, int jumpFrameCount, float defaultMovementSpeed, float defaultJumpSpeed)
         {
             this.Position = position;
             this.textureWidth = textureWidth;
             this.textureHeight = textureHeight;
             this.delay = delay;
-            this.frameCount = frameCount;
+            this.runningAndIdleFrameCount = runningAndIdleFrameCount;
+            this.jumpFrameCount = jumpFrameCount;
             this.defaultMovementSpeed = defaultMovementSpeed;
             this.defaultJumpSpeed = defaultJumpSpeed;
 
             this.timer = 0.0;
-            this.CurrentFrame = 0;
+            this.CurrentFrameRunningAndIdle = 0;
+            this.CurrentFrameJump = 0;
             this.SourceRect = new Rectangle();
             this.BoundingBox = new Rectangle(
                 (int)this.X + (this.textureWidth / 4), 
                 (int)this.Y, 
                 this.textureWidth / 2, 
                 this.textureHeight);
-            this.FutureBoundingBox = new Rectangle(this.BoundingBox.X, this.BoundingBox.Y, this.textureWidth / 2, this.textureHeight);
 
             this.MovementSpeed = defaultMovementSpeed; 
             this.JumpSpeed = defaultJumpSpeed;
@@ -58,19 +61,33 @@ namespace Midori.GameObjects.Units
         }
 
         // Properties
-        
 
-        public int CurrentFrame
+
+        public int CurrentFrameRunningAndIdle
         {
-            get { return this.currentFrame; }
-            set
+            get { return this.currentFrameRunningAndIdle; }
+            set 
             {
-                if (value < 0 || value > this.frameCount)
+                if (value < 0 || value > this.RunningAndIdleFrameCount)
                 {
                     throw new ArgumentOutOfRangeException("Current frame should be between 0 and the amount of frames");
                 }
 
-                this.currentFrame = value;
+                this.currentFrameRunningAndIdle = value; 
+            }
+        }
+
+        public int CurrentFrameJump
+        {
+            get { return this.currentFrameJump; }
+            set 
+            {
+                if (value < 0 || value > this.JumpFrameCount)
+                {
+                    throw new ArgumentOutOfRangeException("Current frame should be between 0 and the amount of frames");
+                }
+
+                this.currentFrameJump = value; 
             }
         }
 
@@ -96,10 +113,17 @@ namespace Midori.GameObjects.Units
             protected set { this.timer = value; }
         }
 
-        public int FrameCount
+        public int RunningAndIdleFrameCount
         {
-            get { return this.frameCount; }
+            get { return this.runningAndIdleFrameCount; }
         }
+
+        public int JumpFrameCount
+        {
+            get { return this.jumpFrameCount; }
+        }
+
+        //public int JumpAnimRow { get; set; }
 
         public int TextureWidth { get { return this.textureWidth; } }
 
@@ -116,79 +140,145 @@ namespace Midori.GameObjects.Units
             set { this.jumpCounter = value; }
         }
 
+        public Rectangle FuturePosition { get; set; }
+        
         public bool IsJumping { get; set; }
 
         public bool IsFalling { get; set; }
 
-        public bool IsOnGround { get; set; }
+        public bool HasFreePathing { get; set; }
 
-        // Abstract Methods
-        public abstract void Update(GameTime gameTime);
+        public bool isMovingRight { get; set; }
 
+        public bool isMovingLeft { get; set; }
 
         // Non-abstract Methods
-        protected void ManageMovement()
+        protected void ManageMovement(GameTime gameTime)
         {
-
-            this.BoundingBoxX = this.FutureBoundingBoxX;
-            this.BoundingBoxY = this.FutureBoundingBoxY;
             
-
-            if (this.IsFalling)
-            {
-                var futurePosition = new Rectangle(
-                     (int)this.Position.X,
-                     (int)(this.Position.Y + gravity),
-                     this.BoundingBox.Width,
-                     this.BoundingBox.Height);
-                if (World.ValidateFuturePosition(futurePosition))
-                {
-                    this.Y += gravity;
-                }
-                else
-                {
-                    this.IsOnGround = true;
-                    this.JumpCounter = 0;
-                }
-                 
-            }
-            else
-            {
-                var futurePosition = new Rectangle(
-                    (int)this.Position.X,
-                    (int)(this.Position.Y + gravity),
-                    this.BoundingBox.Width,
-                    this.BoundingBox.Height);
-                if (World.ValidateFuturePosition(futurePosition))
-                {
-                    this.IsFalling = true;
-                    this.IsOnGround = false;
-                }
-                 
-            }
-
             if (this.IsJumping)
             {
                 this.Y -= this.JumpSpeed;
                 this.JumpSpeed--;
-                if (this.JumpSpeed < 0)
+
+                this.CallJumpAnimation(gameTime);
+
+                // if jump is over => fall/gain free pathing
+                if (this.JumpSpeed == 0)
                 {
+                    // if unit is inside a tile => gain free pathing
+                    if (World.CheckForCollisionWithTiles(this.BoundingBox))
+                    {
+                        this.HasFreePathing = true;
+                    }
                     this.IsJumping = false;
+                    this.IsFalling = true;
+                }
+            }
+            else if (this.IsFalling)
+            {
+                this.CallJumpAnimation(gameTime);
+
+                if (this.HasFreePathing)
+                { 
+                    if (!World.CheckForCollisionWithTiles(this.BoundingBox))                    
+                    {
+                        // if unit is already not inside a tile => lose free pathing
+                        this.HasFreePathing = false;
+                    }
+                    else
+                    {
+                        // if unit is still inside a tile => fall
+                        this.ApplyGravity();
+                    }
+                }
+                else
+                {
+                    if (!this.ValidateLowerPosition())
+                    {
+                        if (!World.CheckForCollisionWithTiles(this.BoundingBox))
+                        {
+                            // if the lower position is invalid and the current is valid
+                            this.ApplyOnGroundEffect();
+                        }
+                    }
+                    else
+                    {
+                        // if the lower position is valid
+                        this.ApplyGravity();
+                    }
+                }
+            }
+            else
+            {
+                if (this.ValidateLowerPosition())
+                {
+                    // if the lower position is valid
                     this.IsFalling = true;
                 }
             }
 
 
-            this.FutureBoundingBoxX = (int)this.X + (this.textureWidth / 4);
-            this.FutureBoundingBoxY = (int)this.Y;
-            
+            // update bounding box
+            this.BoundingBoxX = (int)this.X + (this.textureWidth / 4);
+            this.BoundingBoxY = (int)this.Y;
         }
 
+        // returns true if the next position (by gravity pull) is valid
+        private bool ValidateLowerPosition()
+        {
+            this.FuturePosition = new Rectangle(
+                (int)this.Position.X,
+                (int)(this.Position.Y + gravity),
+                this.BoundingBox.Width,
+                this.BoundingBox.Height);
+            if (World.CheckForCollisionWithTiles(this.FuturePosition))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void ApplyGravity()
+        {
+            this.Y += gravity;
+        }
+
+        private void ApplyOnGroundEffect()
+        {
+            //this.IsOnGround = true;
+            this.IsFalling = false;
+            this.HasFreePathing = false;
+            this.JumpCounter = 0;
+        }
+
+        private void CallJumpAnimation(GameTime gameTime)
+        {
+            if (this.isMovingLeft)
+            {
+                this.AnimateJumpLeft(gameTime);
+            }
+            else
+            {
+                this.AnimateJumpRight(gameTime);
+            }
+        }
+
+        // Abstract Methods
+        public abstract void Update(GameTime gameTime);
 
         public abstract void AnimateRight(GameTime gameTime);
 
         public abstract void AnimateLeft(GameTime gameTime);
 
-        public abstract void AnimateIdle();
+        public abstract void AnimateIdle(GameTime gameTime);
+
+        public abstract void AnimateJumpRight(GameTime gameTime);
+
+        public abstract void AnimateJumpLeft(GameTime gameTime);
+
     }
 }

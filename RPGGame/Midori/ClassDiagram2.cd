@@ -3,28 +3,28 @@
   <Class Name="Midori.Core.InputHandler" Collapsed="true">
     <Position X="9.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACgAAAAAAAAAAAAAEAAAAAAAAAIQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACgCAAAAAAAAAAAAEAAAAAAAAAIQAAAAAAAAAA=</HashCode>
       <FileName>Core\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Tile" Collapsed="true">
     <Position X="4.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAgAAAAAEAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAgAAAAAEAAACAAABAAAAAQAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Tile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.World" Collapsed="true">
     <Position X="9.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAIAAAAAAAABAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Core\World.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Game1" Collapsed="true">
     <Position X="7.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQQEEBAAAAgAwAAAAAAAAAAAQAAAggAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAQAEEAAAAAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -38,7 +38,7 @@
   <Class Name="Midori.GameObjects.GameObject" Collapsed="true">
     <Position X="3.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAAgAgEAAAIEAAAGAAAIBgAAAAAAICYAA=</HashCode>
+      <HashCode>AAACAEAAAAAAAgAgEAAAIEAAAGAAAIBgAAAAAAIAYAA=</HashCode>
       <FileName>GameObjects\GameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -50,17 +50,18 @@
       <FileName>GameObjects\Units\PlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.GameObjects.Units.TempHero" Collapsed="true">
+  <Class Name="Midori.GameObjects.Units.Aya" Collapsed="true">
     <Position X="2.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAIAAAhAAAAEEAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Units\TempHero.cs</FileName>
+      <HashCode>AAQACAAAAMAAAhAAAAEEAAgAAAAAAAAAAAAAEAAAAIA=</HashCode>
+      <FileName>GameObjects\Units\Aya.cs</FileName>
+      <NewMemberFileName>GameObjects\Units\TempHero.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.Unit" Collapsed="true">
     <Position X="2.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAigABgMIAARAAAAEEAAgBAAgIAAgIAAEJMAAFAQA=</HashCode>
+      <HashCode>ICaBCAoBgMIAARSAAAEEJAoBCAwIAAgIAAAAEAAFIIA=</HashCode>
       <FileName>GameObjects\Units\Unit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -75,7 +76,7 @@
   <Interface Name="Midori.Interfaces.ICollidable" Collapsed="true">
     <Position X="7.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ICollidable.cs</FileName>
     </TypeIdentifier>
   </Interface>

@@ -14,10 +14,5 @@ namespace Midori.Interfaces
 
         int BoundingBoxY { get; set; }
 
-        Rectangle FutureBoundingBox { get; }
-
-        int FutureBoundingBoxX { get; set; }
-
-        int FutureBoundingBoxY { get; set; }
     }
 }

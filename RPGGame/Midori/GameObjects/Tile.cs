@@ -39,7 +39,7 @@ namespace Midori.Core
             this.textureWidth = 128;
             this.textureHeight = 128;
             this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 5);
-            this.FutureBoundingBox = this.BoundingBox;
+            //this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 100);
 
             this.isSolid = true;
         }

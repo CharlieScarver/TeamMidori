@@ -9,19 +9,27 @@ namespace Midori.Interfaces
 {
     public interface IAnimatable : IDrawable
     {
-        int CurrentFrame { get; set; }
+        int CurrentFrameRunningAndIdle { get; set; }
+
+        int CurrentFrameJump { get; set; } 
 
         int Delay { get; }
 
         double Timer { get; }
 
-        int FrameCount { get; }
+        int RunningAndIdleFrameCount { get; }
+
+        int JumpFrameCount { get; }
 
         void AnimateLeft(GameTime gameTime);
 
         void AnimateRight(GameTime gameTime);
 
-        void AnimateIdle();
+        void AnimateIdle(GameTime gameTime);
+
+        void AnimateJumpRight(GameTime gameTime);
+
+        void AnimateJumpLeft(GameTime gameTime);
 
     }
 }

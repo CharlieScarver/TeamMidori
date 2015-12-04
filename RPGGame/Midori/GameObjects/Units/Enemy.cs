@@ -8,8 +8,8 @@ namespace Midori.GameObjects.Units
 {
     public abstract class Enemy : Unit
     {
-        public Enemy(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
-            : base(position, textureWidth, textureHeight, delay, frameCount, defaultMovementSpeed, defaultJumpSpeed)
+        public Enemy(Vector2 position, int textureWidth, int textureHeight, int delay, int runningAndIdleFrameCount, int jumpFrameCount, float defaultMovementSpeed, float defaultJumpSpeed)
+            : base(position, textureWidth, textureHeight, delay, runningAndIdleFrameCount, jumpFrameCount, defaultMovementSpeed, defaultJumpSpeed)
         {
 
         }

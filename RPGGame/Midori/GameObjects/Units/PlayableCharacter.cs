@@ -10,8 +10,8 @@ namespace Midori.GameObjects.Units
     public abstract class PlayableCharacter : Unit
     {
 
-        public PlayableCharacter(Vector2 position, int textureWidth, int textureHeight, int delay, int frameCount, float defaultMovementSpeed, float defaultJumpSpeed)
-            : base(position, textureWidth, textureHeight, delay, frameCount, defaultMovementSpeed, defaultJumpSpeed)
+        public PlayableCharacter(Vector2 position, int textureWidth, int textureHeight, int delay, int runningAndIdleFrameCount, int jumpFrameCount, float defaultMovementSpeed, float defaultJumpSpeed)
+            : base(position, textureWidth, textureHeight, delay, runningAndIdleFrameCount, jumpFrameCount, defaultMovementSpeed, defaultJumpSpeed)
         {
 
         }

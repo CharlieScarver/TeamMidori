@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Midori.Core;
 using Midori.Core.TextureLoading;
+using Midori.DebugSystem;
 using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using System.Collections.Generic;
@@ -17,10 +18,8 @@ namespace Midori
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        List<GameObject> objects;
         PlayableCharacter player;
-
-        bool isPlayerCollidingWithSomething;
+        MidoriDebug debug;
 
         public Game1()
         {
@@ -29,7 +28,6 @@ namespace Midori
             graphics.PreferredBackBufferHeight = 1080;
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
-            this.objects = new List<GameObject>();
             Content.RootDirectory = "Content";
         }
 
@@ -42,12 +40,15 @@ namespace Midori
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            isPlayerCollidingWithSomething = false;
 
             base.Initialize();            
+
             Engine.InitializeTiles();
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
+            Engine.InitializeObjects();
+
+            debug = new MidoriDebug(Content, spriteBatch);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace Midori
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             TextureLoader.Load(this.Content);
-
+            
             
 
             // TODO: use this.Content to load your game content here
@@ -88,27 +89,6 @@ namespace Midori
 
             World.isCollidedWithWorldBounds(graphics, player);
 
-            isPlayerCollidingWithSomething = false;
-            foreach (Tile tile in Engine.Tiles)
-            {
-                if (World.CollidesWith(player, tile))
-                {
-                    player.IsFalling = false;
-                    //player.HasCollided = true;
-                    //player.IsMovingLeft = false;
-                    //player.IsMovingRight = false;
-                    //player.IsJumping = false; // to be removed
-
-                    isPlayerCollidingWithSomething = true;
-                    break;
-                }
-
-            }
-
-            if (!(isPlayerCollidingWithSomething) && !player.IsJumping)
-            {
-                player.IsFalling = true;
-            }
             
             // TODO: Add your update logic here
             player.Update(gameTime);
@@ -116,9 +96,7 @@ namespace Midori
             foreach (TempEnemy en in Engine.Enemies)
             {
                 en.Update(gameTime);
-                World.isCollidedWithWorldBounds(graphics, en);
-                
-
+                World.isCollidedWithWorldBounds(graphics, en);               
             }
 
             base.Update(gameTime);
@@ -138,18 +116,20 @@ namespace Midori
             foreach (Tile tile in Engine.Tiles)
             {
                 tile.Draw(spriteBatch);
-                //tile.DrawBB(spriteBatch, Content);
+                tile.DrawBB(spriteBatch, Content, Color.Crimson);
             }
             
 
             player.Draw(spriteBatch);
-            player.DrawBB(spriteBatch, Content);
+            //player.DrawBB(spriteBatch, Content, Color.Orange);
 
             foreach (TempEnemy en in Engine.Enemies)
             {
-                en.Draw(spriteBatch);
+                //en.Draw(spriteBatch);
                 //en.DrawBB(spriteBatch, Content);
             }
+
+            debug.StatsOnHover();
 
             spriteBatch.End();
         

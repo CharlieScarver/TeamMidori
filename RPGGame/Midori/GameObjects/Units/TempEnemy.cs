@@ -10,27 +10,34 @@ namespace Midori.GameObjects.Units
 {
     public class TempEnemy : Enemy
     {
-        private const int textureWidth = 162;//160;
-        private const int textureHeight = 128;//145;
+        private const int textureWidth = 236; //160
+        private const int textureHeight = 130; //145
         private const int delay = 100;
-        private const int frameCount = 6;//10;
+        private const int runningAndIdleFrameCount = 6;
+        private const int jumpFrameCount = 12;
         private const float defaultMovementSpeed = 10;
-        private const float defaultJumpSpeed = 30;
+        private const float defaultJumpSpeed = 21;
 
         private int animCounter;
 
         public TempEnemy(Vector2 position)
-            : base(position, TempEnemy.textureWidth, TempEnemy.textureHeight, TempEnemy.delay, TempEnemy.frameCount, TempEnemy.defaultMovementSpeed, TempEnemy.defaultJumpSpeed)
+            : base(position, TempEnemy.textureWidth, TempEnemy.textureHeight, TempEnemy.delay, TempEnemy.runningAndIdleFrameCount, TempEnemy.jumpFrameCount, TempEnemy.defaultMovementSpeed, TempEnemy.defaultJumpSpeed)
         {
             //this.SpriteSheet = TextureLoader.TempEnemySheet;
-            this.SpriteSheet = TextureLoader.DaniRight;
+            this.SpriteSheet = TextureLoader.AyaSheet;
+
+            this.BoundingBox = new Rectangle(
+                (int)this.X + (textureWidth / 4),
+                (int)this.Y + 15,
+                textureWidth / 2,
+                textureHeight - 15);
 
             this.animCounter = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
-            ManageMovement();
+            ManageMovement(gameTime);
 
             if (this.animCounter >= 0 && this.animCounter <= 150)
             {
@@ -41,6 +48,10 @@ namespace Midori.GameObjects.Units
             {
                 this.AnimateLeft(gameTime);
                 this.X -= 6;
+            }
+            else
+            {
+                this.AnimateIdle(gameTime);
             }
 
             this.animCounter++;
@@ -65,47 +76,74 @@ namespace Midori.GameObjects.Units
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 
+        public override void AnimateIdle(GameTime gameTime)
+        {
+            this.RunningAndIdleAnimationLogic(gameTime);
+
+            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 0, this.TextureWidth, this.TextureHeight);
+        }
+
         public override void AnimateRight(GameTime gameTime)
         {
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.RunningAndIdleAnimationLogic(gameTime);
 
-            if (this.Timer >= this.Delay)
-            {
-                this.CurrentFrame++;
-
-                if (this.CurrentFrame == this.FrameCount)
-                {
-                    this.CurrentFrame = 0;
-                }
-
-                this.Timer = 0.0;
-            }
-
-            this.SourceRect = new Rectangle(this.CurrentFrame * this.TextureWidth, 0, this.TextureWidth, this.TextureHeight);
+            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 1, this.TextureWidth, this.TextureHeight);
         }
 
         public override void AnimateLeft(GameTime gameTime)
         {
+            this.RunningAndIdleAnimationLogic(gameTime);
+
+            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 2, this.TextureWidth, this.TextureHeight);
+        }
+
+        private void RunningAndIdleAnimationLogic(GameTime gameTime)
+        {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
             if (this.Timer >= this.Delay)
             {
-                this.CurrentFrame++;
+                this.CurrentFrameRunningAndIdle++;
 
-                if (this.CurrentFrame == this.FrameCount)
+                if (this.CurrentFrameRunningAndIdle == this.RunningAndIdleFrameCount)
                 {
-                    this.CurrentFrame = 0;
+                    this.CurrentFrameRunningAndIdle = 0;
                 }
-                
+
                 this.Timer = 0.0;
             }
-
-            this.SourceRect = new Rectangle(this.CurrentFrame * this.TextureWidth, 128, this.TextureWidth, this.TextureHeight);
         }
 
-        public override void AnimateIdle()
+        public override void AnimateJumpRight(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            JumpAnimationLogic(gameTime);
+
+            this.SourceRect = new Rectangle(this.JumpCounter * this.TextureWidth, this.TextureHeight * 3, this.TextureWidth, this.TextureHeight);
+        }
+
+        public override void AnimateJumpLeft(GameTime gameTime)
+        {
+            JumpAnimationLogic(gameTime);
+
+            this.SourceRect = new Rectangle(this.JumpCounter * this.TextureWidth, this.TextureHeight * 3, this.TextureWidth, this.TextureHeight);
+        }
+
+
+        private void JumpAnimationLogic(GameTime gameTime)
+        {
+            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.Timer >= this.Delay)
+            {
+                this.CurrentFrameJump++;
+
+                if (this.CurrentFrameJump == this.JumpFrameCount)
+                {
+                    this.CurrentFrameJump = 0;
+                }
+
+                this.Timer = 0.0;
+            }
         }
     }
 }
