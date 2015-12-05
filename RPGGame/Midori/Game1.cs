@@ -24,8 +24,8 @@ namespace Midori
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1680;
-            graphics.PreferredBackBufferHeight = 1050;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -110,7 +110,7 @@ namespace Midori
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            spriteBatch.Begin();
             spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
 
             foreach (Tile tile in Engine.Tiles)
