@@ -2,92 +2,115 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Midori.Core;
-using Midori.Interfaces;
 using Midori.Core.TextureLoading;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Input;
-using Midori.GameObjects.Units;
 using Midori.GameObjects;
-using System.Reflection;
+using System;
+using Midori.GameObjects.Units;
 
 namespace Midori.DebugSystem
 {
     public class MidoriDebug
     {
+        private int indent;
+        private MouseState currentMouseState;
+        private MouseState previousMouseState;
+
         public MidoriDebug(ContentManager content, SpriteBatch spriteBatch)
         {
             this.Content = content;
             this.SpriteBatch = spriteBatch;
             List<GameObject> gameObjects = Engine.Objects;
-            this.AnchoredObjects = new List<GameObject>();
+            this.AnchoredObjects = new List<DebugObject>();
+            this.indent = 10;
         }
 
-        private List<GameObject> AnchoredObjects { get; set; }
+        private List<DebugObject> AnchoredObjects { get; set; }
 
         private SpriteBatch SpriteBatch { get; set; }
 
         private ContentManager Content { get; set; }
 
-        private Point MousePosition { get { return new Point(Mouse.GetState().Position.X, Mouse.GetState().Position.Y + 20); } }
+        private Point MousePosition { get { return new Point(Mouse.GetState().Position.X, Mouse.GetState().Position.Y); } }
 
 
-        public void GetObjectAttributes(GameObject unit)
+        public void HoverDrawing(GameObject obj)
         {
-            var bindingFlags = BindingFlags.Instance |
-                   BindingFlags.NonPublic |
-                   BindingFlags.Public;
+            SpriteBatch.DrawString(TextureLoader.Font, DebugObject.toString(obj), obj.Position, Color.White);
+        }
 
-            StringBuilder sb = new StringBuilder();
-            foreach (var prop in unit.GetType().GetProperties(bindingFlags))
-            {
-                sb.Append(string.Format("{0}={1}", prop.Name, prop.GetValue(unit, null)));
-                sb.Append("\n");
-            }
+        public void AnchorDrawing(DebugObject obj)
+        {
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel, 
+                destinationRectangle: new Rectangle((int)obj.Position.X, 
+                                        (int)obj.Position.Y,
+                                        (int)TextureLoader.Font.MeasureString(obj.ToString()).X, 
+                                        (int)TextureLoader.Font.MeasureString(obj.ToString()).Y),
+                color: Color.Black * 0.4f);
 
-            SpriteBatch.DrawString(TextureLoader.Font, sb.ToString(), new Vector2(10, 10), Color.White);
+            SpriteBatch.DrawString(TextureLoader.Font, obj.ToString(), obj.Position, Color.White);
+            SpriteBatch.DrawString(TextureLoader.Font, "Anchored", obj.item.Position, Color.Crimson);
+
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel,
+                destinationRectangle: new Rectangle((int)obj.item.Position.X,
+                                        (int)obj.item.Position.Y,
+                                        obj.item.SourceRect.Width,
+                                        obj.item.SourceRect.Height),
+                color: Color.Black * 0.4f);
+
         }
 
         //TODO: Figure a way to get mouse position relative to the current position because
         //if in window Mouse.GetState() returns point relative to the border of the window
         public void StatsOnHover()
         {
+            previousMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
             foreach (var item in Engine.Objects)
             {
                 if (item.BoundingBox.Contains(this.MousePosition))
                 {
-                    this.GetObjectAttributes(item);
-                    this.Anchor(item);
+                    HoverDrawing(item);
+                    if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
+                    {
+                        var debugObj = new DebugObject(item);
+                        Anchor(debugObj);
+                    }
                 }
             }
 
-            //if (Engine.Player.BoundingBox.Contains(this.MousePosition))
-            //{
-            //    this.UnitPosition(Engine.Player);
-            //    this.Anchor(Engine.Player);
-            //}
-
-            foreach (var item in this.AnchoredObjects)
+            foreach (var item in AnchoredObjects)
             {
-                this.GetObjectAttributes(item);
+                AnchorDrawing(item);
             }
+            MouseStats();
         }
 
-        private void Anchor(GameObject item)
+        private void Anchor(DebugObject item)
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            bool contains = this.AnchoredObjects.Any(p => p.Id == item.Id);
+            if (!contains)
             {
-                if (!this.AnchoredObjects.Contains(item))
-                {
-                    this.AnchoredObjects.Add(item);
-                }
-                else
-                {
-                    this.AnchoredObjects.Remove(item);
-                }
+                item.Position = new Vector2(this.indent, 0);
+                this.AnchoredObjects.Add(item);
+                this.indent += (int)TextureLoader.Font.MeasureString(item.LongestLine).X;
+
             }
+            else
+            {
+                this.AnchoredObjects.RemoveAll(e => e.Id == item.Id);
+                this.indent -= (int)TextureLoader.Font.MeasureString(item.LongestLine).X;
+            }
+            System.Diagnostics.Debug.WriteLine(indent);
+        }
+
+        private void MouseStats()
+        {
+            this.SpriteBatch.DrawString(TextureLoader.Font, this.MousePosition.ToString(), this.MousePosition.ToVector2(), Color.Black);
         }
     }
 }
