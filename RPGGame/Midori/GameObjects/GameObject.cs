@@ -85,11 +85,6 @@ namespace Midori.GameObjects
         }
 
         // Abstract Methods        
-        public abstract void Draw(SpriteBatch spriteBatch);
-
-
-
-
-        
+        public abstract void Draw(SpriteBatch spriteBatch);   
     }
 }

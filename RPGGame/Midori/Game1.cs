@@ -27,7 +27,7 @@ namespace Midori
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             this.Window.AllowUserResizing = true;
-            this.IsMouseVisible = true;
+            //this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
 

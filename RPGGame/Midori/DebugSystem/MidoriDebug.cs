@@ -58,8 +58,8 @@ namespace Midori.DebugSystem
                 texture: TextureLoader.TheOnePixel,
                 destinationRectangle: new Rectangle((int)obj.item.Position.X,
                                         (int)obj.item.Position.Y,
-                                        obj.item.SourceRect.Width,
-                                        obj.item.SourceRect.Height),
+                                        128,
+                                        128),
                 color: Color.Black * 0.4f);
 
         }
