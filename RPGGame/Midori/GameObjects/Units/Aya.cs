@@ -15,36 +15,76 @@ namespace Midori.GameObjects.Units
         private const int textureWidth = 236;
         private const int textureHeight = 130;
         private const int delay = 100;
-        private const int runningAndIdleFrameCount = 6;
-        private const int jumpFrameCount = 12;
+        private const int basicAnimationFrameCount = 6;
         private const float defaultMovementSpeed = 10;
         private const float defaultJumpSpeed = 21;
-        private int jumpAnimRow;
-
+ 
         public Aya(Vector2 position)
             : base(position, 
             Aya.textureWidth, 
-            Aya.textureHeight, 
-            Aya.delay, 
-            Aya.runningAndIdleFrameCount, 
-            Aya.jumpFrameCount,
+            Aya.textureHeight,
+            Aya.basicAnimationFrameCount,
             Aya.defaultMovementSpeed, 
             Aya.defaultJumpSpeed)
         {
             this.SpriteSheet = TextureLoader.AyaSheet;
-            this.JumpAnimRow = 3;
+
+            this.BoundingBox = new Rectangle(
+                (int)this.X + (Aya.textureWidth - 45) / 2,
+                (int)this.Y,
+                45,
+                110);
         }
 
-        public int JumpAnimRow
+        private void BasicAnimationLogic(GameTime gameTime)
         {
-            get { return this.jumpAnimRow; }
-            set { this.jumpAnimRow = value; }
+            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.Timer >= Aya.delay)
+            {
+                this.CurrentFrame++;
+
+                if (this.CurrentFrame == Aya.basicAnimationFrameCount)
+                {
+                    this.CurrentFrame = 0;
+                }
+
+                this.Timer = 0.0;
+            }
         }
 
+        // Override Methods
         public override void Update(GameTime gameTime)
         {
             InputHandler.HandleInput(gameTime, this);
             ManageMovement(gameTime);
+
+            if (this.IsJumping)
+            {
+                if (this.isMovingLeft)
+                {
+                    this.AnimateJumpLeft(gameTime);
+                }
+                else
+                {
+                    this.AnimateJumpRight(gameTime);
+                }
+            }
+            else if (this.IsFalling)
+            {                
+                if (this.isMovingLeft)
+                {
+                    this.AnimateFallLeft(gameTime);
+                }
+                else
+                {
+                    this.AnimateFallRight(gameTime);
+                }
+            }
+
+            // update bounding box
+            this.BoundingBoxX = (int)this.X + (Aya.textureWidth - 45) / 2 + 5;
+            this.BoundingBoxY = (int)this.Y + 5;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -52,125 +92,49 @@ namespace Midori.GameObjects.Units
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 
+        // Idle and running Animations
         public override void AnimateIdle(GameTime gameTime)
         {
-            this.RunningAndIdleAnimationLogic(gameTime);
-
-            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 0, this.TextureWidth, this.TextureHeight);
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 0, Aya.textureWidth, Aya.textureHeight);
         }
 
-        public override void AnimateRight(GameTime gameTime)
+        public override void AnimateRunningRight(GameTime gameTime)
         {
-            this.RunningAndIdleAnimationLogic(gameTime);
-
-            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 1, this.TextureWidth, this.TextureHeight);
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 1, Aya.textureWidth, Aya.textureHeight);
         }
 
-        public override void AnimateLeft(GameTime gameTime)
+        public override void AnimateRunningLeft(GameTime gameTime)
         {
-            this.RunningAndIdleAnimationLogic(gameTime);
-
-            this.SourceRect = new Rectangle(this.CurrentFrameRunningAndIdle * this.TextureWidth, this.TextureHeight * 2, this.TextureWidth, this.TextureHeight);
-        }
-                
-        private void RunningAndIdleAnimationLogic(GameTime gameTime)
-        {
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (this.Timer >= this.Delay)
-            {
-                this.CurrentFrameRunningAndIdle++;
-
-                if (this.CurrentFrameRunningAndIdle == this.RunningAndIdleFrameCount)
-                {
-                    this.CurrentFrameRunningAndIdle = 0;
-                }
-
-                this.Timer = 0.0;
-            }
-        }
-
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 2, Aya.textureWidth, Aya.textureHeight);
+        }                
+        
+        // Jumping Animation
         public override void AnimateJumpRight(GameTime gameTime)
         {
-            
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (this.Timer >= 50) //40
-            {
-                this.CurrentFrameJump++;
-
-                if (this.CurrentFrameJump == this.JumpFrameCount / 2 && this.JumpAnimRow == 3)
-                {
-                    if (this.JumpCounter > 1)
-                    {
-                        this.JumpAnimRow = 5;
-                    }
-                    else
-                    {
-                        this.JumpAnimRow = 3;
-                    }
-
-                    this.CurrentFrameJump = 0;
-                }
-                else if (this.CurrentFrameJump == this.JumpFrameCount / 2)
-                {
-                    this.CurrentFrameJump = 0;
-                    if (this.JumpCounter > 1)
-                    {
-                        this.JumpAnimRow = 5;
-                    }
-                    else
-                    {
-                        this.JumpAnimRow = 3;
-                    }
-                }
-
-                this.Timer = 0.0;
-            }
-
-            System.Diagnostics.Debug.WriteLine(this.CurrentFrameJump);
-            this.SourceRect = new Rectangle(this.CurrentFrameJump * this.TextureWidth, this.TextureHeight * this.JumpAnimRow, this.TextureWidth, this.TextureHeight);
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 3, Aya.textureWidth, Aya.textureHeight);
         }
 
         public override void AnimateJumpLeft(GameTime gameTime)
         {
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 4, Aya.textureWidth, Aya.textureHeight);
+        }
 
-            if (this.Timer >= 50) //40
-            {
-                this.CurrentFrameJump++;
+        // Falling Animation
+        public override void AnimateFallRight(GameTime gameTime)
+        {
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 5, Aya.textureWidth, Aya.textureHeight);
+        }
 
-                if (this.CurrentFrameJump == this.JumpFrameCount / 2 && this.JumpAnimRow == 4)
-                {                    
-                    this.CurrentFrameJump = 0;
-
-                    if (this.JumpCounter > 1)
-                    {
-                        this.JumpAnimRow = 6;
-                    }
-                    else
-                    {
-                        this.JumpAnimRow = 4;
-                    }
-                }
-                else if (this.CurrentFrameJump == this.JumpFrameCount / 2)
-                {
-                    this.CurrentFrameJump = 0;
-
-                    if (this.JumpCounter > 1)
-                    {
-                        this.JumpAnimRow = 6;
-                    }
-                    else
-                    {
-                        this.JumpAnimRow = 4;
-                    }
-                }
-
-                this.Timer = 0.0;
-            }
-
-            this.SourceRect = new Rectangle(this.CurrentFrameJump * this.TextureWidth, this.TextureHeight * this.JumpAnimRow, this.TextureWidth, this.TextureHeight);
+        public override void AnimateFallLeft(GameTime gameTime)
+        {
+            this.BasicAnimationLogic(gameTime);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 6, Aya.textureWidth, Aya.textureHeight);
         }
 
     }

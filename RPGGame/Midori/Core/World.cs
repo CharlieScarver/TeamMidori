@@ -10,7 +10,7 @@ namespace Midori.Core
 {
     public static class World
     {
-        public static bool isCollidedWithWorldBounds(GraphicsDeviceManager graphics, Unit unit)
+        public static bool CheckForCollisionWithWorldBounds(GraphicsDeviceManager graphics, Unit unit)
         {
             if (unit.X > graphics.GraphicsDevice.Viewport.Width)
             {
@@ -33,16 +33,15 @@ namespace Midori.Core
 
         public static bool CollidesWith(ICollidable firstObj, ICollidable secondObj)
         {
-
             return firstObj.BoundingBox.Intersects(secondObj.BoundingBox);
         }
 
         // return true if the position collides with a tile
-        public static bool CheckForCollisionWithTiles(Rectangle futurePosition)
+        public static bool CheckForCollisionWithTiles(Rectangle boundingBox)
         {
             foreach (Tile tile in Engine.Tiles)
             {
-                if (futurePosition.Intersects(tile.BoundingBox))
+                if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
                 {
                     return true;
                 }

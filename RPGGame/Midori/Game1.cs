@@ -87,17 +87,17 @@ namespace Midori
 
 
 
-            World.isCollidedWithWorldBounds(graphics, player);
+            World.CheckForCollisionWithWorldBounds(graphics, player);
 
             
             // TODO: Add your update logic here
             player.Update(gameTime);
 
-            foreach (TempEnemy en in Engine.Enemies)
-            {
-                en.Update(gameTime);
-                World.isCollidedWithWorldBounds(graphics, en);               
-            }
+            //foreach (Unit en in Engine.Enemies)
+            //{
+            //    en.Update(gameTime);
+            //    World.isCollidedWithWorldBounds(graphics, en);               
+            //}
 
             base.Update(gameTime);
         }
@@ -121,13 +121,13 @@ namespace Midori
             
 
             player.Draw(spriteBatch);
-            //player.DrawBB(spriteBatch, Content, Color.Orange);
+            player.DrawBB(spriteBatch, Content, Color.Orange);
 
-            foreach (TempEnemy en in Engine.Enemies)
-            {
-                //en.Draw(spriteBatch);
-                //en.DrawBB(spriteBatch, Content);
-            }
+            //foreach (Unit en in Engine.Enemies)
+            //{
+            //    en.Draw(spriteBatch);
+            //    en.DrawBB(spriteBatch, Content);
+            //}
 
             debug.StatsOnHover();
 

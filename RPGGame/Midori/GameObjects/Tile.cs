@@ -12,9 +12,6 @@ namespace Midori.Core
 {
     public class Tile : GameObject
     {
-        private bool isSolid;
-        private int textureWidth;
-        private int textureHeight;
         private int type;
 
         public Tile(Vector2 position, int type)
@@ -34,15 +31,19 @@ namespace Midori.Core
                     break;
 
             }
-            this.SourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
+            //this.SourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
 
-            this.textureWidth = 128;
-            this.textureHeight = 128;
-            this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 5);
+            this.TextureWidth = 128;
+            this.TextureHeight = 128;
+            this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (this.TextureHeight / 2), this.TextureWidth, 5);
             //this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 100);
 
-            this.isSolid = true;
+            this.IsSolid = true;
         }
+
+        public int TextureWidth { get; set; }
+
+        public int TextureHeight { get; set; }
 
         public int Type 
         {
@@ -54,6 +55,8 @@ namespace Midori.Core
                 }
             }
         }
+
+        public bool IsSolid { get; set; }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

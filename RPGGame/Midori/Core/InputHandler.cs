@@ -14,7 +14,7 @@ namespace Midori.Core
         private static KeyboardState currentKeyboardState;
         private static Rectangle futurePosition;
 
-        public static void HandleInput(GameTime gameTime, Unit unit)
+        public static void HandleInput(GameTime gameTime, PlayableCharacter unit)
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
@@ -26,8 +26,7 @@ namespace Midori.Core
 
             if (currentKeyboardState != previousKeyboardState)
             {
-                unit.CurrentFrameRunningAndIdle = 0;
-                unit.CurrentFrameJump = 0;
+                unit.CurrentFrame = 0;
                 unit.isMovingRight = false;
                 unit.isMovingLeft = false;
             }
@@ -49,19 +48,20 @@ namespace Midori.Core
                 && previousKeyboardState.IsKeyUp(Keys.Up) 
                 && (unit.JumpCounter < 2) )
             {
-                JumpRight(gameTime, unit);                
+                Jump(gameTime, unit);                
             }
             
         }
 
-        private static void MoveRight(GameTime gameTime, Unit unit)
+        private static void MoveRight(GameTime gameTime, PlayableCharacter unit)
         {
             if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
             {
-                unit.X += unit.MovementSpeed;
+                unit.isMovingRight = true;
+
                 if (!unit.IsJumping && !unit.IsFalling)
                 {
-                    unit.AnimateRight(gameTime);
+                    unit.AnimateRunningRight(gameTime);
                 }
             }
             else
@@ -74,27 +74,25 @@ namespace Midori.Core
                             unit.BoundingBox.Height);
                 if (!World.CheckForCollisionWithTiles(futurePosition))
                 {
-                    //unit.IsMovingRight = true;
-                    unit.X += unit.MovementSpeed;
+                    unit.isMovingRight = true;
+                    
                     if (!unit.IsJumping && !unit.IsFalling)
                     {
-                        unit.AnimateRight(gameTime);
+                        unit.AnimateRunningRight(gameTime);
                     }
                 }
             }
-
-            unit.isMovingRight = true;
-            unit.isMovingLeft = false;
         }
 
-        private static void MoveLeft(GameTime gameTime, Unit unit)
+        private static void MoveLeft(GameTime gameTime, PlayableCharacter unit)
         {
             if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
             {
-                unit.X -= unit.MovementSpeed;
+                unit.isMovingLeft = true;
+
                 if (!unit.IsJumping && !unit.IsFalling)
                 { 
-                    unit.AnimateLeft(gameTime);
+                    unit.AnimateRunningLeft(gameTime);
                 }
             }
             else
@@ -106,19 +104,17 @@ namespace Midori.Core
                         unit.BoundingBox.Height);
                 if (!World.CheckForCollisionWithTiles(futurePosition))
                 {
-                    unit.X -= unit.MovementSpeed;
+                    unit.isMovingLeft = true;
+
                     if (!unit.IsJumping && !unit.IsFalling)
                     {
-                        unit.AnimateLeft(gameTime);
+                        unit.AnimateRunningLeft(gameTime);
                     }
                 }
             }
-
-            unit.isMovingLeft = true;
-            unit.isMovingRight = false;
         }
 
-        private static void JumpRight(GameTime gameTime, Unit unit)
+        private static void Jump(GameTime gameTime, Unit unit)
         {
             unit.IsFalling = false;
 
