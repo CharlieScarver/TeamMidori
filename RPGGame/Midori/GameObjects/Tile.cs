@@ -34,8 +34,6 @@ namespace Midori.Core
                     break;
 
             }
-            this.SourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
-
             this.textureWidth = 128;
             this.textureHeight = 128;
             this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 5);
@@ -43,6 +41,7 @@ namespace Midori.Core
 
             this.isSolid = true;
         }
+
 
         public int Type 
         {

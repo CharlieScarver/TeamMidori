@@ -43,14 +43,25 @@ namespace Midori.DebugSystem
 
         public void AnchorDrawing(DebugObject obj)
         {
-            SpriteBatch.Draw(texture: TextureLoader.TheOnePixel, 
-                destinationRectangle: new Rectangle((int)obj.Position.X, (int)obj.Position.Y, (int)TextureLoader.Font.MeasureString(obj.ToString()).X, (int)TextureLoader.Font.MeasureString(obj.ToString()).Y),
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel, 
+                destinationRectangle: new Rectangle((int)obj.Position.X, 
+                                        (int)obj.Position.Y,
+                                        (int)TextureLoader.Font.MeasureString(obj.ToString()).X, 
+                                        (int)TextureLoader.Font.MeasureString(obj.ToString()).Y),
                 color: Color.Black * 0.4f);
+
             SpriteBatch.DrawString(TextureLoader.Font, obj.ToString(), obj.Position, Color.White);
             SpriteBatch.DrawString(TextureLoader.Font, "Anchored", obj.item.Position, Color.Crimson);
-            SpriteBatch.Draw(texture: TextureLoader.TheOnePixel,
-                destinationRectangle: new Rectangle((int)obj.item.Position.X, (int)obj.item.Position.Y, 128, 128),
+
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel,
+                destinationRectangle: new Rectangle((int)obj.item.Position.X,
+                                        (int)obj.item.Position.Y,
+                                        obj.item.SourceRect.Width,
+                                        obj.item.SourceRect.Height),
                 color: Color.Black * 0.4f);
+
         }
 
         //TODO: Figure a way to get mouse position relative to the current position because
