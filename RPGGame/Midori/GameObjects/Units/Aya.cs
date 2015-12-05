@@ -47,6 +47,8 @@ namespace Midori.GameObjects.Units
             ManageMovement(gameTime);
         }
 
+
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);

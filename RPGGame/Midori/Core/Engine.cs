@@ -78,10 +78,10 @@ namespace Midori.Core
             for (int i = 10; i < 1920; i += 128)
             {
 
-                if (i != 1290 - 128 && i != 1290 && i != 1290 + 128)
-                {
+                //if (i != 1290 - 128 && i != 1290 && i != 1290 + 128)
+                //{
                     tiles.Add(new Tile(new Vector2(i, 350), 2));
-                }
+                //}
 
             }
                 
