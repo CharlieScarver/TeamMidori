@@ -87,6 +87,8 @@ namespace Midori.GameObjects.Units
             this.BoundingBoxY = (int)this.Y + 5;
         }
 
+
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
