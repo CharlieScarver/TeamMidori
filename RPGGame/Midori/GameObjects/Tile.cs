@@ -56,7 +56,7 @@ namespace Midori.Core
             }
         }
 
-        public bool IsSolid { get; set; }
+        public bool IsSolid { get; protected set; }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

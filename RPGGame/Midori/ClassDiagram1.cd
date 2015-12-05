@@ -1,116 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Midori.Core.Engine" Collapsed="true">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+    <Position X="8" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAABAAAAAAA4EAAAMBAAAAAQAAAAA=</HashCode>
       <FileName>Core\Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.InputHandler" Collapsed="true">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACgCgAAAAAAAAAAAEAAAAAAAAAIQAAAAAAAAAA=</HashCode>
       <FileName>Core\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.World" Collapsed="true">
-    <Position X="7.75" Y="2.5" Width="1.5" />
+    <Position X="8" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAABAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Core\World.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Tile" Collapsed="true">
-    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Position X="1" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAgAAAAAEAAACAAABAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgSAAAAAAAAAAAABAgAAAQAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Tile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.TextureLoading.TextureLoader" Collapsed="true">
-    <Position X="11.25" Y="1.5" Width="1.5" />
+    <Position X="11.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgIAABAAAAAAAAAYAAAAAAAAAAAAAAEIgAQACAAA=</HashCode>
       <FileName>Core\TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.DebugSystem.MidoriDebug" Collapsed="true">
-    <Position X="7.75" Y="1.5" Width="1.5" />
+    <Position X="8" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAAgAAAAAIIAAAAAAAAAAEAAAAQAAAAAACAAA=</HashCode>
+      <HashCode>QAAAAAEACgAEAAAIBAAAAQAAAAAEAAAAQAAAAAASAAA=</HashCode>
       <FileName>DebugSystem\MidoriDebug.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Game1" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="9.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAEEAAAAAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Program" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+    <Position X="9.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.GameObject" Collapsed="true">
-    <Position X="3" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAAgAgEAAAIEAAAGAAAABgAAAAAAIAYAA=</HashCode>
+      <HashCode>AAACAEAAAAAAAgAgEAAAIEAAACAAAAAgAAAAAAIAYAA=</HashCode>
       <FileName>GameObjects\GameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Midori.GameObjects.Units.Aya" Collapsed="true">
-    <Position X="5.25" Y="4.75" Width="1.5" />
+    <Position X="5.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQACAAAAMAAAhIACQAEEAgAAAAAAAAAAAAAEABAAIA=</HashCode>
+      <HashCode>AAQAAAAAAMAAAhKACQAEEAgAAAAAAAAQAAAAAABAAIA=</HashCode>
       <FileName>GameObjects\Units\Aya.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.Enemy" Collapsed="true">
-    <Position X="3" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Units\Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.PlayableCharacter" Collapsed="true">
-    <Position X="5.25" Y="3.25" Width="1.5" />
+    <Position X="5.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.Unit" Collapsed="true">
-    <Position X="4" Y="1.75" Width="1.5" />
+    <Position X="4.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAaBAAoBAIIAABSAGAAEJAoAGAgAAAgAAAAEAAAlIYA=</HashCode>
+      <HashCode>AAaBAAoBAEIAABKACQAAJAIACAgAAAhQAAAAAABFIYA=</HashCode>
       <FileName>GameObjects\Units\Unit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Midori.Interfaces.IAnimatable" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="10" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACACAAAAEAAAAIAEAAAAAAAAAAAAAAAAAAAEABEAAA=</HashCode>
+      <HashCode>AACAAAAAAEAAAAKACQAAAAAAAAAAAABQAAAAAABEAAA=</HashCode>
       <FileName>Interfaces\IAnimatable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.ICollidable" Collapsed="true">
-    <Position X="7.75" Y="3.75" Width="1.5" />
+    <Position X="8" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ICollidable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IDrawable" Collapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="10" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAgAAAAAEAAAAAAAABAAAAAAAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>

@@ -115,11 +115,16 @@ namespace Midori.GameObjects.Units
                             // if the lower position is invalid and the current is valid => unit is on ground
                             this.ApplyOnGroundEffect();
                         }
+                        else
+                        {
+                            // fall to avoid getting stuck in a tile (side entry bug)
+                            this.ApplyGravity(); 
+                        }
                     }
                     else
                     {
                         // if the lower position is valid => fall
-                        this.ApplyGravity();
+                        this.ApplyGravity();                      
                     }
                 }
             }
@@ -148,8 +153,8 @@ namespace Midori.GameObjects.Units
         private bool ValidateLowerPosition()
         {
             this.FuturePosition = new Rectangle(
-                (int)this.Position.X,
-                (int)(this.Position.Y + gravity),
+                (int)this.BoundingBox.X,
+                (int)(this.BoundingBox.Y + gravity),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
             if (World.CheckForCollisionWithTiles(this.FuturePosition))

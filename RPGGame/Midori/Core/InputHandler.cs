@@ -58,28 +58,20 @@ namespace Midori.Core
             if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
             {
                 unit.isMovingRight = true;
-
-                if (!unit.IsJumping && !unit.IsFalling)
-                {
-                    unit.AnimateRunningRight(gameTime);
-                }
+                PlayRunningAnimation(gameTime, unit);
             }
             else
             {
                 // compensating because origin is in the left top corner
                 futurePosition = new Rectangle(
-                            (int)(unit.Position.X + unit.BoundingBox.Width + unit.MovementSpeed),
-                            (int)unit.Position.Y,
+                            (int)(unit.BoundingBox.X + unit.BoundingBox.Width + unit.MovementSpeed),
+                            (int)unit.BoundingBox.Y,
                             unit.BoundingBox.Width,
                             unit.BoundingBox.Height);
                 if (!World.CheckForCollisionWithTiles(futurePosition))
                 {
                     unit.isMovingRight = true;
-                    
-                    if (!unit.IsJumping && !unit.IsFalling)
-                    {
-                        unit.AnimateRunningRight(gameTime);
-                    }
+                    PlayRunningAnimation(gameTime, unit);
                 }
             }
         }
@@ -89,32 +81,39 @@ namespace Midori.Core
             if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
             {
                 unit.isMovingLeft = true;
-
-                if (!unit.IsJumping && !unit.IsFalling)
-                { 
-                    unit.AnimateRunningLeft(gameTime);
-                }
+                PlayRunningAnimation(gameTime, unit);
             }
             else
             {
                 futurePosition = new Rectangle(
-                        (int)(unit.Position.X - unit.MovementSpeed),
-                        (int)unit.Position.Y,
+                        (int)(unit.BoundingBox.X - unit.MovementSpeed),
+                        (int)unit.BoundingBox.Y,
                         unit.BoundingBox.Width,
                         unit.BoundingBox.Height);
                 if (!World.CheckForCollisionWithTiles(futurePosition))
                 {
                     unit.isMovingLeft = true;
-
-                    if (!unit.IsJumping && !unit.IsFalling)
-                    {
-                        unit.AnimateRunningLeft(gameTime);
-                    }
+                    PlayRunningAnimation(gameTime, unit);
                 }
             }
         }
 
-        private static void Jump(GameTime gameTime, Unit unit)
+        private static void PlayRunningAnimation(GameTime gameTime, PlayableCharacter unit)
+        {
+            if (!unit.IsJumping && !unit.IsFalling)
+            {
+                if (unit.isMovingLeft)
+                {
+                    unit.AnimateRunningLeft(gameTime);
+                }
+                else 
+                {
+                    unit.AnimateRunningRight(gameTime);
+                }
+            }
+        }
+
+        private static void Jump(GameTime gameTime, PlayableCharacter unit)
         {
             unit.IsFalling = false;
 

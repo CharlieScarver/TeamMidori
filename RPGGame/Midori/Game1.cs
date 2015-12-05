@@ -116,12 +116,12 @@ namespace Midori
             foreach (Tile tile in Engine.Tiles)
             {
                 tile.Draw(spriteBatch);
-                tile.DrawBB(spriteBatch, Content, Color.Crimson);
+                //tile.DrawBB(spriteBatch, Content, Color.Crimson);
             }
             
 
             player.Draw(spriteBatch);
-            player.DrawBB(spriteBatch, Content, Color.Orange);
+            //player.DrawBB(spriteBatch, Content, Color.Orange);
 
             //foreach (Unit en in Engine.Enemies)
             //{

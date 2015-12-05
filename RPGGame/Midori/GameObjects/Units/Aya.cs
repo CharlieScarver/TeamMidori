@@ -31,7 +31,7 @@ namespace Midori.GameObjects.Units
 
             this.BoundingBox = new Rectangle(
                 (int)this.X + (Aya.textureWidth - 45) / 2,
-                (int)this.Y,
+                (int)this.Y + 5,
                 45,
                 110);
         }
@@ -81,7 +81,7 @@ namespace Midori.GameObjects.Units
                     this.AnimateFallRight(gameTime);
                 }
             }
-
+                        
             // update bounding box
             this.BoundingBoxX = (int)this.X + (Aya.textureWidth - 45) / 2 + 5;
             this.BoundingBoxY = (int)this.Y + 5;
