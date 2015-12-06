@@ -6,6 +6,7 @@ using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
 using Midori.Core.TextureLoading;
+using Midori.GameObjects.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,12 @@ namespace Midori.Core
         private static List<Unit> enemies = new List<Unit>();
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
+        private static List<Item> items = new List<Item>();
+
+        public static IEnumerable<Item> Items
+        {
+            get { return Engine.items; }
+        }
 
         public static IEnumerable<Tile> Tiles
         {
@@ -45,6 +52,13 @@ namespace Midori.Core
         public static IEnumerable<GameObject> Objects
         {
             get { return Engine.objects; }
+        }
+
+        public static void InitializeItems()
+        {
+            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(130, 900), ItemTypes.Heal));
+            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(130*2, 900), ItemTypes.Heal));
+
         }
 
         public static void InitializeTiles()
@@ -83,33 +97,6 @@ namespace Midori.Core
             tiles.Add(new Tile(new Vector2(128 * 12, 200), 2));
             tiles.Add(new Tile(new Vector2(128 * 13, 200), 2));
             tiles.Add(new Tile(new Vector2(128 * 14, 200), 3));
-
-
-            //int counter = 1;
-            //for (int i = 5; i < 1920; i += 128)
-            //{
-
-            //    switch (counter)
-            //    {
-            //        case 1:
-            //            tiles.Add(new Tile(new Vector2(i, 500), 1));
-            //            break;
-            //        case 2:
-            //        case 3:
-            //            tiles.Add(new Tile(new Vector2(i, 500), 2));
-            //            break;
-            //        case 4:
-            //            tiles.Add(new Tile(new Vector2(i, 500), 3));
-            //            break;
-            //    }
-
-            //    counter++;
-            //    if (counter == 5)
-            //    {
-            //        counter = 1;
-            //        i += 128 * 2;
-            //    }
-            //}
         }
 
 

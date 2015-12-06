@@ -38,11 +38,14 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\InputHandler.cs" />
     <Compile Include="Core\TextureLoading\TextureLoader.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />
+    <Compile Include="GameObjects\Items\Item.cs" />
+    <Compile Include="GameObjects\Items\ItemTypes.cs" />
     <Compile Include="GameObjects\Projectiles\AyaSmallProjectile.cs" />
     <Compile Include="GameObjects\Projectiles\Projectile.cs" />
     <Compile Include="GameObjects\Tile.cs" />
@@ -94,6 +97,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Content\Fonts\Font.spritefont" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

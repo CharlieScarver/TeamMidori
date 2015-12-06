@@ -20,15 +20,18 @@ namespace Midori
         SpriteBatch spriteBatch;
         PlayableCharacter player;
         MidoriDebug debug;
+        Camera camera;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1680;
+            graphics.PreferredBackBufferHeight = 1050;
+            graphics.ApplyChanges();
             this.Window.AllowUserResizing = true;
             //this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -47,6 +50,10 @@ namespace Midori
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
             Engine.InitializeObjects();
+
+            camera = new Camera();
+            camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
+            camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
 
             debug = new MidoriDebug(Content, spriteBatch);
         }
@@ -93,11 +100,16 @@ namespace Midori
             // TODO: Add your update logic here
             player.Update(gameTime);
 
-            //foreach (Unit en in Engine.Enemies)
-            //{
-            //    en.Update(gameTime);
-            //    World.isCollidedWithWorldBounds(graphics, en);               
-            //}
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
+            {
+                camera.Zoom += 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                camera.Zoom -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            camera.Origin = new Vector2(graphics.GraphicsDevice.Viewport.X / 2f, graphics.GraphicsDevice.Viewport.Y / 2f);
+                camera.LookAt(player);
 
             base.Update(gameTime);
         }
@@ -109,9 +121,8 @@ namespace Midori
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
+            spriteBatch.Begin(transformMatrix: camera.ViewMatrix);
+            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width*2,graphics.GraphicsDevice.Viewport.Height*2), Color.White);
 
             foreach (Tile tile in Engine.Tiles)
             {
@@ -130,9 +141,9 @@ namespace Midori
             //}
 
             debug.StatsOnHover();
-
+            spriteBatch.DrawString(TextureLoader.Font, camera.Position.ToString(), player.Position, Color.Crimson);
             spriteBatch.End();
-        
+            
 
 
             // TODO: Add your drawing code here
