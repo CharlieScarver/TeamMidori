@@ -41,10 +41,6 @@ namespace Midori.Core
             this.IsSolid = true;
         }
 
-        public int TextureWidth { get; set; }
-
-        public int TextureHeight { get; set; }
-
         public int Type 
         {
             get { return this.type; }

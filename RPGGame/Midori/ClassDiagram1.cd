@@ -3,14 +3,14 @@
   <Class Name="Midori.Core.Engine" Collapsed="true">
     <Position X="8" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAABAAAAAAA4EAAAMBAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAgAAABAAAEAAA4UAAAMBAAAAAQAAAAA=</HashCode>
       <FileName>Core\Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.InputHandler" Collapsed="true">
     <Position X="11.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACgCgAAAAAAAAAAAEAAAAAAAAAIQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACgCgAAAAIAAAAAAEAAAAAAAAAIQAAAAAAAAAA=</HashCode>
       <FileName>Core\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,14 +24,14 @@
   <Class Name="Midori.Core.Tile" Collapsed="true">
     <Position X="1" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgSAAAAAAAAAAAABAgAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAABAgAAAQAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Tile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.TextureLoading.TextureLoader" Collapsed="true">
     <Position X="11.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAABAAAAAAAAAYAAAAAAAAAAAAAAEIgAQACAAA=</HashCode>
+      <HashCode>AAEAgIAABAAAAAAAAAYAAAAAAAAAAAAAQEIgAQACAAA=</HashCode>
       <FileName>Core\TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,36 +59,36 @@
   <Class Name="Midori.GameObjects.GameObject" Collapsed="true">
     <Position X="3.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAAgAgEAAAIEAAACAAAAAgAAAAAAIAYAA=</HashCode>
+      <HashCode>AAACAEAAAAAAAgSgEAAAIEAAACAAAAAgAAAAAAIAYAA=</HashCode>
       <FileName>GameObjects\GameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Midori.GameObjects.Units.Aya" Collapsed="true">
+  <Class Name="Midori.GameObjects.Units.PlayableCharacters.Aya" Collapsed="true">
     <Position X="5.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAMAAAhKACQAEEAgAAAAAAAAQAAAAAABAAIA=</HashCode>
-      <FileName>GameObjects\Units\Aya.cs</FileName>
+      <FileName>GameObjects\Units\PlayableCharacters\Aya.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.Enemy" Collapsed="true">
     <Position X="3.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Units\Enemy.cs</FileName>
+      <FileName>GameObjects\Units\Enemies\Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.GameObjects.Units.PlayableCharacter" Collapsed="true">
+  <Class Name="Midori.GameObjects.Units.PlayableCharacters.PlayableCharacter" Collapsed="true">
     <Position X="5.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Units\PlayableCharacter.cs</FileName>
+      <FileName>GameObjects\Units\PlayableCharacters\PlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.Unit" Collapsed="true">
     <Position X="4.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAaBAAoBAEIAABKACQAAJAIACAgAAAhQAAAAAABFIYA=</HashCode>
+      <HashCode>AAaBAAoBAEIAAAKAGQAAJAIACAgIAAhQABAAAABFIQA=</HashCode>
       <FileName>GameObjects\Units\Unit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -96,7 +96,7 @@
   <Interface Name="Midori.Interfaces.IAnimatable" Collapsed="true">
     <Position X="10" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAEAAAAKACQAAAAAAAAAAAABQAAAAAABEAAA=</HashCode>
+      <HashCode>AACAAAAAAAAAAAAAEAAAAAAAAAAIAABAAAAAAAAEAAA=</HashCode>
       <FileName>Interfaces\IAnimatable.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -110,7 +110,7 @@
   <Interface Name="Midori.Interfaces.IDrawable" Collapsed="true">
     <Position X="10" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgSAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>

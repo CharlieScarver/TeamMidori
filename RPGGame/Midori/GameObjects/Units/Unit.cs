@@ -11,50 +11,45 @@ using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public abstract class Unit : GameObject, Interfaces.IAnimatable
+    public abstract class Unit : GameObject, IAnimatable, Interfaces.IUpdatable, IMoveable
     {
         private const int gravity = 13;
         private const int consequentJumps = 2;
-        private readonly float defaultJumpSpeed;
-        private readonly float defaultMovementSpeed;
 
-        public Unit(Vector2 position, float defaultMovementSpeed, float defaultJumpSpeed)
+        public Unit()
+            : base()
         {
-            this.Id = this.GetHashCode();
-            this.IsActive = true;
-
-            this.Position = position;
-            this.defaultMovementSpeed = defaultMovementSpeed;
-            this.defaultJumpSpeed = defaultJumpSpeed;
-
             this.Timer = 0.0;
             this.CurrentFrame = 0;
             this.SourceRect = new Rectangle();
-            this.BoundingBox = new Rectangle();
 
-            this.MovementSpeed = defaultMovementSpeed; 
-            this.JumpSpeed = defaultJumpSpeed;
             this.JumpCounter = 0;
 
             this.IsJumping = false;
-            this.IsFalling = true;
+            this.IsFalling = false;
+            this.isMovingLeft = false;
+            this.isMovingRight = false; 
+            this.HasFreePathing = false;
         }
 
         // Properties
         public int CurrentFrame { get; set; } //protected
 
-        public Rectangle SourceRect { get; protected set; }
-        
+        public int BasicAnimationFrameCount { get; protected set; }
+
         public double Timer { get; protected set; }
+
+        public int Delay { get; protected set; }
+
+        public Rectangle SourceRect { get; protected set; }
 
         public float MovementSpeed { get; set; }
 
         public float JumpSpeed { get; set; }
 
-        public float DefaultJumpSpeed
-        {
-            get { return this.defaultJumpSpeed; }
-        }
+        public float DefaultMovementSpeed { get; protected set; }
+
+        public float DefaultJumpSpeed { get; protected set; }
 
         public int JumpCounter { get; set; }
 
@@ -118,7 +113,7 @@ namespace Midori.GameObjects.Units
                         else
                         {
                             // fall to avoid getting stuck in a tile (side entry bug)
-                            this.ApplyGravity(); 
+                            this.ApplyGravity();
                         }
                     }
                     else

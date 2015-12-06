@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.GameObjects;
 using Midori.GameObjects.Units;
+using Midori.GameObjects.Units.PlayableCharacters;
+using Midori.Interfaces;
 using Midori.Core.TextureLoading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Midori.GameObjects;
+
 
 namespace Midori.Core
 {
@@ -17,34 +20,31 @@ namespace Midori.Core
         private static PlayableCharacter player;
         private static List<Unit> enemies = new List<Unit>();
         private static List<GameObject> objects = new List<GameObject>();
+        private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
 
-        public static List<GameObject> Objects
+        public static IEnumerable<Tile> Tiles
         {
-            get 
-            {
-                return new List<GameObject>(objects);
-            }
-        }
-
-        public static List<Tile> Tiles
-        {
-            get
-            {
-                return new List<Tile>(tiles);
-            }
+            get { return Engine.tiles; }
         }
 
         public static PlayableCharacter Player
         {
             get { return Engine.player; }
         }
-
-        public static List<Unit> Enemies
+        
+        public static IEnumerable<Unit> Enemies
         {
-            get
-            {
-                return new List<Unit>(enemies);
-            }
+            get { return Engine.enemies; }
+        }
+
+        public static IEnumerable<IUpdatable> UpdatableObjects
+        {
+            get { return Engine.updatableObjects; }
+        }
+
+        public static IEnumerable<GameObject> Objects
+        {
+            get { return Engine.objects; }
         }
 
         public static void InitializeTiles()
@@ -133,6 +133,12 @@ namespace Midori.Core
             objects.Add(player);
             objects.AddRange(tiles);
             objects.AddRange(enemies);
+        }
+
+        public static void InitializeUpdatableObjects()
+        {
+            updatableObjects.Add(player);
+            updatableObjects.AddRange(enemies);
         }
 
         

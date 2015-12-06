@@ -11,22 +11,13 @@ namespace Midori.Interfaces
     {
         int CurrentFrame { get; }
 
+        int BasicAnimationFrameCount { get; }
+
         double Timer { get; }
+
+        int Delay { get; }
 
         Rectangle SourceRect { get; }
 
-        void AnimateRunningLeft(GameTime gameTime);
-
-        void AnimateRunningRight(GameTime gameTime);
-
-        void AnimateIdle(GameTime gameTime);
-
-        void AnimateJumpRight(GameTime gameTime);
-
-        void AnimateJumpLeft(GameTime gameTime);
-
-        void AnimateFallRight(GameTime gameTime);
-
-        void AnimateFallLeft(GameTime gameTime);
     }
 }

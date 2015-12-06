@@ -9,15 +9,19 @@ namespace Midori.Core.TextureLoading
 {
     public static class TextureLoader
     {
-        public static Texture2D TempHeroSheet { get; set; }
-        public static Texture2D GreenTileMiddle { get; set; }
-        public static Texture2D GreenTileStart { get; set; }
-        public static Texture2D GreenTileEnd { get; set; }
-        public static Texture2D Background { get; set; }
-        public static Texture2D TheOnePixel { get; set; }
-        public static Texture2D TempEnemySheet { get; set; }
-        public static Texture2D AyaSheet { get; set; }
-        public static SpriteFont Font { get; set; }
+        public static Texture2D TempHeroSheet { get; private set; }
+        public static Texture2D GreenTileMiddle { get; private set; }
+        public static Texture2D GreenTileStart { get; private set; }
+        public static Texture2D GreenTileEnd { get; private set; }
+        public static Texture2D Background { get; private set; }
+        public static Texture2D TheOnePixel { get; private set; }
+        public static Texture2D TempEnemySheet { get; private set; }
+        public static Texture2D AyaSheet { get; private set; }
+        public static Texture2D SmallAyaProjectileSheet { get; private set; }
+        public static Texture2D DeathRayAyaSheet { get; private set; }
+
+        public static SpriteFont Font { get; private set; }
+        
         
         
         public static void Load(ContentManager content)
@@ -30,6 +34,9 @@ namespace Midori.Core.TextureLoading
             TheOnePixel = content.Load<Texture2D>("Sprites/TheOnePixel");
             TempEnemySheet = content.Load<Texture2D>("Sprites/enemy");
             AyaSheet = content.Load<Texture2D>("Sprites/AyaSheet 236x130");
+            SmallAyaProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
+            DeathRayAyaSheet = content.Load<Texture2D>("Sprites/death ray 13 x 98");
+
             Font = content.Load<SpriteFont>("Fonts/Font");
         }
     }

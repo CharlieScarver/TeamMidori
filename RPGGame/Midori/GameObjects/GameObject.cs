@@ -16,6 +16,13 @@ namespace Midori.GameObjects
         private Texture2D spriteSheet;
         private Rectangle boundingBox;
 
+        public GameObject()
+        {
+            this.Id = this.GetHashCode();
+            this.IsActive = true;
+            this.BoundingBox = new Rectangle();
+        }
+
         public int Id { get; set; }
 
         public bool IsActive { get; set; }
@@ -52,6 +59,10 @@ namespace Midori.GameObjects
             }
         }
 
+        public int TextureWidth { get; protected set; }
+
+        public int TextureHeight { get; protected set; }
+
         public Rectangle BoundingBox
         {
             get { return this.boundingBox; }
@@ -85,6 +96,7 @@ namespace Midori.GameObjects
         }
 
         // Abstract Methods        
-        public abstract void Draw(SpriteBatch spriteBatch);   
+        public abstract void Draw(SpriteBatch spriteBatch);     
+
     }
 }
