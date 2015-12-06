@@ -21,14 +21,17 @@ namespace Midori.Core
 
             if (currentKeyboardState.GetPressedKeys().Length == 0)
             {
-                unit.AnimateIdle(gameTime);
+                // Idle
             }
 
             if (currentKeyboardState != previousKeyboardState)
             {
-                unit.CurrentFrame = 0;
-                unit.isMovingRight = false;
-                unit.isMovingLeft = false;
+                if (!unit.IsAttackingRanged)
+                {
+                    unit.CurrentFrame = 0;
+                }
+                unit.IsMovingRight = false;
+                unit.IsMovingLeft = false;
             }
 
             // Move Right
@@ -45,82 +48,92 @@ namespace Midori.Core
 
             // Jumping
             if (currentKeyboardState.IsKeyDown(Keys.Up) 
-                && previousKeyboardState.IsKeyUp(Keys.Up) 
-                && (unit.JumpCounter < 2) )
+                && previousKeyboardState.IsKeyUp(Keys.Up))
             {
                 Jump(gameTime, unit);                
+            }
+
+            // RangedAttack
+            if (currentKeyboardState.IsKeyDown(Keys.A)
+                && previousKeyboardState.IsKeyUp(Keys.A))                
+            {
+                AttackRanged(gameTime, unit);
             }
             
         }
 
         private static void MoveRight(GameTime gameTime, PlayableCharacter unit)
         {
-            if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
+            if (!unit.IsAttackingRanged)
             {
-                unit.isMovingRight = true;
-                PlayRunningAnimation(gameTime, unit);
-            }
-            else
-            {
-                // compensating because origin is in the left top corner
-                futurePosition = new Rectangle(
-                            (int)(unit.BoundingBox.X + unit.BoundingBox.Width + unit.MovementSpeed),
-                            (int)unit.BoundingBox.Y,
-                            unit.BoundingBox.Width,
-                            unit.BoundingBox.Height);
-                if (!World.CheckForCollisionWithTiles(futurePosition))
+                if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
                 {
-                    unit.isMovingRight = true;
-                    PlayRunningAnimation(gameTime, unit);
+                    unit.IsMovingRight = true;
+                    unit.IsFacingRight = true;
+                }
+                else
+                {
+                    // compensating because origin is in the left top corner
+                    futurePosition = new Rectangle(
+                                (int)(unit.BoundingBox.X + unit.BoundingBox.Width + unit.MovementSpeed),
+                                (int)unit.BoundingBox.Y,
+                                unit.BoundingBox.Width,
+                                unit.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(futurePosition))
+                    {
+                        unit.IsMovingRight = true;
+                        unit.IsFacingRight = true;
+                    }
                 }
             }
         }
 
         private static void MoveLeft(GameTime gameTime, PlayableCharacter unit)
         {
-            if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
+            if (!unit.IsAttackingRanged)
             {
-                unit.isMovingLeft = true;
-                PlayRunningAnimation(gameTime, unit);
-            }
-            else
-            {
-                futurePosition = new Rectangle(
-                        (int)(unit.BoundingBox.X - unit.MovementSpeed),
-                        (int)unit.BoundingBox.Y,
-                        unit.BoundingBox.Width,
-                        unit.BoundingBox.Height);
-                if (!World.CheckForCollisionWithTiles(futurePosition))
+                if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
                 {
-                    unit.isMovingLeft = true;
-                    PlayRunningAnimation(gameTime, unit);
+                    unit.IsMovingLeft = true;
+                    unit.IsFacingLeft = true;
                 }
-            }
-        }
-
-        private static void PlayRunningAnimation(GameTime gameTime, PlayableCharacter unit)
-        {
-            if (!unit.IsJumping && !unit.IsFalling)
-            {
-                if (unit.isMovingLeft)
+                else
                 {
-                    unit.AnimateRunningLeft(gameTime);
-                }
-                else 
-                {
-                    unit.AnimateRunningRight(gameTime);
+                    futurePosition = new Rectangle(
+                            (int)(unit.BoundingBox.X - unit.MovementSpeed),
+                            (int)unit.BoundingBox.Y,
+                            unit.BoundingBox.Width,
+                            unit.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(futurePosition))
+                    {
+                        unit.IsMovingLeft = true;
+                        unit.IsFacingLeft = true;
+                    }
                 }
             }
         }
 
         private static void Jump(GameTime gameTime, PlayableCharacter unit)
         {
-            unit.IsFalling = false;
+            if (!unit.IsAttackingRanged 
+                && unit.JumpCounter < 2)
+            {
+                unit.IsFalling = false;
 
-            unit.IsJumping = true;
-            unit.JumpSpeed = unit.DefaultJumpSpeed;
-            unit.JumpCounter++;
+                unit.IsJumping = true;
+                unit.JumpSpeed = unit.DefaultJumpSpeed;
+                unit.JumpCounter++;
+            }
+        }
 
+        private static void AttackRanged(GameTime gameTime, PlayableCharacter unit)
+        {
+            if (!unit.IsAttackingRanged
+                && !unit.IsJumping
+                && !unit.IsFalling)
+            {
+                unit.IsAttackingRanged = true;
+            }
         }
 
     }

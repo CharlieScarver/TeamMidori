@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using System;
 using System.Collections.Generic;
@@ -6,28 +7,26 @@ using System.Linq;
 using System.Text;
 using Midori.Interfaces;
 
+
 namespace Midori.Core
 {
     public static class World
     {
-        public static bool CheckForCollisionWithWorldBounds(GraphicsDeviceManager graphics, Unit unit)
+        public static bool CheckForCollisionWithWorldBounds(GameObject obj)
         {
-            if (unit.X > graphics.GraphicsDevice.Viewport.Width)
+            if (obj.X > 1920)
             {
-                unit.X = -30;
                 return true;
             }
-            if (unit.X < -30)
+            if (obj.X < -(obj.BoundingBox.Width))
             {
-                unit.X = graphics.GraphicsDevice.Viewport.Width;
+                return true;
+            }
+            if (obj.Y > 1080)
+            {
                 return true;
             }
 
-            if (unit.Y > graphics.GraphicsDevice.Viewport.Height)
-            {
-                unit.Y = -70;
-                return true;
-            }
             return false;
         }
 

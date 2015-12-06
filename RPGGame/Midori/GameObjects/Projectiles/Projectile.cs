@@ -15,9 +15,9 @@ namespace Midori.GameObjects.Projectiles
             this.Timer = 0.0;
             this.CurrentFrame = 0;
             this.SourceRect = new Rectangle();
-
-
         }
+
+        public bool IsMovingRight { get; set; }
 
         public int CurrentFrame { get; set; } //protected
 
