@@ -38,9 +38,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\InputHandler.cs" />
+    <Compile Include="Core\Camera2D.cs" />
     <Compile Include="Core\TextureLoading\TextureLoader.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />

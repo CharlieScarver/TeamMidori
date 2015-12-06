@@ -182,15 +182,15 @@ namespace Midori.GameObjects.Units
 
         private void ReturnFromOppositeSide()
         {
-            if (this.BoundingBoxX > 1920)
+            if (this.BoundingBoxX > Engine.LevelBounds.Width)
             {
                 this.X = -this.BoundingBox.Width;
             }
             if (this.BoundingBoxX < -this.BoundingBox.Width)
             {
-                this.X = 1920 - 5;
+                this.X = Engine.LevelBounds.Width - 5;
             }
-            if (this.BoundingBoxY > 1080)
+            if (this.BoundingBoxY > Engine.LevelBounds.Height)
             {
                 this.Y = -70;
             }

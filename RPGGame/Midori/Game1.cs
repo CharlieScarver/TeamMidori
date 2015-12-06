@@ -21,7 +21,7 @@ namespace Midori
         SpriteBatch spriteBatch;
         PlayableCharacter player;
         MidoriDebug debug;
-        Camera camera;
+        Camera2D camera;
 
         public Game1()
         {
@@ -47,16 +47,16 @@ namespace Midori
             graphics.PreferredBackBufferWidth = graphics.GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = graphics.GraphicsDevice.DisplayMode.Height;
             graphics.ApplyChanges();
+            Engine.LevelBounds = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width*2, graphics.GraphicsDevice.Viewport.Height);
             Engine.InitializeTiles();
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
             Engine.InitializeObjects();
             Engine.InitializeUpdatableObjects();
 
-            camera = new Camera();
-            camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
-            camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
-            
+            camera = new Camera2D(graphics.GraphicsDevice);
+            camera.SetSceneBounds(new Rectangle(30,30, Engine.LevelBounds.Width, Engine.LevelBounds.Height));
+            camera.SetChaseTarget(player);
             debug = new MidoriDebug(Content, spriteBatch);
         }
 
@@ -118,8 +118,9 @@ namespace Midori
             {
                 camera.Zoom -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            camera.Origin = new Vector2(graphics.GraphicsDevice.Viewport.X / 2f, graphics.GraphicsDevice.Viewport.Y / 2f);
-                camera.LookAt(player);
+            camera.Chase(gameTime);
+
+            camera.Update(gameTime);
 
             Engine.CleanInactiveObjects();
             
@@ -135,7 +136,7 @@ namespace Midori
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(transformMatrix: camera.ViewMatrix);
+            spriteBatch.Begin(transformMatrix: camera.Transform);
             spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width*2,graphics.GraphicsDevice.Viewport.Height*2), Color.White);
 
             foreach (Tile tile in Engine.Tiles)

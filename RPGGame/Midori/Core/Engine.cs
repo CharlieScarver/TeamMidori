@@ -69,6 +69,8 @@ namespace Midori.Core
             get { return Engine.objects; }
         }
 
+        public static Rectangle LevelBounds { get; set; }
+
         public static void InitializeItems()
         {
             items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(130, 900), ItemTypes.Heal));
@@ -112,6 +114,11 @@ namespace Midori.Core
             tiles.Add(new Tile(new Vector2(128 * 12, 200), 2));
             tiles.Add(new Tile(new Vector2(128 * 13, 200), 2));
             tiles.Add(new Tile(new Vector2(128 * 14, 200), 3));
+
+            for (int i = 0; i < Engine.LevelBounds.Width; i += TextureLoader.GreenTileMiddle.Width)
+            {
+                tiles.Add(new Tile(new Vector2(i, Engine.LevelBounds.Height / 1.5f), 2));
+            }
         }
 
 

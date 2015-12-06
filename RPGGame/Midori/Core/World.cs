@@ -14,7 +14,7 @@ namespace Midori.Core
     {
         public static bool CheckForCollisionWithWorldBounds(GameObject obj)
         {
-            if (obj.X > 1920)
+            if (obj.X > Engine.LevelBounds.Width)
             {
                 return true;
             }
@@ -22,7 +22,7 @@ namespace Midori.Core
             {
                 return true;
             }
-            if (obj.Y > 1080)
+            if (obj.Y > Engine.LevelBounds.Height)
             {
                 return true;
             }
