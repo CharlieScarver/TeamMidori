@@ -23,6 +23,11 @@ namespace Midori.Core
             {
                 // Idle
             }
+            //Reset any currently ongoing animation
+            if (currentKeyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
+            {
+                unit.CurrentFrame = 0;
+            }
 
             if (currentKeyboardState != previousKeyboardState)
             {
@@ -59,7 +64,7 @@ namespace Midori.Core
             {
                 AttackRanged(gameTime, unit);
             }
-            
+
         }
 
         private static void MoveRight(GameTime gameTime, PlayableCharacter unit)
@@ -132,6 +137,8 @@ namespace Midori.Core
                 && !unit.IsJumping
                 && !unit.IsFalling)
             {
+                unit.IsMovingRight = false;
+                unit.IsMovingLeft = false;
                 unit.IsAttackingRanged = true;
             }
         }

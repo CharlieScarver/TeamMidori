@@ -186,7 +186,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
                             (this.IsFacingRight ? true : false)));
                 }
-                else if (this.CurrentFrame == Aya.attackRangedFrameCount)
+                else if (this.CurrentFrame >= Aya.attackRangedFrameCount)
                 {
                     this.CurrentFrame = 0;
                     this.IsAttackingRanged = false;
@@ -213,7 +213,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             new Vector2(this.BoundingBoxX - 10, this.BoundingBoxY + 22),
                             (this.IsFacingRight ? true : false)));
                 }
-                else if (this.CurrentFrame == Aya.attackRangedFrameCount)
+                else if (this.CurrentFrame >= Aya.attackRangedFrameCount)
                 {
                     this.CurrentFrame = 0;
                     this.IsAttackingRanged = false;
