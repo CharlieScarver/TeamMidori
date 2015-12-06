@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Core.TextureLoading;
 using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
-using Midori.Core.TextureLoading;
+using Midori.GameObjects.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,12 @@ namespace Midori.Core
         private static List<Tile> tiles = new List<Tile>();
         private static PlayableCharacter player;
         private static List<Unit> enemies = new List<Unit>();
+        private static List<Projectile> projectiles = new List<Projectile>();
+
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
-
+        private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
+        
         public static IEnumerable<Tile> Tiles
         {
             get { return Engine.tiles; }
@@ -37,9 +41,19 @@ namespace Midori.Core
             get { return Engine.enemies; }
         }
 
+        public static IEnumerable<Projectile> Projectiles 
+        {
+            get { return Engine.projectiles;  } 
+        }
+
         public static IEnumerable<IUpdatable> UpdatableObjects
         {
             get { return Engine.updatableObjects; }
+        }
+
+        public static IEnumerable<Interfaces.IDrawable> DrawableObjects
+        {
+            get { return Engine.drawableObjects; }
         }
 
         public static IEnumerable<GameObject> Objects
@@ -133,12 +147,42 @@ namespace Midori.Core
             objects.Add(player);
             objects.AddRange(tiles);
             objects.AddRange(enemies);
+            objects.AddRange(projectiles);
         }
 
         public static void InitializeUpdatableObjects()
         {
             updatableObjects.Add(player);
             updatableObjects.AddRange(enemies);
+        }
+
+        public static void InitializeDrawableObjects()
+        {
+            objects.AddRange(tiles);
+            drawableObjects.Add(player);
+            drawableObjects.AddRange(enemies);
+        }
+
+        public static void AddProjectile(Projectile proj)
+        {
+            projectiles.Add(proj);
+            objects.Add(proj);
+        }
+
+        public static void CleanInactiveObjects()
+        {
+            var temp = new List<GameObject>(objects);
+            foreach (var item in temp)
+            {
+                if (!item.IsActive)
+                {
+                    objects.Remove(item);
+                    if (projectiles.Contains(item))
+                    {
+                        projectiles.Remove((Projectile)item);
+                    }
+                }
+            }
         }
 
         

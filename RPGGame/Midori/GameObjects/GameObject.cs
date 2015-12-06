@@ -36,13 +36,13 @@ namespace Midori.GameObjects
         public float X
         {
             get { return this.position.X; }
-            set { this.position.X = value; }
+            set { this.position.X = value; } // protected
         }
 
         public float Y
         {
             get { return this.position.Y; }
-            set { this.position.Y = value; }
+            set { this.position.Y = value; } // protected
         }
 
         public Texture2D SpriteSheet
@@ -90,7 +90,7 @@ namespace Midori.GameObjects
         }
 
         // Methods
-        public void DrawBB(SpriteBatch spriteBatch, ContentManager content, Color boundingBoxColor)
+        public void DrawBB(SpriteBatch spriteBatch, Color boundingBoxColor)
         {
             spriteBatch.Draw(TextureLoader.TheOnePixel, this.BoundingBox, boundingBoxColor);
         }

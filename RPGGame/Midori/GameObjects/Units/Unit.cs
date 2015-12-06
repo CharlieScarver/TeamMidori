@@ -27,8 +27,8 @@ namespace Midori.GameObjects.Units
 
             this.IsJumping = false;
             this.IsFalling = false;
-            this.isMovingLeft = false;
-            this.isMovingRight = false; 
+            this.IsMovingLeft = false;
+            this.IsMovingRight = false; 
             this.HasFreePathing = false;
         }
 
@@ -61,9 +61,9 @@ namespace Midori.GameObjects.Units
 
         public bool HasFreePathing { get; set; }
 
-        public bool isMovingRight { get; set; }
+        public bool IsMovingRight { get; set; }
 
-        public bool isMovingLeft { get; set; }
+        public bool IsMovingLeft { get; set; }
 
         // Non-abstract Methods
         protected void ManageMovement(GameTime gameTime)
@@ -133,13 +133,19 @@ namespace Midori.GameObjects.Units
             }
 
             // Left & Right Movement
-            if (this.isMovingLeft)
+            if (this.IsMovingLeft)
             {
                 this.X -= this.MovementSpeed;
             }
-            else if (this.isMovingRight)
+            else if (this.IsMovingRight)
             {
                 this.X += this.MovementSpeed;
+            }
+
+            // Return from opposite side if left the field
+            if (World.CheckForCollisionWithWorldBounds(this))
+            {
+                ReturnFromOppositeSide();
             }
 
         }
@@ -172,6 +178,22 @@ namespace Midori.GameObjects.Units
             this.IsFalling = false;
             this.HasFreePathing = false;
             this.JumpCounter = 0;
+        }
+
+        private void ReturnFromOppositeSide()
+        {
+            if (this.BoundingBoxX > 1920)
+            {
+                this.X = -this.BoundingBox.Width;
+            }
+            if (this.BoundingBoxX < -this.BoundingBox.Width)
+            {
+                this.X = 1920 - 5;
+            }
+            if (this.BoundingBoxY > 1080)
+            {
+                this.Y = -70;
+            }
         }
 
         

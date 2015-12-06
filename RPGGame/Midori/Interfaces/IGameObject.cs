@@ -14,8 +14,8 @@ namespace Midori.Interfaces
 
         Vector2 Position { get; }
 
-        float X { get; set; }
+        float X { get; set; } // protected
 
-        float Y { get; set; }
+        float Y { get; set; } // protected
     }
 }
