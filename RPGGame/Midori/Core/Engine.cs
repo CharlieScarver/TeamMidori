@@ -6,12 +6,8 @@ using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
-<<<<<<< HEAD
-using Midori.Core.TextureLoading;
 using Midori.GameObjects.Items;
-=======
 using Midori.GameObjects.Projectiles;
->>>>>>> master
 using System;
 using System.Collections.Generic;
 using System.Linq;

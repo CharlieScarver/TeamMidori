@@ -26,9 +26,7 @@ namespace Midori
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1680;
-            graphics.PreferredBackBufferHeight = 1050;
-            graphics.ApplyChanges();
+            
             this.Window.AllowUserResizing = true;
             //this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -45,8 +43,10 @@ namespace Midori
         {
             // TODO: Add your initialization logic here
 
-            base.Initialize();            
-
+            base.Initialize();
+            graphics.PreferredBackBufferWidth = graphics.GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = graphics.GraphicsDevice.DisplayMode.Height;
+            graphics.ApplyChanges();
             Engine.InitializeTiles();
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
@@ -56,7 +56,7 @@ namespace Midori
             camera = new Camera();
             camera.ViewportWidth = graphics.GraphicsDevice.Viewport.Width;
             camera.ViewportHeight = graphics.GraphicsDevice.Viewport.Height;
-
+            
             debug = new MidoriDebug(Content, spriteBatch);
         }
 
@@ -105,7 +105,7 @@ namespace Midori
                 projectile.Update(gameTime);
             }
 
-            World.CheckForCollisionWithWorldBounds(graphics, player);
+            World.CheckForCollisionWithWorldBounds(player);
             
             // TODO: Add your update logic here
             player.Update(gameTime);
@@ -122,7 +122,7 @@ namespace Midori
                 camera.LookAt(player);
 
             Engine.CleanInactiveObjects();
-
+            
 
             base.Update(gameTime);
         }

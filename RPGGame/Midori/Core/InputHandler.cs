@@ -19,6 +19,12 @@ namespace Midori.Core
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
+            //Reset any animation that is currently running
+            if (currentKeyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
+            {
+                unit.CurrentFrame = 0;
+            }
+
             if (currentKeyboardState.GetPressedKeys().Length == 0)
             {
                 // Idle
@@ -35,7 +41,7 @@ namespace Midori.Core
             }
 
             // Move Right
-            if (currentKeyboardState.IsKeyDown(Keys.Right))
+            if (currentKeyboardState.IsKeyDown(Keys.Right) )
             {                 
                 MoveRight(gameTime, unit);                              
             }

@@ -178,7 +178,10 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             if (this.Timer >= Aya.delay)
             {
                 this.CurrentFrame++;
-
+                if (this.CurrentFrame > 4)
+                {
+                   // throw new Exception("Out of range");
+                }
                 if (this.CurrentFrame == 2)
                 {
                     Engine.AddProjectile(
@@ -186,7 +189,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
                             (this.IsFacingRight ? true : false)));
                 }
-                else if (this.CurrentFrame == Aya.attackRangedFrameCount)
+                else if (this.CurrentFrame >= Aya.attackRangedFrameCount)
                 {
                     this.CurrentFrame = 0;
                     this.IsAttackingRanged = false;
