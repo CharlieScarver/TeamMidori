@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Midori.GameObjects;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Midori.DebugSystem
 {
@@ -20,6 +21,7 @@ namespace Midori.DebugSystem
             this.Id = item.GetHashCode();
         }
 
+        ///<summary>Get the longest line in the debug text so the next anchor can be properly indented</summary>
         public string LongestLine
         {
             get
@@ -28,7 +30,7 @@ namespace Midori.DebugSystem
                 string longest = "";
                 foreach (var item in Attributes)
                 {
-                    string text = string.Format("{0} = {1}", item.Name, item.GetValue(this.item, null));
+                    string text = string.Format("{0} = {1}   ({2})", item.Name, item.GetValue(this.item, null), item.GetType().Name);
                     if (text.Length > max)
                     {
                         max = text.Length;
@@ -54,12 +56,13 @@ namespace Midori.DebugSystem
                 return attributes;
             }
 
-            set
+            private set
             {
                 attributes = value;
             }
         }
 
+        ///<summary>Returns each property's name, value and type as a string for the item passed in the ctor</summary>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -67,11 +70,13 @@ namespace Midori.DebugSystem
             sb.AppendLine(this.Id.ToString());
             foreach (var item in Attributes)
             {
-                sb.AppendLine(string.Format("{0} = {1}", item.Name, item.GetValue(this.item, null)));
+                sb.AppendLine(string.Format("{0} = {1}   ({2})", item.Name, item.GetValue(this.item, null), item.PropertyType.Name));
             }
             return sb.ToString();
         }
 
+        ///<summary>Returns each property's name and value for the object passed</summary>
+        /// <param name="obj">The object passed</param>
         public static string toString(object obj)
         {
             StringBuilder sb = new StringBuilder();

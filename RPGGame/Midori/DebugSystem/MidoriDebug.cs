@@ -22,12 +22,12 @@ namespace Midori.DebugSystem
         {
             this.Content = content;
             this.SpriteBatch = spriteBatch;
-            List<GameObject> gameObjects = Engine.Objects;
-            this.AnchoredObjects = new List<DebugObject>();
+            List<GameObject> gameObjects = new List<GameObject>(Engine.Objects);
+            this.AnchoredObjects = new LinkedList<DebugObject>();
             this.indent = 10;
         }
 
-        private List<DebugObject> AnchoredObjects { get; set; }
+        private LinkedList<DebugObject> AnchoredObjects { get; set; }
 
         private SpriteBatch SpriteBatch { get; set; }
 
@@ -58,8 +58,8 @@ namespace Midori.DebugSystem
                 texture: TextureLoader.TheOnePixel,
                 destinationRectangle: new Rectangle((int)obj.item.Position.X,
                                         (int)obj.item.Position.Y,
-                                        128,
-                                        128),
+                                        obj.item.TextureWidth,
+                                        obj.item.TextureHeight),
                 color: Color.Black * 0.4f);
 
         }
@@ -90,20 +90,29 @@ namespace Midori.DebugSystem
             MouseStats();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         private void Anchor(DebugObject item)
         {
             bool contains = this.AnchoredObjects.Any(p => p.Id == item.Id);
             if (!contains)
             {
                 item.Position = new Vector2(this.indent, 0);
-                this.AnchoredObjects.Add(item);
+                this.AnchoredObjects.AddLast(new LinkedListNode<DebugObject>(item));
                 this.indent += (int)TextureLoader.Font.MeasureString(item.LongestLine).X;
 
             }
             else
             {
-                this.AnchoredObjects.RemoveAll(e => e.Id == item.Id);
+                var toRemove = this.AnchoredObjects.First(e => e.Id == item.Id);
                 this.indent -= (int)TextureLoader.Font.MeasureString(item.LongestLine).X;
+                for (var i = AnchoredObjects.Last.Value; i != AnchoredObjects.Find(toRemove).Value; i = AnchoredObjects.Find(i).Previous.Value)
+                {
+                    i.Position = AnchoredObjects.Find(i).Previous.Value.Position;
+                }
+                this.AnchoredObjects.Remove(toRemove);
             }
             System.Diagnostics.Debug.WriteLine(indent);
         }
