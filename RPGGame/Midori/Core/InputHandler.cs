@@ -65,7 +65,6 @@ namespace Midori.Core
             {
                 AttackRanged(gameTime, unit);
             }
-            
         }
 
         private static void MoveRight(GameTime gameTime, PlayableCharacter unit)

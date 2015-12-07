@@ -114,7 +114,6 @@ namespace Midori.DebugSystem
                 }
                 this.AnchoredObjects.Remove(toRemove);
             }
-            System.Diagnostics.Debug.WriteLine(indent);
         }
 
         private void MouseStats()

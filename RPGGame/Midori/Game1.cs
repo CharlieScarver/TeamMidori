@@ -55,7 +55,7 @@ namespace Midori
             Engine.InitializeUpdatableObjects();
 
             camera = new Camera2D(graphics.GraphicsDevice);
-            camera.SetSceneBounds(new Rectangle(30,30, Engine.LevelBounds.Width, Engine.LevelBounds.Height));
+            camera.SetSceneBounds(new Rectangle(50,40, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height - 200));
             camera.SetChaseTarget(player);
             debug = new MidoriDebug(Content, spriteBatch);
         }
