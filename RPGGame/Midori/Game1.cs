@@ -50,6 +50,7 @@ namespace Midori
             Engine.LevelBounds = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width*2, graphics.GraphicsDevice.Viewport.Height);
             Engine.InitializeTiles();
             player = Engine.InitializePlayer();
+            Engine.InitializeItems();
             Engine.InitializeEnemies();
             Engine.InitializeObjects();
             Engine.InitializeUpdatableObjects();
@@ -108,7 +109,6 @@ namespace Midori
             World.CheckForCollisionWithWorldBounds(player);
             
             // TODO: Add your update logic here
-            player.Update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.X))
             {
@@ -118,9 +118,14 @@ namespace Midori
             {
                 camera.Zoom -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            camera.Chase(gameTime);
 
+            camera.Chase(gameTime);
             camera.Update(gameTime);
+
+            foreach (var item in Engine.Items)
+            {
+                item.Update(gameTime);
+            }
 
             Engine.CleanInactiveObjects();
             
@@ -146,6 +151,7 @@ namespace Midori
             }
             
 
+
             player.Draw(spriteBatch);
             //player.DrawBB(spriteBatch, Color.Orange);
 
@@ -159,6 +165,11 @@ namespace Midori
             {
                 proj.Draw(spriteBatch);
                 //proj.DrawBB(spriteBatch, Color.Aqua);
+            }
+
+            foreach (var item in Engine.Items)
+            {
+                item.Draw(spriteBatch);
             }
 
             debug.StatsOnHover();

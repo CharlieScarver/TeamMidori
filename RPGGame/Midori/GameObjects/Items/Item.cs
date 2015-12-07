@@ -5,22 +5,39 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Midori.Interfaces;
+using Midori.Core;
+using Midori.Core.TextureLoading;
 
 namespace Midori.GameObjects.Items
 {
-    public class Item : IGameObject, Interfaces.IDrawable, ICollidable
+    public class Item : GameObject, IGameObject, Interfaces.IDrawable, ICollidable, IAnimatable
     {
-        private Vector2 position;
-        private Texture2D sprite;
+        #region fields
         private ItemTypes type;
-        private Rectangle boundingBox;
+        private Rectangle futurePosition;
+        private int delay;
+        private double timer;
+        private Color color;
+        private string drawString;
+        #endregion
 
+        #region Constructor
         public Item(Texture2D sprite, Vector2 position, ItemTypes type)
         {
+            this.drawString = "";
             this.Position = position;
             this.SpriteSheet = sprite;
             this.Type = type;
-            this.boundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
+            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, 32, 32);
+            color = Color.Black;
+        }
+        #endregion
+
+        #region Properties
+        public Rectangle FuturePosition
+        {
+            get { return this.futurePosition; }
+            protected set { this.futurePosition = value; }
         }
 
         public ItemTypes Type
@@ -35,135 +52,105 @@ namespace Midori.GameObjects.Items
             }
         }
 
-        public Rectangle BoundingBox
+        public int CurrentFrame
         {
             get
             {
-                return this.boundingBox;
+                return 0;
             }
         }
 
-        public int BoundingBoxX
+        public int BasicAnimationFrameCount
         {
             get
             {
-                return this.boundingBox.X;
+                return 0;
             }
+        }
 
+        public double Timer
+        {
+            get
+            {
+                return this.timer;
+            }
+            private set
+            {
+                this.timer = value;
+            }
+        }
+
+        public int Delay
+        {
+            get
+            {
+                return this.delay;
+            }
             set
             {
-                this.boundingBox.X = value;
+                this.delay = value;
             }
         }
 
-        public int BoundingBoxY
+        public Rectangle SourceRect
         {
             get
             {
-                return this.boundingBox.Y;
-            }
-
-            set
-            {
-                this.boundingBox.Y = value;
+                return new Rectangle();
             }
         }
+        #endregion
 
-        public int Id
+        #region Methods
+        private bool ValidateLowerPosition()
         {
-            get
+            this.FuturePosition = new Rectangle(
+                (int)this.BoundingBox.X,
+                (int)(this.BoundingBox.Y + 13),
+                this.BoundingBox.Width,
+                this.BoundingBox.Height);
+            if (World.CheckForCollisionWithTiles(this.FuturePosition))
             {
-                throw new NotImplementedException();
+                return false;
             }
-
-            set
+            else
             {
-                throw new NotImplementedException();
+                return true;
             }
         }
 
-        public bool IsActive
+        public void Update(GameTime gameTime)
         {
-            get
+            
+            if (this.ValidateLowerPosition())
             {
-                throw new NotImplementedException();
+                this.Y += 13;
             }
 
-            set
+            this.BoundingBoxX = (int)this.X;
+            this.BoundingBoxY = (int)this.Y;
+
+            if (this.BoundingBox.Intersects(Engine.Player.BoundingBox))
             {
-                throw new NotImplementedException();
+                this.color = Color.DarkGoldenrod;
+                this.drawString = "Pick me the fuck up";
+            }
+            else
+            {
+                this.drawString = "";
+                this.color = Color.Black;
             }
         }
 
-        public Vector2 Position
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            get
-            {
-                return this.position;
-            }
-            protected set
-            {
-                this.position = value;
-            }
+            spriteBatch.DrawString(TextureLoader.Font, this.drawString, new Vector2(this.Position.X - (TextureLoader.Font.MeasureString(this.drawString).X/2), this.Position.Y - 20), color * 2f);
+            spriteBatch.Draw(texture: this.SpriteSheet,
+                destinationRectangle: new Rectangle((int)this.Position.X,
+                (int)this.Position.Y, 32, 32),
+                color: color * 0.6f,
+                origin: new Vector2(this.SpriteSheet.Width / 2, this.SpriteSheet.Height / 2));
         }
-
-        public Texture2D SpriteSheet
-        {
-            get
-            {
-                return this.sprite;
-            }
-            protected set
-            {
-                this.SpriteSheet = value;
-            }
-        }
-
-        public int TextureHeight
-        {
-            get
-            {
-                return this.sprite.Height;
-            }
-        }
-
-        public int TextureWidth
-        {
-            get
-            {
-                return this.sprite.Width;
-            }
-        }
-
-        public float X
-        {
-            get
-            {
-                return this.position.X;
-            }
-
-            set
-            {
-                this.position.X = value;
-            }
-        }
-
-        public float Y
-        {
-            get
-            {
-                return this.position.Y;
-            }
-
-            set
-            {
-                this.position.Y = value;
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.SpriteSheet, this.Position, Color.White);
-        }
+        #endregion
     }
 }

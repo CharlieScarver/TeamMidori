@@ -73,8 +73,8 @@ namespace Midori.Core
 
         public static void InitializeItems()
         {
-            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(130, 900), ItemTypes.Heal));
-            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(130*2, 900), ItemTypes.Heal));
+            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(600, 100), ItemTypes.Heal));
+            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(780, 100), ItemTypes.Heal));
 
         }
 
@@ -143,6 +143,7 @@ namespace Midori.Core
             objects.AddRange(tiles);
             objects.AddRange(enemies);
             objects.AddRange(projectiles);
+            objects.AddRange(items);
         }
 
         public static void InitializeUpdatableObjects()
