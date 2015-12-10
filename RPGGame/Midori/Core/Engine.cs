@@ -73,8 +73,8 @@ namespace Midori.Core
 
         public static void InitializeItems()
         {
-            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(600, 100), ItemTypes.Heal));
-            items.Add(new Item(TextureLoader.TheOnePixel, new Vector2(780, 100), ItemTypes.Heal));
+            items.Add(new Item(TextureLoader.Box, new Vector2(600, 100), ItemTypes.Heal));
+            items.Add(new Item(TextureLoader.Box, new Vector2(780, 100), ItemTypes.Heal));
 
         }
 

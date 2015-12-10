@@ -19,21 +19,27 @@ namespace Midori.GameObjects.Items
         private double timer;
         private Color color;
         private string drawString;
+        private int currentFrame;
+        private Rectangle sourceRect;
         #endregion
 
         #region Constructor
         public Item(Texture2D sprite, Vector2 position, ItemTypes type)
         {
+            this.TextureWidth = 40;
+            this.TextureHeight = 40;
             this.drawString = "";
             this.Position = position;
             this.SpriteSheet = sprite;
             this.Type = type;
-            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, 32, 32);
-            color = Color.Black;
+            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
+            this.SourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
+            this.delay = 60;
         }
         #endregion
 
         #region Properties
+
         public Rectangle FuturePosition
         {
             get { return this.futurePosition; }
@@ -54,9 +60,14 @@ namespace Midori.GameObjects.Items
 
         public int CurrentFrame
         {
-            get
+            get { return currentFrame; }
+            private set
             {
-                return 0;
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("CurrentFrame cannot be negative.");
+                }
+                this.currentFrame = value;
             }
         }
 
@@ -64,7 +75,7 @@ namespace Midori.GameObjects.Items
         {
             get
             {
-                return 0;
+                return 3;
             }
         }
 
@@ -96,8 +107,9 @@ namespace Midori.GameObjects.Items
         {
             get
             {
-                return new Rectangle();
+                return this.sourceRect;
             }
+            set { this.sourceRect = value; }
         }
         #endregion
 
@@ -121,7 +133,9 @@ namespace Midori.GameObjects.Items
 
         public void Update(GameTime gameTime)
         {
-            
+            this.sourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
+            this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
+               
             if (this.ValidateLowerPosition())
             {
                 this.Y += 13;
@@ -140,16 +154,27 @@ namespace Midori.GameObjects.Items
                 this.drawString = "";
                 this.color = Color.Black;
             }
+
+            if (this.timer >= this.delay)
+            {
+                this.currentFrame++;
+                if (this.CurrentFrame > this.BasicAnimationFrameCount)
+                {
+                    this.CurrentFrame = 0;
+                }
+                this.timer = 0;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(TextureLoader.Font, this.drawString, new Vector2(this.Position.X - (TextureLoader.Font.MeasureString(this.drawString).X/2), this.Position.Y - 20), color * 2f);
             spriteBatch.Draw(texture: this.SpriteSheet,
+                sourceRectangle: this.SourceRect,
                 destinationRectangle: new Rectangle((int)this.Position.X,
-                (int)this.Position.Y, 32, 32),
-                color: color * 0.6f,
-                origin: new Vector2(this.SpriteSheet.Width / 2, this.SpriteSheet.Height / 2));
+                (int)this.Position.Y, 40, 40),
+                color: Color.White
+                );
         }
         #endregion
     }

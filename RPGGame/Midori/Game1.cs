@@ -118,7 +118,7 @@ namespace Midori
             {
                 camera.Zoom -= 1f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
+            player.Update(gameTime);
             camera.Chase(gameTime);
             camera.Update(gameTime);
 
