@@ -62,6 +62,14 @@ namespace Midori.DebugSystem
                                         obj.item.TextureHeight),
                 color: Color.Black * 0.4f);
 
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel,
+                destinationRectangle: new Rectangle((int)obj.item.BoundingBoxX,
+                                        (int)obj.item.BoundingBoxY,
+                                        obj.item.BoundingBox.Width,
+                                        obj.item.BoundingBox.Height),
+                color: Color.Black * 0.4f);
+
         }
 
         //TODO: Figure a way to get mouse position relative to the current position because

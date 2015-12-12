@@ -44,12 +44,16 @@
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />
     <Compile Include="GameObjects\Projectiles\AyaSmallProjectile.cs" />
+    <Compile Include="GameObjects\Projectiles\GhostProjectile.cs" />
     <Compile Include="GameObjects\Projectiles\Projectile.cs" />
-    <Compile Include="GameObjects\Tile.cs" />
+    <Compile Include="GameObjects\Tiles\GroundTile.cs" />
+    <Compile Include="GameObjects\Tiles\Tile.cs" />
     <Compile Include="Core\World.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Units\Enemies\Bush.cs" />
     <Compile Include="GameObjects\Units\Enemies\Enemy.cs" />
+    <Compile Include="GameObjects\Units\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Units\PlayableCharacters\PlayableCharacter.cs" />
     <Compile Include="GameObjects\Units\PlayableCharacters\Aya.cs" />
     <Compile Include="GameObjects\Units\PlayableCharacters\TempHero.cs" />
@@ -75,8 +79,11 @@
   <ItemGroup>
     <Content Include="Content\Background\bg edit.png" />
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
+    <Content Include="Content\Sprites\blob 100 x 50.png" />
+    <Content Include="Content\Sprites\bush testing 128x128.png" />
     <Content Include="Content\Sprites\death ray 13 x 98.png" />
     <Content Include="Content\Sprites\enemy.png" />
+    <Content Include="Content\Sprites\ghost 128 x 128.png" />
     <Content Include="Content\Sprites\old_guy.png" />
     <Content Include="Content\Sprites\projectiles 101 x 36.png" />
     <Content Include="Content\Sprites\TheOnePixel.png" />

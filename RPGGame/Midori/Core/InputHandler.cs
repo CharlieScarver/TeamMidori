@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Midori.GameObjects.Units.PlayableCharacters;
+using Midori.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Midori.Core
         private static KeyboardState currentKeyboardState;
         private static Rectangle futurePosition;
 
-        public static void HandleInput(GameTime gameTime, PlayableCharacter unit)
+        public static void HandleInput(GameTime gameTime, Aya unit)
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
@@ -23,124 +24,49 @@ namespace Midori.Core
             {
                 // Idle
             }
+
             //Reset any currently ongoing animation
             if (currentKeyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
             {
-                unit.CurrentFrame = 0;
+                unit.ResetAnimationCounter();
             }
 
             if (currentKeyboardState != previousKeyboardState)
             {
+
                 if (!unit.IsAttackingRanged)
                 {
-                    unit.CurrentFrame = 0;
+                    unit.ResetAnimationCounter();
                 }
-                unit.IsMovingRight = false;
-                unit.IsMovingLeft = false;
+                unit.MakeUnitIdle();
             }
 
             // Move Right
             if (currentKeyboardState.IsKeyDown(Keys.Right))
             {                 
-                MoveRight(gameTime, unit);                              
+                unit.ValidateMovementRight();             
             }
 
             // Move Left
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {                
-                MoveLeft(gameTime, unit);                
+                unit.ValidateMovementLeft();
             }
 
             // Jumping
             if (currentKeyboardState.IsKeyDown(Keys.Up) 
                 && previousKeyboardState.IsKeyUp(Keys.Up))
-            {
-                Jump(gameTime, unit);                
+            { 
+                unit.ValidateJump();
             }
 
             // RangedAttack
             if (currentKeyboardState.IsKeyDown(Keys.A)
                 && previousKeyboardState.IsKeyUp(Keys.A))                
             {
-                AttackRanged(gameTime, unit);
+                unit.ValidateRangedAttack();
             }
 
-        }
-
-        private static void MoveRight(GameTime gameTime, PlayableCharacter unit)
-        {
-            if (!unit.IsAttackingRanged)
-            {
-                if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
-                {
-                    unit.IsMovingRight = true;
-                    unit.IsFacingRight = true;
-                }
-                else
-                {
-                    // compensating because origin is in the left top corner
-                    futurePosition = new Rectangle(
-                                (int)(unit.BoundingBox.X + unit.BoundingBox.Width + unit.MovementSpeed),
-                                (int)unit.BoundingBox.Y,
-                                unit.BoundingBox.Width,
-                                unit.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(futurePosition))
-                    {
-                        unit.IsMovingRight = true;
-                        unit.IsFacingRight = true;
-                    }
-                }
-            }
-        }
-
-        private static void MoveLeft(GameTime gameTime, PlayableCharacter unit)
-        {
-            if (!unit.IsAttackingRanged)
-            {
-                if (unit.HasFreePathing || World.CheckForCollisionWithTiles(unit.BoundingBox))
-                {
-                    unit.IsMovingLeft = true;
-                    unit.IsFacingLeft = true;
-                }
-                else
-                {
-                    futurePosition = new Rectangle(
-                            (int)(unit.BoundingBox.X - unit.MovementSpeed),
-                            (int)unit.BoundingBox.Y,
-                            unit.BoundingBox.Width,
-                            unit.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(futurePosition))
-                    {
-                        unit.IsMovingLeft = true;
-                        unit.IsFacingLeft = true;
-                    }
-                }
-            }
-        }
-
-        private static void Jump(GameTime gameTime, PlayableCharacter unit)
-        {
-            if (!unit.IsAttackingRanged 
-                && unit.JumpCounter < 2)
-            {
-                unit.IsFalling = false;
-
-                unit.IsJumping = true;
-                unit.JumpSpeed = unit.DefaultJumpSpeed;
-                unit.JumpCounter++;
-            }
-        }
-
-        private static void AttackRanged(GameTime gameTime, PlayableCharacter unit)
-        {
-            if (!unit.IsAttackingRanged
-                && !unit.IsJumping
-                && !unit.IsFalling)
-            {
-                unit.IsMovingRight = false;
-                unit.IsMovingLeft = false;
-                unit.IsAttackingRanged = true;
-            }
         }
 
     }

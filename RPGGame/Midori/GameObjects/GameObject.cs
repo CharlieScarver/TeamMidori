@@ -23,6 +23,8 @@ namespace Midori.GameObjects
             this.BoundingBox = new Rectangle();
         }
 
+        # region Properties
+
         public int Id { get; set; }
 
         public bool IsActive { get; set; }
@@ -89,7 +91,15 @@ namespace Midori.GameObjects
             set { this.boundingBox.Y = value; }
         }
 
+        #endregion
+
         // Methods
+        public void Nullify()
+        {
+            this.IsActive = false;
+            this.BoundingBox = new Rectangle();
+        }
+
         public void DrawBB(SpriteBatch spriteBatch, Color boundingBoxColor)
         {
             spriteBatch.Draw(TextureLoader.TheOnePixel, this.BoundingBox, boundingBoxColor);

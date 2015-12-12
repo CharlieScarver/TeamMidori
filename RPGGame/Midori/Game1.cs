@@ -6,6 +6,8 @@ using Midori.Core.TextureLoading;
 using Midori.DebugSystem;
 using Midori.GameObjects;
 using Midori.GameObjects.Projectiles;
+using Midori.GameObjects.Units;
+using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Units.PlayableCharacters;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +27,8 @@ namespace Midori
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1900;//1920;
+            graphics.PreferredBackBufferHeight = 1000;//1080;
             this.Window.AllowUserResizing = true;
             //this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -40,7 +42,6 @@ namespace Midori
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             base.Initialize();            
 
@@ -62,8 +63,6 @@ namespace Midori
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
             TextureLoader.Load(this.Content);
             
         }
@@ -84,18 +83,33 @@ namespace Midori
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || !player.IsActive)
                 Exit();
-            // TODO: Add your update logic here
 
             foreach (Interfaces.IUpdatable item in Engine.UpdatableObjects)
             {
                 item.Update(gameTime);
             }
 
-            foreach (Interfaces.IUpdatable projectile in Engine.Projectiles)
+            foreach (Projectile projectile in Engine.Projectiles)
             {
                 projectile.Update(gameTime);
+                foreach (Unit unit in Engine.UpdatableObjects)
+                {
+                    if (World.CheckForCollisionBetween(projectile, unit))
+                    {
+                        if (projectile.Owner is PlayableCharacter && unit is Enemy)
+                        {
+                            unit.GetHitByProjectile(projectile.Owner);
+                            projectile.Nullify();
+                        }
+                        if (projectile.Owner is Enemy && unit is PlayableCharacter)
+                        {
+                            unit.GetHitByProjectile(projectile.Owner);
+                            projectile.Nullify();
+                        }
+                    }
+                }
             }
 
             Engine.CleanInactiveObjects();
@@ -111,8 +125,6 @@ namespace Midori
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
             spriteBatch.Begin();
             spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
 
@@ -126,11 +138,11 @@ namespace Midori
             player.Draw(spriteBatch);
             //player.DrawBB(spriteBatch, Color.Orange);
 
-            //foreach (Unit en in Engine.Enemies)
-            //{
-            //    en.Draw(spriteBatch);
-            //    en.DrawBB(spriteBatch, Content);
-            //}
+            foreach (Enemy en in Engine.Enemies)
+            {
+                en.Draw(spriteBatch);
+                //en.DrawBB(spriteBatch, Color.LightGreen);
+            }
 
             foreach (Projectile proj in Engine.Projectiles)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,52 +10,102 @@ namespace Midori.GameObjects.Units.PlayableCharacters
 {
     public abstract class PlayableCharacter : Unit
     {
-        private bool isFacingLeft;
-        private bool isFacingRight;
-
+        
         public PlayableCharacter()
             : base()
         {
-            this.IsAttackingRanged = false;
-            this.IsFacingLeft = false;
-            this.IsFacingRight = true;
+  
         }
 
-        public bool IsAttackingRanged { get; set; }
+        #region Properties 
 
-        public bool IsFacingLeft 
+
+        #endregion
+
+        #region Methods
+
+        public void ValidateMovementLeft()
         {
-            get { return this.isFacingLeft; }
-            set
+            if (!this.IsAttackingRanged)
             {
-                if (value)
+                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
                 {
-                    this.isFacingRight = false;
+                    this.IsMovingLeft = true;
+                    this.IsFacingLeft = true;
                 }
                 else
                 {
-                    this.isFacingRight = true;
+                    this.FuturePosition = new Rectangle(
+                            (int)(this.BoundingBox.X - this.MovementSpeed),
+                            (int)this.BoundingBox.Y,
+                            this.BoundingBox.Width,
+                            this.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    {
+                        this.IsMovingLeft = true;
+                        this.IsFacingLeft = true;
+                    }
                 }
-                this.isFacingLeft = value;
             }
         }
 
-        public bool IsFacingRight
+        public void ValidateMovementRight()
         {
-            get { return this.isFacingRight; }
-            set
+            if (!this.IsAttackingRanged)
             {
-                if (value)
+                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
                 {
-                    this.isFacingLeft = false;
+                    this.IsMovingRight = true;
+                    this.IsFacingLeft = false;
                 }
                 else
                 {
-                    this.isFacingLeft = true;
+                    // compensating because origin is in the left top corner
+                    this.FuturePosition = new Rectangle(
+                                (int)(this.BoundingBox.X + this.BoundingBox.Width + this.MovementSpeed),
+                                (int)this.BoundingBox.Y,
+                                this.BoundingBox.Width,
+                                this.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    {
+                        this.IsMovingRight = true;
+                        this.IsFacingLeft = false;
+                    }
                 }
-                this.isFacingRight = value;
             }
         }
+
+        public void ValidateJump()
+        {
+            if (!this.IsAttackingRanged
+                && this.JumpCounter < 2)
+            {
+                this.IsFalling = false;
+
+                this.IsJumping = true;
+                this.JumpSpeed = this.DefaultJumpSpeed;
+                this.JumpCounter++;
+            }
+        }
+
+        public void ValidateMeleeAttack()
+        {
+            // TODO
+        }
+
+        public void ValidateRangedAttack()
+        {
+            if (!this.IsAttackingRanged
+                && !this.IsJumping
+                && !this.IsFalling)
+            {
+                this.IsMovingRight = false;
+                this.IsMovingLeft = false;
+                this.IsAttackingRanged = true;
+            }
+        }
+
+        #endregion
 
     }
 }

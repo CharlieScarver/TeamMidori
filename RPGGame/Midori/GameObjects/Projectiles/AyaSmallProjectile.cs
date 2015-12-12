@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Midori.GameObjects.Units;
 
 namespace Midori.GameObjects.Projectiles
 {
@@ -17,7 +18,7 @@ namespace Midori.GameObjects.Projectiles
         private const int basicAnimationFrameCount = 2;
         private const float defaultMovementSpeed = 22;
 
-        public AyaSmallProjectile(Vector2 position, bool movingRight)
+        public AyaSmallProjectile(Vector2 position, bool movingRight, Unit owner)
             : base()
         {
             this.Position = position;
@@ -42,7 +43,9 @@ namespace Midori.GameObjects.Projectiles
                 (int)this.X,
                 (int)this.Y,
                 this.TextureWidth,
-                this.TextureHeight); 
+                this.TextureHeight);
+
+            this.Owner = owner;
 
         }
 
@@ -50,7 +53,7 @@ namespace Midori.GameObjects.Projectiles
         {
             if (World.CheckForCollisionWithWorldBounds(this))
             {
-                this.IsActive = false;
+                this.Nullify();
             }
             else
             {
