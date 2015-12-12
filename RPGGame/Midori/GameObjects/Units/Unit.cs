@@ -11,10 +11,11 @@ using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public abstract class Unit : GameObject, IAnimatable, Interfaces.IUpdatable, IMoveable
+    public abstract class Unit : GameObject, IAnimatableUnit, Interfaces.IUpdatable, IMoveable
     {
         private const int gravity = 13;
         private const int consequentJumps = 2;
+
 
         public Unit()
             : base()
@@ -30,10 +31,17 @@ namespace Midori.GameObjects.Units
             this.IsMovingLeft = false;
             this.IsMovingRight = false; 
             this.HasFreePathing = false;
+
+            this.IsFacingLeft = false;
+
+            this.IsAttackingRanged = false;
         }
 
+        # region Properties
         // Properties
-        public int CurrentFrame { get; set; } //protected
+        public int Health { get; protected set; }
+
+        public int CurrentFrame { get; protected set; }
 
         public int BasicAnimationFrameCount { get; protected set; }
 
@@ -43,28 +51,38 @@ namespace Midori.GameObjects.Units
 
         public Rectangle SourceRect { get; protected set; }
 
-        public float MovementSpeed { get; set; }
+        public float MovementSpeed { get; protected set; }
 
-        public float JumpSpeed { get; set; }
+        public float JumpSpeed { get; protected set; }
 
         public float DefaultMovementSpeed { get; protected set; }
 
         public float DefaultJumpSpeed { get; protected set; }
 
-        public int JumpCounter { get; set; }
+        public int JumpCounter { get; protected set; }
 
         public Rectangle FuturePosition { get; set; }
         
-        public bool IsJumping { get; set; }
+        public bool IsJumping { get; protected set; }
 
-        public bool IsFalling { get; set; }
+        public bool IsFalling { get; protected set; }
 
-        public bool HasFreePathing { get; set; }
+        public bool HasFreePathing { get; protected set; }
 
-        public bool IsMovingRight { get; set; }
+        public bool IsMovingRight { get; protected set; }
 
-        public bool IsMovingLeft { get; set; }
+        public bool IsMovingLeft { get; protected set; }
 
+        public bool IsFacingLeft { get; protected set; }
+
+        public bool IsAttackingRanged { get; protected set; }
+
+        public int DamageRanged { get; protected set; }
+
+
+# endregion 
+
+        # region Non-abstract Methods
         // Non-abstract Methods
         protected void ManageMovement(GameTime gameTime)
         {
@@ -196,10 +214,46 @@ namespace Midori.GameObjects.Units
             }
         }
 
-        
+        protected void BasicAnimationLogic(GameTime gameTime, int delay, int basicAnimationFrameCount)
+        {
+            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            if (this.Timer >= delay)
+            {
+                this.CurrentFrame++;
+
+                if (this.CurrentFrame == basicAnimationFrameCount)
+                {
+                    this.CurrentFrame = 0;
+                }
+
+                this.Timer = 0.0;
+            }
+        }
+
+        public void ResetAnimationCounter()
+        {
+            this.CurrentFrame = 0;
+        }
+
+        public void MakeUnitIdle()
+        {
+            this.IsMovingRight = false;
+            this.IsMovingLeft = false;
+        }
+
+        public void GetHitByProjectile(Unit projectileOwner)
+        {
+            this.Health -= projectileOwner.DamageRanged;
+        }
+
+        # endregion
+
+        # region Abstract Methods
         // Abstract Methods
         public abstract void Update(GameTime gameTime);
+
+        protected abstract void UpdateBoundingBox();
 
         public abstract void AnimateRunningRight(GameTime gameTime);
 
@@ -215,5 +269,6 @@ namespace Midori.GameObjects.Units
 
         public abstract void AnimateFallLeft(GameTime gameTime);
 
+        # endregion
     }
 }

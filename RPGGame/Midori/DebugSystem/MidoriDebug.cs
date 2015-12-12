@@ -69,6 +69,7 @@ namespace Midori.DebugSystem
                                         obj.item.BoundingBox.Width,
                                         obj.item.BoundingBox.Height),
                 color: Color.Black * 0.4f);
+
         }
 
         //TODO: Figure a way to get mouse position relative to the current position because

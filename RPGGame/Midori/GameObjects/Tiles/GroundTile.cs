@@ -1,23 +1,21 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Midori.Core;
+using Midori.Core.TextureLoading;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Midori.GameObjects;
-using Midori.Core.TextureLoading;
 
-namespace Midori.Core
+namespace Midori.GameObjects.Tiles
 {
-    public class Tile : GameObject
+    public class GroundTile : Tile
     {
-        private int type;
 
-        public Tile(Vector2 position, int type)
+        public GroundTile(Vector2 position, int type)
         {
             this.Position = position;
-            this.type = type;
+            
             switch (type)
             {
                 case 1:
@@ -29,10 +27,11 @@ namespace Midori.Core
                 case 3:
                     this.SpriteSheet = TextureLoader.GreenTileEnd;
                     break;
-
+                default:
+                    throw new Exception("Invalid tile type");
             }
-            //this.SourceRect = new Rectangle(0, 192, this.textureWidth, this.textureHeight);
-
+            this.Type = type;
+            
             this.TextureWidth = 128;
             this.TextureHeight = 128;
             this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (this.TextureHeight / 2), this.TextureWidth, 5);
@@ -41,16 +40,7 @@ namespace Midori.Core
             this.IsSolid = true;
         }
 
-        public int Type 
-        {
-            get { return this.type; }
-            private set {
-                if (value < 1 || value > 3)
-                {
-                    throw new ArgumentOutOfRangeException("Type should be between 1 and 3");
-                }
-            }
-        }
+        public int Type { get; private set; }
 
         public bool IsSolid { get; protected set; }
 
@@ -58,6 +48,5 @@ namespace Midori.Core
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position);
         }
-
     }
 }

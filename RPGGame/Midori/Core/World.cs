@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Midori.Interfaces;
+using Midori.GameObjects.Tiles;
 
 
 namespace Midori.Core
@@ -30,7 +31,7 @@ namespace Midori.Core
             return false;
         }
 
-        public static bool CollidesWith(ICollidable firstObj, ICollidable secondObj)
+        public static bool CheckForCollisionBetween(ICollidable firstObj, ICollidable secondObj)
         {
             return firstObj.BoundingBox.Intersects(secondObj.BoundingBox);
         }
@@ -38,7 +39,7 @@ namespace Midori.Core
         // return true if the position collides with a tile
         public static bool CheckForCollisionWithTiles(Rectangle boundingBox)
         {
-            foreach (Tile tile in Engine.Tiles)
+            foreach (GroundTile tile in Engine.Tiles)
             {
                 if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
                 {

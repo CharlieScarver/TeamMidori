@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Midori.GameObjects.Units;
 using Midori.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Midori.GameObjects.Projectiles
             this.SourceRect = new Rectangle();
         }
 
+        # region Properties
+
         public bool IsMovingRight { get; set; }
 
         public int CurrentFrame { get; set; } //protected
@@ -31,8 +34,29 @@ namespace Midori.GameObjects.Projectiles
 
         public float MovementSpeed { get; set; }
 
+        public Unit Owner { get; protected set; }
+
+        #endregion 
+
+        # region Methods
+
+        // Non-abstract Methods
+        protected void ManageMovement(GameTime gameTime)
+        {
+            // Left & Right Movement
+            if (this.IsMovingRight)
+            {
+                this.X += this.MovementSpeed;
+            }
+            else
+            {
+                this.X -= this.MovementSpeed;
+            }
+        }
+
         // Abstract Methods
         public abstract void Update(GameTime gameTime);
 
+        # endregion
     }
 }

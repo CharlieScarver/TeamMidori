@@ -6,12 +6,13 @@ using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
-using Midori.GameObjects.Items;
 using Midori.GameObjects.Projectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Midori.GameObjects.Units.Enemies;
+using Midori.GameObjects.Tiles;
 
 
 namespace Midori.Core
@@ -25,15 +26,8 @@ namespace Midori.Core
 
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
-        private static List<Item> items = new List<Item>();
-
-        public static IEnumerable<Item> Items
-        {
-            get { return Engine.items; }
-        }
-
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
-
+        
         public static IEnumerable<Tile> Tiles
         {
             get { return Engine.tiles; }
@@ -69,56 +63,81 @@ namespace Midori.Core
             get { return Engine.objects; }
         }
 
-        public static Rectangle LevelBounds { get; set; }
-
-        public static void InitializeItems()
-        {
-            items.Add(new Item(TextureLoader.Box, new Vector2(600, 100), ItemTypes.Heal));
-            items.Add(new Item(TextureLoader.Box, new Vector2(780, 100), ItemTypes.Heal));
-
-        }
-
         public static void InitializeTiles()
         {
             // lowest
-            tiles.Add(new Tile(new Vector2(128 * 0, 900), 1));
-            tiles.Add(new Tile(new Vector2(128 * 1, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 2, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 3, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 4, 900), 3));
+            tiles.Add(new GroundTile(new Vector2(128 * 0, 900), 1));
+            tiles.Add(new GroundTile(new Vector2(128 * 1, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 2, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 3, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 4, 900), 2));
+            //----
+            tiles.Add(new GroundTile(new Vector2(128 * 5, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 6, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 7, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 8, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 9, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 10, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 11, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 12, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 13, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 14, 900), 3));
 
-            tiles.Add(new Tile(new Vector2(128 * 10, 900), 1));
-            tiles.Add(new Tile(new Vector2(128 * 11, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 12, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 13, 900), 2));
-            tiles.Add(new Tile(new Vector2(128 * 14, 900), 3));
+
+            tiles.Add(new GroundTile(new Vector2(128 * 10, 900), 1));
+            tiles.Add(new GroundTile(new Vector2(128 * 11, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 12, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 13, 900), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 14, 900), 3));
 
             // middle
-            tiles.Add(new Tile(new Vector2(128 * 6, 550), 1));
-            tiles.Add(new Tile(new Vector2(128 * 7, 550), 2));
-            tiles.Add(new Tile(new Vector2(128 * 8, 550), 2));
-            tiles.Add(new Tile(new Vector2(128 * 9, 550), 2));
-            tiles.Add(new Tile(new Vector2(128 * 10, 550), 3));
+            tiles.Add(new GroundTile(new Vector2(128 * 6, 550), 1));
+            tiles.Add(new GroundTile(new Vector2(128 * 7, 550), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 8, 550), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 9, 550), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 10, 550), 3));
 
             // highest
-            tiles.Add(new Tile(new Vector2(128 * 1, 200), 1));
-            tiles.Add(new Tile(new Vector2(128 * 2, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 3, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 4, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 7, 200), 3));
-            tiles.Add(new Tile(new Vector2(128 * 5, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 6, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 1, 200), 1));
+            tiles.Add(new GroundTile(new Vector2(128 * 2, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 3, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 4, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 7, 200), 3));
+            tiles.Add(new GroundTile(new Vector2(128 * 5, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 6, 200), 2));
 
-            tiles.Add(new Tile(new Vector2(128 * 10, 200), 1));
-            tiles.Add(new Tile(new Vector2(128 * 11, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 12, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 13, 200), 2));
-            tiles.Add(new Tile(new Vector2(128 * 14, 200), 3));
+            tiles.Add(new GroundTile(new Vector2(128 * 10, 200), 1));
+            tiles.Add(new GroundTile(new Vector2(128 * 11, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 12, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 13, 200), 2));
+            tiles.Add(new GroundTile(new Vector2(128 * 14, 200), 3));
 
-            for (int i = 0; i < Engine.LevelBounds.Width; i += TextureLoader.GreenTileMiddle.Width)
-            {
-                tiles.Add(new Tile(new Vector2(i, Engine.LevelBounds.Height / 1.5f), 2));
-            }
+
+            //int counter = 1;
+            //for (int i = 5; i < 1920; i += 128)
+            //{
+
+            //    switch (counter)
+            //    {
+            //        case 1:
+            //            tiles.Add(new GroundTile(new Vector2(i, 500), 1));
+            //            break;
+            //        case 2:
+            //        case 3:
+            //            tiles.Add(new GroundTile(new Vector2(i, 500), 2));
+            //            break;
+            //        case 4:
+            //            tiles.Add(new GroundTile(new Vector2(i, 500), 3));
+            //            break;
+            //    }
+
+            //    counter++;
+            //    if (counter == 5)
+            //    {
+            //        counter = 1;
+            //        i += 128 * 2;
+            //    }
+            //}
         }
 
 
@@ -133,8 +152,9 @@ namespace Midori.Core
 
         public static void InitializeEnemies()
         {
-            //enemies.Add(new TempEnemy(new Vector2(200, 150)));
-            //enemies.Add(new TempEnemy(new Vector2(850, 150)));
+            //enemies.Add(new Bush(new Vector2(1700, 600)));
+            enemies.Add(new Ghost(new Vector2(1000, 600)));
+            enemies.Add(new Ghost(new Vector2(120, 30)));
         }
 
         public static void InitializeObjects()
@@ -143,7 +163,6 @@ namespace Midori.Core
             objects.AddRange(tiles);
             objects.AddRange(enemies);
             objects.AddRange(projectiles);
-            objects.AddRange(items);
         }
 
         public static void InitializeUpdatableObjects()
@@ -172,10 +191,19 @@ namespace Midori.Core
             {
                 if (!item.IsActive)
                 {
+                    //item.Nullify();
                     objects.Remove(item);
                     if (projectiles.Contains(item))
                     {
                         projectiles.Remove((Projectile)item);
+                    }
+                    else if (enemies.Contains(item))
+                    {
+                        enemies.Remove((Enemy)item);
+                    }
+                    else if (item is PlayableCharacter)
+                    {
+                        player.Nullify();
                     }
                 }
             }
