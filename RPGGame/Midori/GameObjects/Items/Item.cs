@@ -10,7 +10,7 @@ using Midori.Core.TextureLoading;
 
 namespace Midori.GameObjects.Items
 {
-    public class Item : GameObject, IGameObject, Interfaces.IDrawable, ICollidable, IAnimatable
+    public class Item : GameObject, Interfaces.IUpdatable, IAnimatable
     {
         #region fields
         private ItemTypes type;
@@ -123,12 +123,6 @@ namespace Midori.GameObjects.Items
 
         #region Methods
 
-        public void Nulify()
-        {
-            this.IsActive = false;
-            this.BoundingBox = new Rectangle();
-        }
-
         private bool ValidateLowerPosition()
         {
             this.FuturePosition = new Rectangle(
@@ -161,7 +155,7 @@ namespace Midori.GameObjects.Items
 
             if (this.BoundingBox.Intersects(Engine.Player.BoundingBox))
             {
-                this.Nulify();
+                this.Nullify();
             }
             else
             {

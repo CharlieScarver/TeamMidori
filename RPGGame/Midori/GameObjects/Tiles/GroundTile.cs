@@ -11,21 +11,42 @@ namespace Midori.GameObjects.Tiles
 {
     public class GroundTile : Tile
     {
+        private const int DefaultBoundingBoxHeight = 30;
+        private const int StartEndBoundingBoxOffset = 40;
 
         public GroundTile(Vector2 position, string type)
         {
             this.Position = position;
+
+            this.TextureWidth = 128;
+            this.TextureHeight = 128;
+
+            this.BoundingBox = new Rectangle(
+                (int)this.Position.X, 
+                (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
+                this.TextureWidth, 
+                GroundTile.DefaultBoundingBoxHeight);
             
             switch (type)
             {
                 case "(":
                     this.SpriteSheet = TextureLoader.GreenTileStart;
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X + GroundTile.StartEndBoundingBoxOffset, 
+                        (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
+                        this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
+                        GroundTile.DefaultBoundingBoxHeight);
                     break;
                 case "_":
                     this.SpriteSheet = TextureLoader.GreenTileMiddle;
                     break;
                 case ")":
                     this.SpriteSheet = TextureLoader.GreenTileEnd;
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X, 
+                        (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
+                        this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
+                        GroundTile.DefaultBoundingBoxHeight);
                     break;
                 case "4":
                     this.SpriteSheet = TextureLoader.CornerTileLeft;
@@ -33,44 +54,31 @@ namespace Midori.GameObjects.Tiles
                 case "5":
                     this.SpriteSheet = TextureLoader.CornerTileRight;
                     break;
-                case "6":
-                    this.SpriteSheet = TextureLoader.LeftWallTile;
-                    break;
-                case "7":
-                    this.SpriteSheet = TextureLoader.RightWallTile;
-                    break;
                 case "8":
                     this.SpriteSheet = TextureLoader.GroundTileStart;
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X + GroundTile.StartEndBoundingBoxOffset, 
+                        (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
+                        this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
+                        GroundTile.DefaultBoundingBoxHeight);
                     break;
                 case "9":
                     this.SpriteSheet = TextureLoader.GroundTileEnd;
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X, 
+                        (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
+                        this.TextureWidth - GroundTile.StartEndBoundingBoxOffset,
+                        GroundTile.DefaultBoundingBoxHeight);
                     break;
                 case "2":
                     this.SpriteSheet = TextureLoader.GroundTileMiddle;
                     break;
-                case "A":
-                    this.SpriteSheet = TextureLoader.InnerGroundTile;
-                    break;
                 default:
-                    throw new Exception("Invalid tile type");
+                    throw new ArgumentException("Invalid tile type");
             }
             this.Type = type;
-            
-            this.TextureWidth = 128;
-            this.TextureHeight = 128;
-            this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (this.TextureHeight / 2), this.TextureWidth, 5);
-            //this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y - 12 + (128 / 2), 128, 100);
-
+           
             this.IsSolid = true;
-        }
-
-        public string Type { get; private set; }
-
-        public bool IsSolid { get; protected set; }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.SpriteSheet, this.Position);
-        }
+        }      
     }
 }

@@ -128,33 +128,7 @@ namespace Midori.Core
             //tiles.Add(new GroundTile(new Vector2(128 * 12, 200), 2));
             //tiles.Add(new GroundTile(new Vector2(128 * 13, 200), 2));
             //tiles.Add(new GroundTile(new Vector2(128 * 14, 200), 3));
-
-
-            //int counter = 1;
-            //for (int i = 5; i < 1920; i += 128)
-            //{
-
-            //    switch (counter)
-            //    {
-            //        case 1:
-            //            tiles.Add(new GroundTile(new Vector2(i, 500), 1));
-            //            break;
-            //        case 2:
-            //        case 3:
-            //            tiles.Add(new GroundTile(new Vector2(i, 500), 2));
-            //            break;
-            //        case 4:
-            //            tiles.Add(new GroundTile(new Vector2(i, 500), 3));
-            //            break;
-            //    }
-
-            //    counter++;
-            //    if (counter == 5)
-            //    {
-            //        counter = 1;
-            //        i += 128 * 2;
-            //    }
-            //}
+                       
         }
 
 
@@ -209,6 +183,10 @@ namespace Midori.Core
                         {
                             player = new Aya(new Vector2(i*128, lineCount*128));
                         }
+                        else if (line[i] == '6' || line[i] == '7' || line[i] == 'A')
+                        {
+                            tiles.Add(new WallTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
+                        }                        
                         else if (line[i] != '0')
                         {
                             tiles.Add(new GroundTile(new Vector2(i*128, lineCount*128), line[i].ToString()));

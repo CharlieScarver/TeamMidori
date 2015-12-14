@@ -54,6 +54,7 @@
     <Compile Include="Core\World.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Tiles\WallBorderTile.cs" />
     <Compile Include="GameObjects\Units\Enemies\Bush.cs" />
     <Compile Include="GameObjects\Units\Enemies\Enemy.cs" />
     <Compile Include="GameObjects\Units\Enemies\Ghost.cs" />
@@ -96,11 +97,17 @@
     <Content Include="Content\Sprites\old_guy.png" />
     <Content Include="Content\Sprites\projectiles 101 x 36.png" />
     <Content Include="Content\Sprites\TheOnePixel.png" />
-    <Content Include="Content\Tiles\End road left.png" />
-    <Content Include="Content\Tiles\End road right.png" />
-    <Content Include="Content\Tiles\Main road.png" />
-    <Content Include="Content\Tiles\Tile0.png" />
-    <Content Include="Content\Tiles\Tile1.png" />
+    <Content Include="Content\Tiles\%28.png" />
+    <Content Include="Content\Tiles\%29.png" />
+    <Content Include="Content\Tiles\2.png" />
+    <Content Include="Content\Tiles\4.png" />
+    <Content Include="Content\Tiles\5.png" />
+    <Content Include="Content\Tiles\6.png" />
+    <Content Include="Content\Tiles\7.png" />
+    <Content Include="Content\Tiles\8.png" />
+    <Content Include="Content\Tiles\9.png" />
+    <Content Include="Content\Tiles\A.png" />
+    <Content Include="Content\Tiles\_.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +117,6 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Content\Fonts\Font.spritefont" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

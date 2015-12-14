@@ -39,7 +39,7 @@ namespace Midori.Core
         // return true if the position collides with a tile
         public static bool CheckForCollisionWithTiles(Rectangle boundingBox)
         {
-            foreach (GroundTile tile in Engine.Tiles)
+            foreach (Tile tile in Engine.Tiles)
             {
                 if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
                 {

@@ -153,11 +153,51 @@ namespace Midori.GameObjects.Units
             // Left & Right Movement
             if (this.IsMovingLeft)
             {
-                this.X -= this.MovementSpeed;
+                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                {
+                    this.X -= this.MovementSpeed;
+                }
+                else
+                {
+                    this.FuturePosition = new Rectangle(
+                            (int)(this.BoundingBox.X - this.MovementSpeed),
+                            (int)this.BoundingBox.Y,
+                            this.BoundingBox.Width,
+                            this.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    {
+                        this.X -= this.MovementSpeed;
+                    }
+                    else
+                    {
+                        this.IsMovingLeft = false;
+                    }
+                }
+                
             }
             else if (this.IsMovingRight)
             {
-                this.X += this.MovementSpeed;
+                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                {
+                    this.X += this.MovementSpeed;
+                }
+                else
+                {
+                    this.FuturePosition = new Rectangle(
+                                (int)(this.BoundingBox.X + this.BoundingBox.Width + this.MovementSpeed),
+                                (int)this.BoundingBox.Y,
+                                this.BoundingBox.Width,
+                                this.BoundingBox.Height);
+                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    {
+                        this.X += this.MovementSpeed;
+                    }
+                    else
+                    {
+                        this.IsMovingRight = false;
+                    }
+                }
+                
             }
 
             // Return from opposite side if left the field

@@ -19,5 +19,14 @@ namespace Midori.Core
 
         }
 
+        public bool IsSolid { get; protected set; }
+
+        public string Type { get; protected set; }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(this.SpriteSheet, this.Position, Color.Yellow);
+        }
+
     }
 }
