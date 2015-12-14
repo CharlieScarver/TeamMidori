@@ -11,6 +11,7 @@ using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Units.PlayableCharacters;
 using System.Collections.Generic;
 using System.Linq;
+using Midori.GameObjects.Items;
 
 namespace Midori
 {
@@ -23,15 +24,16 @@ namespace Midori
         SpriteBatch spriteBatch;
         PlayableCharacter player;
         MidoriDebug debug;
+        private Camera2D camera;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1900;//1920;
-            graphics.PreferredBackBufferHeight = 1000;//1080;
+            
             this.Window.AllowUserResizing = true;
-            //this.IsMouseVisible = true;
+            this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -42,15 +44,23 @@ namespace Midori
         /// </summary>
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferWidth = graphics.GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = graphics.GraphicsDevice.DisplayMode.Height;
+            graphics.ApplyChanges();
+            //Engine.LevelBounds = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width * 2, graphics.GraphicsDevice.Viewport.Height);
 
-            base.Initialize();            
-
+            base.Initialize();
+            
             Engine.InitializeTiles();
+            Engine.InitializeLevel("Level1");
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
             Engine.InitializeObjects();
             Engine.InitializeUpdatableObjects();
-
+            Engine.InitializeItems();
+            camera = new Camera2D(graphics.GraphicsDevice);
+            camera.SetSceneBounds(new Rectangle(50, 50, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height));
+            camera.SetChaseTarget(player);
             debug = new MidoriDebug(Content, spriteBatch);
         }
 
@@ -112,6 +122,22 @@ namespace Midori
                 }
             }
 
+            foreach (var item in Engine.Items)
+            {
+                if (item.IsActive)
+                {
+                    item.Update(gameTime);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                Engine.ChangeLevel("Level2");
+                camera.SetSceneBounds(new Rectangle(50, 50, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height));
+            }
+
+            camera.Chase(gameTime);
+            camera.Update(gameTime);
             Engine.CleanInactiveObjects();
 
             base.Update(gameTime);
@@ -123,10 +149,15 @@ namespace Midori
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
-            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0,0,graphics.GraphicsDevice.Viewport.Width,graphics.GraphicsDevice.Viewport.Height), Color.White);
+            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, 1920, 1080), Color.White);
+            debug.MouseStats();
+
+            spriteBatch.End();
+
+            spriteBatch.Begin(transformMatrix: camera.Transform);
 
             foreach (Tile tile in Engine.Tiles)
             {
@@ -150,6 +181,14 @@ namespace Midori
                 //proj.DrawBB(spriteBatch, Color.Aqua);
             }
 
+            foreach (Item item in Engine.Items)
+            {
+                if (item.IsActive)
+                {
+                    item.Draw(spriteBatch);
+                }
+            }
+            debug.SetCameraPosition(camera.Position);
             debug.StatsOnHover();
 
             spriteBatch.End();

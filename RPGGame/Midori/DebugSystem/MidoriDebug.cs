@@ -17,6 +17,7 @@ namespace Midori.DebugSystem
         private int indent;
         private MouseState currentMouseState;
         private MouseState previousMouseState;
+        private Vector2 cameraPosition;
 
         public MidoriDebug(ContentManager content, SpriteBatch spriteBatch)
         {
@@ -35,6 +36,10 @@ namespace Midori.DebugSystem
 
         private Point MousePosition { get { return new Point(Mouse.GetState().Position.X, Mouse.GetState().Position.Y); } }
 
+        public void SetCameraPosition(Vector2 cameraBounds)
+        {
+            this.cameraPosition = cameraBounds;
+        }
 
         public void HoverDrawing(GameObject obj)
         {
@@ -80,7 +85,7 @@ namespace Midori.DebugSystem
             currentMouseState = Mouse.GetState();
             foreach (var item in Engine.Objects)
             {
-                if (item.BoundingBox.Contains(this.MousePosition))
+                if (item.BoundingBox.Contains(this.MousePosition.ToVector2()))
                 {
                     HoverDrawing(item);
                     if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
@@ -95,7 +100,6 @@ namespace Midori.DebugSystem
             {
                 AnchorDrawing(item);
             }
-            MouseStats();
         }
 
         /// <summary>
@@ -124,9 +128,9 @@ namespace Midori.DebugSystem
             }
         }
 
-        private void MouseStats()
+        public void MouseStats()
         {
-            this.SpriteBatch.DrawString(TextureLoader.Font, this.MousePosition.ToString(), this.MousePosition.ToVector2(), Color.Black);
+            this.SpriteBatch.DrawString(TextureLoader.Font, this.MousePosition.ToString(), MousePosition.ToVector2(), Color.Black);
         }
     }
 }

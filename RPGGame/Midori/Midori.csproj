@@ -81,6 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Background\bg edit.png" />
+    <Content Include="Content\Levels\Level2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Levels\Level1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
     <Content Include="Content\Sprites\blob 100 x 50.png" />
     <Content Include="Content\Sprites\bush testing 128x128.png" />

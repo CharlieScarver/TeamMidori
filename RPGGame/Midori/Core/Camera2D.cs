@@ -23,7 +23,27 @@ public class Camera2D
 
     #endregion
 
+    #region Constructor
+
+    public Camera2D(GraphicsDevice device)
+    {
+        transform = Matrix.Identity;
+        position = Vector2.Zero;
+        chaseTarget = null;
+        zoom = 0.99f;
+        rotation = 0;
+
+        viewport = device.Viewport;
+    }
+
+    #endregion
+
     #region Properties
+
+    public Rectangle SceneBounds
+    {
+        get { return this.sceneBounds; }
+    }
 
     public Matrix Transform
     {
@@ -68,20 +88,7 @@ public class Camera2D
 
     #endregion
 
-    #region Constructor
 
-    public Camera2D(GraphicsDevice device)
-    {
-        transform = Matrix.Identity;
-        position = Vector2.Zero;
-        chaseTarget = null;
-        zoom = 0.99f;
-        rotation = 0;
-
-        viewport = device.Viewport;
-    }
-
-    #endregion
 
     #region Initialization
 

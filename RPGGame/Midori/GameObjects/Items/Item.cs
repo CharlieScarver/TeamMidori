@@ -21,6 +21,7 @@ namespace Midori.GameObjects.Items
         private string drawString;
         private int currentFrame;
         private Rectangle sourceRect;
+        private bool isActive;
         #endregion
 
         #region Constructor
@@ -35,10 +36,17 @@ namespace Midori.GameObjects.Items
             this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
             this.SourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
             this.delay = 60;
+            this.isActive = true;
         }
         #endregion
 
         #region Properties
+
+        public bool IsActive
+        {
+            get { return this.isActive; }
+            set { this.isActive = value; }
+        }
 
         public Rectangle FuturePosition
         {
@@ -114,6 +122,13 @@ namespace Midori.GameObjects.Items
         #endregion
 
         #region Methods
+
+        public void Nulify()
+        {
+            this.IsActive = false;
+            this.BoundingBox = new Rectangle();
+        }
+
         private bool ValidateLowerPosition()
         {
             this.FuturePosition = new Rectangle(
@@ -146,8 +161,7 @@ namespace Midori.GameObjects.Items
 
             if (this.BoundingBox.Intersects(Engine.Player.BoundingBox))
             {
-                this.color = Color.DarkGoldenrod;
-                this.drawString = "Pick me the fuck up";
+                this.Nulify();
             }
             else
             {
@@ -166,9 +180,13 @@ namespace Midori.GameObjects.Items
             }
         }
 
+        public void DrawMessage(SpriteBatch spriteBatch)
+        {
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureLoader.Font, this.drawString, new Vector2(this.Position.X - (TextureLoader.Font.MeasureString(this.drawString).X/2), this.Position.Y - 20), color * 2f);
+            spriteBatch.DrawString(TextureLoader.Font, this.drawString, new Vector2(this.X - (TextureLoader.Font.MeasureString(this.drawString).X / 2), this.Y - 20), Color.Black);
             spriteBatch.Draw(texture: this.SpriteSheet,
                 sourceRectangle: this.SourceRect,
                 destinationRectangle: new Rectangle((int)this.Position.X,
