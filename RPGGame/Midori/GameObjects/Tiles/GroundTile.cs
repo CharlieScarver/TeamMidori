@@ -29,6 +29,9 @@ namespace Midori.GameObjects.Tiles
             
             switch (type)
             {
+                case "A":
+                    this.SpriteSheet = TextureLoader.InnerGroundTile;
+                    break;
                 case "(":
                     this.SpriteSheet = TextureLoader.GreenTileStart;
                     this.BoundingBox = new Rectangle(
@@ -47,6 +50,12 @@ namespace Midori.GameObjects.Tiles
                         (int)this.Position.Y - 12 + (this.TextureHeight / 2), 
                         this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
                         GroundTile.DefaultBoundingBoxHeight);
+                    break;
+                case "6":
+                    this.SpriteSheet = TextureLoader.LeftWallTile;
+                    break;
+                case "7":
+                    this.SpriteSheet = TextureLoader.RightWallTile;
                     break;
                 case "4":
                     this.SpriteSheet = TextureLoader.CornerTileLeft;

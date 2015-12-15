@@ -128,6 +128,21 @@ namespace Midori.DebugSystem
             }
         }
 
+        public void DisplayObjectProps(GameObject obj)
+        {
+            var toDraw = new DebugObject(obj);
+            toDraw.Position = new Vector2(0,0);
+            SpriteBatch.Draw(
+                texture: TextureLoader.TheOnePixel,
+                destinationRectangle: new Rectangle((int)toDraw.Position.X,
+                                        (int)toDraw.Position.Y,
+                                        (int)TextureLoader.Font.MeasureString(toDraw.ToString()).X,
+                                        (int)TextureLoader.Font.MeasureString(toDraw.ToString()).Y),
+                color: Color.Black * 0.4f);
+
+            SpriteBatch.DrawString(TextureLoader.Font, toDraw.ToString(), toDraw.Position, Color.White);
+        }
+
         public void MouseStats()
         {
             this.SpriteBatch.DrawString(TextureLoader.Font, this.MousePosition.ToString(), MousePosition.ToVector2(), Color.Black);

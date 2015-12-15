@@ -25,6 +25,7 @@ namespace Midori
         PlayableCharacter player;
         MidoriDebug debug;
         private Camera2D camera;
+        private float bonusTimer;
 
         public Game1()
         {
@@ -33,7 +34,8 @@ namespace Midori
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
-            
+            this.bonusTimer = 0;
+
         }
 
         /// <summary>
@@ -50,8 +52,6 @@ namespace Midori
             //Engine.LevelBounds = new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width * 2, graphics.GraphicsDevice.Viewport.Height);
 
             base.Initialize();
-            
-            Engine.InitializeTiles();
             Engine.InitializeLevel("Level1");
             player = Engine.InitializePlayer();
             Engine.InitializeEnemies();
@@ -122,6 +122,17 @@ namespace Midori
                 }
             }
 
+            foreach (var bonus in Engine.PlayerTimedBonuses)
+            {
+                if (bonus.CountDownTimer.IsActive)
+                {
+                    if (bonus.CountDownTimer.CheckTimer(gameTime))
+                    {
+                        bonus.IsTimedOut = true;
+                    }
+                }
+            }
+
             foreach (var item in Engine.Items)
             {
                 if (item.IsActive)
@@ -152,7 +163,11 @@ namespace Midori
             
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, 1920, 1080), Color.White);
+            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.White);
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                debug.DisplayObjectProps(player);
+            }
             debug.MouseStats();
 
             spriteBatch.End();

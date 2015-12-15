@@ -31,7 +31,12 @@ namespace Midori.Core
         private static List<GameObject> objects = new List<GameObject>();
         private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
-        
+        private static List<TimedBonusItem> playerTimedBonuses = new List<TimedBonusItem>();
+
+        public static List<TimedBonusItem> PlayerTimedBonuses
+        {
+            get { return Engine.playerTimedBonuses; }
+        } 
         public static Rectangle LevelBounds { get; set; }
 
         public static IEnumerable<Item> Items
@@ -76,59 +81,9 @@ namespace Midori.Core
 
         public static void InitializeItems()
         {
-            items.Add(new Item(TextureLoader.Box, new Vector2(600, 100), ItemTypes.Heal));
-            items.Add(new Item(TextureLoader.Box, new Vector2(780, 100), ItemTypes.Heal));
-        }
-
-        public static void InitializeTiles()
-        {
-            // lowest
-            //tiles.Add(new GroundTile(new Vector2(128 * 0, 900), 1));
-            //tiles.Add(new GroundTile(new Vector2(128 * 1, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 2, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 3, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 4, 900), 2));
-            ////----
-            //tiles.Add(new GroundTile(new Vector2(128 * 5, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 6, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 7, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 8, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 9, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 10, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 11, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 12, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 13, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 14, 900), 3));
-
-
-            //tiles.Add(new GroundTile(new Vector2(128 * 10, 900), 1));
-            //tiles.Add(new GroundTile(new Vector2(128 * 11, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 12, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 13, 900), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 14, 900), 3));
-
-            //// middle
-            //tiles.Add(new GroundTile(new Vector2(128 * 6, 550), 1));
-            //tiles.Add(new GroundTile(new Vector2(128 * 7, 550), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 8, 550), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 9, 550), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 10, 550), 3));
-
-            //// highest
-            //tiles.Add(new GroundTile(new Vector2(128 * 1, 200), 1));
-            //tiles.Add(new GroundTile(new Vector2(128 * 2, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 3, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 4, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 7, 200), 3));
-            //tiles.Add(new GroundTile(new Vector2(128 * 5, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 6, 200), 2));
-
-            //tiles.Add(new GroundTile(new Vector2(128 * 10, 200), 1));
-            //tiles.Add(new GroundTile(new Vector2(128 * 11, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 12, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 13, 200), 2));
-            //tiles.Add(new GroundTile(new Vector2(128 * 14, 200), 3));
-                       
+            items.Add(new HealingItem(TextureLoader.Box, new Vector2(600, 100)));
+            items.Add(new HealingItem(TextureLoader.Box, new Vector2(780, 100)));
+            items.Add(new MoveBonusItem(TextureLoader.Box, new Vector2(860, 100)));
         }
 
 
@@ -138,7 +93,20 @@ namespace Midori.Core
             return player;
         }
 
-        
+        public static void SpawnItem(Vector2 position)
+        {
+            Random rand = new Random();
+            ItemTypes type = (ItemTypes)rand.Next(3);
+            switch (type)
+            {
+                case ItemTypes.Heal:
+                    items.Add(new HealingItem(TextureLoader.Box, position));
+                    break;
+                case ItemTypes.MoveBonus:
+                    items.Add(new MoveBonusItem(TextureLoader.Box, position));
+                    break;
+            }
+        }
 
         public static void InitializeEnemies()
         {
@@ -185,7 +153,7 @@ namespace Midori.Core
                         }
                         else if (line[i] == '6' || line[i] == '7' || line[i] == 'A')
                         {
-                            tiles.Add(new WallTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
+                            tiles.Add(new GroundTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
                         }                        
                         else if (line[i] != '0')
                         {
@@ -193,7 +161,6 @@ namespace Midori.Core
                         }
                     }
                     lineCount++;
-                    System.Diagnostics.Debug.WriteLine(line);
                 }
             }
         }
@@ -227,6 +194,7 @@ namespace Midori.Core
                     else if (enemies.Contains(item))
                     {
                         enemies.Remove((Enemy)item);
+                        Engine.updatableObjects.Remove((IUpdatable)item);
                     }
                     else if (item is PlayableCharacter)
                     {

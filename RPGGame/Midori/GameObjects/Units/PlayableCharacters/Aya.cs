@@ -22,6 +22,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         private const int attackRangedFrameCount = 4;
         private const float defaultMovementSpeed = 10;
         private const float defaultJumpSpeed = 21;
+        private const int defaultHealth = 100;
  
         public Aya(Vector2 position)
             : base()
@@ -58,7 +59,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         // Override Methods
         public override void Update(GameTime gameTime)
         {
-            if (this.Health < 0)
+            if (this.Health <= 0)
             {
                 this.Nullify();
             }
@@ -67,7 +68,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 InputHandler.HandleInput(gameTime, this);
                 this.ManageMovement(gameTime);
                 this.ManageAnimation(gameTime);
-
+                this.CheckCollisionWithItems(gameTime);
+                this.RemoveTimedOutBonuses();
                 this.UpdateBoundingBox();
             }
         }
@@ -81,6 +83,13 @@ namespace Midori.GameObjects.Units.PlayableCharacters
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            var healthPercent = (float) this.Health/Aya.defaultHealth;
+            var healthBarWidth = (int) (100*healthPercent);
+            var healthBar = new Rectangle(((int)this.BoundingBoxX + this.BoundingBox.Width/2) - 50, 
+                (int)this.Position.Y - 20,
+                healthBarWidth,
+                10);
+            spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 

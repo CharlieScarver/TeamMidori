@@ -64,6 +64,7 @@ namespace Midori.GameObjects.Units.Enemies
             if (this.Health < 0)
             {
                 this.Nullify();
+                Engine.SpawnItem(this.Position);
             }
             else
             {

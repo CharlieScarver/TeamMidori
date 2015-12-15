@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Midori.GameObjects.Items;
+using Midori.Interfaces;
 
 namespace Midori.GameObjects.Units.PlayableCharacters
 {
     public abstract class PlayableCharacter : Unit
     {
-        
         public PlayableCharacter()
             : base()
         {
@@ -103,6 +104,64 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 this.IsMovingLeft = false;
                 this.IsAttackingRanged = true;
             }
+        }
+
+        protected void CheckCollisionWithItems(GameTime gameTime)
+        {
+            foreach (var item in Engine.Items)
+            {
+                if (this.BoundingBox.Intersects(item.BoundingBox))
+                {
+                    this.PickUpItem(item, gameTime);
+                    item.Nullify();
+                }
+            }
+        }
+
+        private void PickUpItem(Item item, GameTime gameTime)
+        {
+            if (item is TimedBonusItem)
+            {
+                Engine.PlayerTimedBonuses.Add((TimedBonusItem)item);
+                foreach (var bonus in Engine.PlayerTimedBonuses)
+                {
+                    if (bonus == item)
+                    {
+                        bonus.CountDownTimer.SetTimer(gameTime, bonus.Duration);
+                    }
+                }
+            }
+
+            var itemType = item.Type;
+            if (itemType == ItemTypes.Heal)
+            {
+                MathHelper.Clamp(this.Health, 0, 100);
+                this.Health += 10;
+            }
+            else if (itemType == ItemTypes.MoveBonus)
+            {
+                this.MovementSpeed += 10;
+            }
+        }
+
+        protected void RemoveTimedOutBonuses()
+        {
+            foreach (var bonus in Engine.PlayerTimedBonuses)
+            {
+                if (bonus.IsTimedOut)
+                {
+                    switch (bonus.Type)
+                    {
+                        case ItemTypes.MoveBonus:
+                            this.MovementSpeed -= 10;
+                            break;
+                        case ItemTypes.AttackBonus:
+                            this.DamageRanged -= 10;
+                            break;
+                    }
+                }
+            }
+            Engine.PlayerTimedBonuses.RemoveAll(bonus => bonus.IsTimedOut);
         }
 
         #endregion

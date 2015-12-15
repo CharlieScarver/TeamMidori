@@ -7,10 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Midori.Interfaces;
 using Midori.Core;
 using Midori.Core.TextureLoading;
+using Midori.GameObjects.Units.PlayableCharacters;
 
 namespace Midori.GameObjects.Items
 {
-    public class Item : GameObject, Interfaces.IUpdatable, IAnimatable
+    public abstract class Item : GameObject, Interfaces.IUpdatable, IAnimatable
     {
         #region fields
         private ItemTypes type;
@@ -21,11 +22,10 @@ namespace Midori.GameObjects.Items
         private string drawString;
         private int currentFrame;
         private Rectangle sourceRect;
-        private bool isActive;
         #endregion
 
         #region Constructor
-        public Item(Texture2D sprite, Vector2 position, ItemTypes type)
+        protected Item(Texture2D sprite, Vector2 position, ItemTypes type)
         {
             this.TextureWidth = 40;
             this.TextureHeight = 40;
@@ -36,17 +36,12 @@ namespace Midori.GameObjects.Items
             this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
             this.SourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
             this.delay = 60;
-            this.isActive = true;
         }
         #endregion
 
         #region Properties
 
-        public bool IsActive
-        {
-            get { return this.isActive; }
-            set { this.isActive = value; }
-        }
+        public Color Color { get; protected set; }
 
         public Rectangle FuturePosition
         {
@@ -140,7 +135,7 @@ namespace Midori.GameObjects.Items
             }
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             this.sourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
             this.timer += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -153,16 +148,6 @@ namespace Midori.GameObjects.Items
             this.BoundingBoxX = (int)this.X;
             this.BoundingBoxY = (int)this.Y;
 
-            if (this.BoundingBox.Intersects(Engine.Player.BoundingBox))
-            {
-                this.Nullify();
-            }
-            else
-            {
-                this.drawString = "";
-                this.color = Color.Black;
-            }
-
             if (this.timer >= this.delay)
             {
                 this.currentFrame++;
@@ -174,20 +159,16 @@ namespace Midori.GameObjects.Items
             }
         }
 
-        public void DrawMessage(SpriteBatch spriteBatch)
-        {
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextureLoader.Font, this.drawString, new Vector2(this.X - (TextureLoader.Font.MeasureString(this.drawString).X / 2), this.Y - 20), Color.Black);
             spriteBatch.Draw(texture: this.SpriteSheet,
                 sourceRectangle: this.SourceRect,
                 destinationRectangle: new Rectangle((int)this.Position.X,
                 (int)this.Position.Y, 40, 40),
-                color: Color.White
+                color: this.Color
                 );
         }
+
         #endregion
     }
 }
