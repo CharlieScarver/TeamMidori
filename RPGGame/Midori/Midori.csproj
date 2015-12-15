@@ -51,7 +51,7 @@
     <Compile Include="GameObjects\Projectiles\Projectile.cs" />
     <Compile Include="GameObjects\Tiles\GroundTile.cs" />
     <Compile Include="GameObjects\Tiles\Tile.cs" />
-    <Compile Include="Core\World.cs" />
+    <Compile Include="Core\Collision.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Tiles\WallBorderTile.cs" />

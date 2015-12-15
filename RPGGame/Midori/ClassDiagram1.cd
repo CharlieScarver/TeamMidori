@@ -21,11 +21,11 @@
       <FileName>Core\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.Core.World" Collapsed="true">
+  <Class Name="Midori.Core.Collision" Collapsed="true">
     <Position X="19" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAAAEAAAAAAA=</HashCode>
-      <FileName>Core\World.cs</FileName>
+      <FileName>Core\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Tile" Collapsed="true">
