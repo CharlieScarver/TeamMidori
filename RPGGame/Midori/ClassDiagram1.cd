@@ -42,11 +42,11 @@
       <FileName>GameObjects\Tiles\Tile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.Core.TextureLoading.TextureLoader" Collapsed="true">
+  <Class Name="Midori.TextureLoading.TextureLoader" Collapsed="true">
     <Position X="6.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAkAgIAABAEAACAAABYAAQBAAAIAAEAAQELgAQECABA=</HashCode>
-      <FileName>Core\TextureLoading\TextureLoader.cs</FileName>
+      <FileName>TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.DebugSystem.DebugObject" Collapsed="true">
@@ -179,11 +179,11 @@
       <FileName>GameObjects\Units\Enemies\Ghost.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.GameObjects.Units.PlayableCharacters.Aya" Collapsed="true">
+  <Class Name="Midori.GameObjects.Units.PlayableCharacters.Midori" Collapsed="true">
     <Position X="11.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAACAMgQAhaACQAEGAgAAAAAAAAQAAAAAARAAIA=</HashCode>
-      <FileName>GameObjects\Units\PlayableCharacters\Aya.cs</FileName>
+      <FileName>GameObjects\Units\PlayableCharacters\Midori.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.PlayableCharacter" Collapsed="true">

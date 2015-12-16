@@ -14,7 +14,7 @@ namespace Midori.Core
         private static KeyboardState previousKeyboardState;
         private static KeyboardState currentKeyboardState;
 
-        public static void HandleInput(GameTime gameTime, Midori unit)
+        public static void HandleInput(GameTime gameTime, PlayableCharacter unit)
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();

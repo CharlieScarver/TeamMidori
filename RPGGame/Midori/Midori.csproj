@@ -42,7 +42,7 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\InputHandler.cs" />
     <Compile Include="Camera\Camera2D.cs" />
-    <Compile Include="Core\TextureLoading\TextureLoader.cs" />
+    <Compile Include="TextureLoading\TextureLoader.cs" />
     <Compile Include="Core\Vector.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />
@@ -65,7 +65,7 @@
     <Compile Include="GameObjects\Units\Enemies\Enemy.cs" />
     <Compile Include="GameObjects\Units\Enemies\Ghost.cs" />
     <Compile Include="GameObjects\Units\PlayableCharacters\PlayableCharacter.cs" />
-    <Compile Include="GameObjects\Units\PlayableCharacters\Aya.cs" />
+    <Compile Include="GameObjects\Units\PlayableCharacters\Midori.cs" />
     <Compile Include="GameObjects\Units\PlayableCharacters\TempHero.cs" />
     <Compile Include="GameObjects\Units\Unit.cs" />
     <Compile Include="Interfaces\IAnimatable.cs" />

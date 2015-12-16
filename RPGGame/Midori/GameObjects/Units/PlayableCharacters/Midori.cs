@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Midori.Core;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using Midori.GameObjects.Projectiles;
 using Midori.GameObjects.Units.Enemies;
 using Midori.Interfaces;

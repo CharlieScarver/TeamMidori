@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Midori.Core;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using Midori.GameObjects.Units;
 using System;
 using System.Collections.Generic;

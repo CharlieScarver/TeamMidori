@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Midori.Core.TextureLoading
+namespace Midori.TextureLoading
 {
     public static class TextureLoader
     {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Midori.Core;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;

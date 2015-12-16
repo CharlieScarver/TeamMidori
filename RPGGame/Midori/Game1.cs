@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Midori.Camera;
 using Midori.Core;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using Midori.DebugSystem;
 using Midori.GameObjects;
 using Midori.GameObjects.Projectiles;

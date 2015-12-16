@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using Midori.Core;
 using System;
 using System.Collections.Generic;

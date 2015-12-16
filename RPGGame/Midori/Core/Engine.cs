@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 using Midori.GameObjects;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.PlayableCharacters;
@@ -153,7 +153,7 @@ namespace Midori.Core
                         switch (line[i])
                         {
                             case 's':
-                                player = new Midori(new Vector2(i * 128, lineCount * 128));
+                                player = new Midori.GameObjects.Units.PlayableCharacters.Midori(new Vector2(i * 128, lineCount * 128));
                                 break;
                             case '6':
                             case '7':

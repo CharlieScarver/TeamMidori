@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Midori.GameObjects;
-using Midori.Core.TextureLoading;
+using Midori.TextureLoading;
 
 namespace Midori.Core
 {
