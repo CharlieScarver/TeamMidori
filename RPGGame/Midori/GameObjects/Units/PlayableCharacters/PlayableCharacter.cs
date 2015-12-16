@@ -12,6 +12,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
 {
     public abstract class PlayableCharacter : Unit
     {
+        public event EventHandler PlayerIsDead;
+
         public PlayableCharacter()
             : base()
         {
@@ -24,6 +26,14 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         #endregion
 
         #region Methods
+
+        public void OnPlayerDeath()
+        {
+            if (this.PlayerIsDead != null)
+            {
+                this.PlayerIsDead(this, EventArgs.Empty);
+            }
+        }
 
         public void ValidateMovementLeft()
         {
@@ -106,9 +116,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             }
         }
 
-       
-
-        protected void PickUpItem(Item item, GameTime gameTime)
+        protected void PickUpItem(GameTime gameTime, Item item)
         {
             if (item != null)
             {
@@ -162,6 +170,15 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         #endregion
+
+        public override void Update(GameTime gameTime)
+        {
+            if (this.Health <= 0)
+            {
+                this.OnPlayerDeath();
+                this.Nullify();
+            }
+        }
 
     }
 }

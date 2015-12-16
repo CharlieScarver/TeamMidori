@@ -14,7 +14,7 @@ namespace Midori.Core
 {
     public static class Collision
     {
-        public static Item IsCollidingWithItem()
+        public static Item GetCollidingItem()
         {
             foreach (var item in Engine.Items)
             {

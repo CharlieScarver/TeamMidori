@@ -12,11 +12,11 @@ namespace Midori.GameObjects.Items
 {
     public class AttackBonusItem : TimedBonusItem
     {
-        public AttackBonusItem( Vector2 position) : base(TextureLoader.Box, position, ItemTypes.AttackBonus)
+        public AttackBonusItem( Vector2 position) : base(TextureLoader.AttackBox, position, ItemTypes.AttackBonus)
         {
-            this.Color = Color.Red;
             this.Duration = 10;
             this.IsTimedOut = false;
+            this.Color = Color.White;
         }
     }
 }

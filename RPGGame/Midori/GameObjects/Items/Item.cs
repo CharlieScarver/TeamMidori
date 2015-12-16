@@ -19,7 +19,6 @@ namespace Midori.GameObjects.Items
         private int delay;
         private double timer;
         private Color color;
-        private string drawString;
         private int currentFrame;
         private Rectangle sourceRect;
         #endregion
@@ -29,7 +28,6 @@ namespace Midori.GameObjects.Items
         {
             this.TextureWidth = 40;
             this.TextureHeight = 40;
-            this.drawString = "";
             this.Position = position;
             this.SpriteSheet = sprite;
             this.Type = type;

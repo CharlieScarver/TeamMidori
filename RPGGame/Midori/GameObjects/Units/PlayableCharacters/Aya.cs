@@ -59,6 +59,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         // Override Methods
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (this.Health <= 0)
             {
                 this.Nullify();
@@ -68,7 +70,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 InputHandler.HandleInput(gameTime, this);
                 this.ManageMovement(gameTime);
                 this.ManageAnimation(gameTime);
-                this.PickUpItem(Collision.IsCollidingWithItem(), gameTime);
+                this.PickUpItem(gameTime, Collision.GetCollidingItem());
                 this.RemoveTimedOutBonuses();
                 this.UpdateBoundingBox();
             }
@@ -90,6 +92,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 healthBarWidth,
                 10);
             spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
+
             var indent = 5;
             foreach (var item in Engine.PlayerTimedBonuses)
             {
@@ -103,7 +106,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         # region Animaitons
-        private void ManageAnimation(GameTime gameTime)
+        protected override void ManageAnimation(GameTime gameTime)
         {
             if (this.IsJumping)
             {

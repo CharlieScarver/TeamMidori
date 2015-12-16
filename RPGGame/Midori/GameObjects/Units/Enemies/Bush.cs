@@ -9,20 +9,22 @@ namespace Midori.GameObjects.Units.Enemies
 {
     public class Bush : Enemy
     {
-        private const int textureWidth = 128;
-        private const int textureHeight = 128;
-        private const int delay = 100;
+        private const int textureWidth = 128; //76;
+        private const int textureHeight = 128; //62;
+        private const int delay = 150;
+        private const int idleAnimationFrameCount = 27;
         private const int basicAnimationFrameCount = 11;
-        private const int attackRangedFrameCount = 4;
         private const int attackMeleeFrameCount = 1111111;
         private const float defaultMovementSpeed = 3;
         private const float defaultJumpSpeed = 21;
+        private const int defaultHealth = 150;
 
         public Bush(Vector2 position)
             : base()
         {
             this.Position = position;
-            this.Health = 50;
+            this.MaxHealth = Bush.defaultHealth;
+            this.Health = this.MaxHealth;
 
             this.BoundingBox = new Rectangle(
                 (int)this.X + (Bush.textureWidth / 4) - 5,
@@ -54,9 +56,10 @@ namespace Midori.GameObjects.Units.Enemies
             }
             else
             { 
-                this.IsMovingLeft = true;
+                //this.IsMovingLeft = true;
                 this.ManageMovement(gameTime);
-                this.AnimateRunningLeft(gameTime);
+                this.AnimateIdle(gameTime);
+                //this.AnimateRunningLeft(gameTime);
                 this.UpdateBoundingBox();
             }
         }
@@ -66,11 +69,6 @@ namespace Midori.GameObjects.Units.Enemies
             // update bounding box
             this.BoundingBoxX = (int)this.X + (Bush.textureWidth / 4) - 5;
             this.BoundingBoxY = (int)this.Y + 10;
-        }
-
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.Yellow);
         }
 
         # region Animations
@@ -87,7 +85,8 @@ namespace Midori.GameObjects.Units.Enemies
 
         public override void AnimateIdle(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            throw new NotImplementedException();
+            this.BasicAnimationLogic(gameTime, Bush.delay, Bush.idleAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Bush.textureWidth, Bush.textureHeight * 0, Bush.textureWidth, Bush.textureHeight);
         }
 
         public override void AnimateJumpRight(Microsoft.Xna.Framework.GameTime gameTime)
@@ -116,5 +115,10 @@ namespace Midori.GameObjects.Units.Enemies
 
 
 
+
+        protected override void ManageAnimation(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

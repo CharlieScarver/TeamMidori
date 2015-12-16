@@ -15,7 +15,7 @@ namespace Midori.Core
         public CountDownTimer()
         {
             this.IsActive = false;
-            this.IsComplete = false;
+            this.IsComplete = true;
             this.startCount = 0;
             this.endCount = 0;
         }
@@ -25,6 +25,7 @@ namespace Midori.Core
             this.startCount = gameTime.TotalGameTime.Seconds;
             this.endCount = this.startCount + seconds;
             this.IsActive = true;
+            this.IsComplete = false;
         }
 
         public bool CheckTimer(GameTime gameTime)

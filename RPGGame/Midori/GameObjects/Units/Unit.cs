@@ -16,7 +16,6 @@ namespace Midori.GameObjects.Units
         private const int gravity = 13;
         private const int consequentJumps = 2;
 
-
         public Unit()
             : base()
         {
@@ -40,6 +39,8 @@ namespace Midori.GameObjects.Units
         # region Properties
         // Properties
         public int Health { get; protected set; }
+
+        protected int MaxHealth { get; set; }
 
         public int CurrentFrame { get; protected set; }
 
@@ -294,6 +295,8 @@ namespace Midori.GameObjects.Units
         public abstract void Update(GameTime gameTime);
 
         protected abstract void UpdateBoundingBox();
+
+        protected abstract void ManageAnimation(GameTime gameTime);
 
         public abstract void AnimateRunningRight(GameTime gameTime);
 

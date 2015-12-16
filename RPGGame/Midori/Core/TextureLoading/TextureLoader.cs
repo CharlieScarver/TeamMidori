@@ -34,7 +34,8 @@ namespace Midori.Core.TextureLoading
         public static Texture2D GhostSheet { get; private set; }
         public static Texture2D GhostProjectile { get; private set; }
         public static Texture2D Box { get; private set; }
-        public static Texture2D GreenHealthBox { get; private set; }
+        public static Texture2D AttackBox { get; private set; }
+        public static Texture2D SpeedBox { get; private set; }
         public static Texture2D HealthBox { get; private set; }
 
         public static SpriteFont Font { get; private set; }
@@ -62,12 +63,13 @@ namespace Midori.Core.TextureLoading
             AyaSheet = content.Load<Texture2D>("Sprites/AyaSheet 236x130");
             SmallAyaProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
             DeathRayAyaSheet = content.Load<Texture2D>("Sprites/death ray 13 x 98");
-            BushSheet = content.Load<Texture2D>("Sprites/bush testing 128x128");
+            BushSheet = content.Load<Texture2D>("Sprites/bush 128 x 128");
             GhostSheet = content.Load<Texture2D>("Sprites/ghost 128 x 128");
-            GhostProjectile = content.Load<Texture2D>("Sprites/blob 100 x 50");
-            Box = content.Load<Texture2D>("Sprites/Box");
-            GreenHealthBox = content.Load<Texture2D>("Sprites/GreenHealthBox");
-            HealthBox = content.Load<Texture2D>("Sprites/HealthBox");
+            GhostProjectile = content.Load<Texture2D>("Sprites/blob both ways 100 x 50");
+            Box = content.Load<Texture2D>("Sprites/box");
+            SpeedBox = content.Load<Texture2D>("Sprites/speed crate blue 40 x 40");
+            AttackBox = content.Load<Texture2D>("Sprites/attack crate 40 x 40");
+            HealthBox = content.Load<Texture2D>("Sprites/health crate new 40 x 40");
             Font = content.Load<SpriteFont>("Fonts/Font");
         }
     }

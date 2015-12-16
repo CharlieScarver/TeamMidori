@@ -12,11 +12,11 @@ namespace Midori.GameObjects.Items
 {
     public class MoveBonusItem : TimedBonusItem
     {
-        public MoveBonusItem(Vector2 position) : base(TextureLoader.Box, position, ItemTypes.MoveBonus)
+        public MoveBonusItem(Vector2 position) : base(TextureLoader.SpeedBox, position, ItemTypes.MoveBonus)
         {
             this.Duration = 10;
-            this.Color = Color.DeepSkyBlue;
             this.IsTimedOut = false;
+            this.Color = Color.White;
         }
 
     }

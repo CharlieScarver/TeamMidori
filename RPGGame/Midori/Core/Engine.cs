@@ -150,25 +150,30 @@ namespace Midori.Core
                 {
                     for (int i = 0; i < line.Length; i++)
                     {
-                        if (line[i] == 's')
+                        switch (line[i])
                         {
-                            player = new Aya(new Vector2(i*128, lineCount*128));
-                        }
-                        else if (line[i] == '6' || line[i] == '7' || line[i] == 'A')
-                        {
-                            tiles.Add(new WallTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
-                        }                        
-                        else if (line[i] != '0' && line[i] != 'g')
-                        {
-                            tiles.Add(new GroundTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
-                        }
-                        else if (line[i] == 'g')
-                        {
-                            enemies.Add(new Ghost(new Vector2(i*128, lineCount*128)));
-                        }
-                        else if (line[i] == 'e')
-                        {
-                            //TODO: spawn a random enemy type
+                            case 's':
+                                player = new Aya(new Vector2(i * 128, lineCount * 128));
+                                break;
+                            case '6':
+                            case '7':
+                            case 'A':
+                                tiles.Add(new WallTile(new Vector2(i * 128, lineCount * 128), line[i].ToString()));
+                                break;
+                            case 'g':
+                                enemies.Add(new Ghost(new Vector2(i * 128, lineCount * 128)));
+                                break;
+                            case 'b':
+                                enemies.Add(new Bush(new Vector2(i * 128, lineCount * 128)));
+                                break;
+                            case 'e':
+                                break;
+                            default:
+                                if (line[i] != '0')
+                                {
+                                    tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), line[i].ToString()));
+                                }
+                                break;
                         }
                     }
                     lineCount++;

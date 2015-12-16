@@ -41,8 +41,9 @@
     <Compile Include="Core\CountDownTimer.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\InputHandler.cs" />
-    <Compile Include="Core\Camera2D.cs" />
+    <Compile Include="Camera\Camera2D.cs" />
     <Compile Include="Core\TextureLoading\TextureLoader.cs" />
+    <Compile Include="Core\Vector.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />
     <Compile Include="GameObjects\Items\AttackBonusItem.cs" />
@@ -94,14 +95,19 @@
     <Content Include="Content\Levels\Level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Sprites\attack crate 40 x 40.png" />
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
-    <Content Include="Content\Sprites\blob 100 x 50.png" />
-    <Content Include="Content\Sprites\bush testing 128x128.png" />
+    <Content Include="Content\Sprites\blob both ways 100 x 50.png" />
+    <Content Include="Content\Sprites\box.jpg" />
+    <Content Include="Content\Sprites\bush 128 x 128.png" />
     <Content Include="Content\Sprites\death ray 13 x 98.png" />
     <Content Include="Content\Sprites\enemy.png" />
     <Content Include="Content\Sprites\ghost 128 x 128.png" />
+    <Content Include="Content\Sprites\GreenHealthBox.png" />
+    <Content Include="Content\Sprites\health crate new 40 x 40.png" />
     <Content Include="Content\Sprites\old_guy.png" />
     <Content Include="Content\Sprites\projectiles 101 x 36.png" />
+    <Content Include="Content\Sprites\speed crate blue 40 x 40.png" />
     <Content Include="Content\Sprites\TheOnePixel.png" />
     <Content Include="Content\Tiles\%28.png" />
     <Content Include="Content\Tiles\%29.png" />

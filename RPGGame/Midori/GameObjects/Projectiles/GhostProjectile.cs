@@ -25,7 +25,14 @@ namespace Midori.GameObjects.Projectiles
             this.TextureHeight = GhostProjectile.textureHeight;
 
             this.IsMovingRight = movingRight;
-            this.SourceRect = new Rectangle(0 * GhostProjectile.textureWidth, GhostProjectile.textureHeight * 0, GhostProjectile.textureWidth, GhostProjectile.textureHeight);
+            if (this.IsMovingRight)
+            {
+                this.SourceRect = new Rectangle(0 * GhostProjectile.textureWidth, GhostProjectile.textureHeight * 1, GhostProjectile.textureWidth, GhostProjectile.textureHeight);
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(0 * GhostProjectile.textureWidth, GhostProjectile.textureHeight * 0, GhostProjectile.textureWidth, GhostProjectile.textureHeight);
+            }
 
             this.MovementSpeed = GhostProjectile.defaultMovementSpeed;
 

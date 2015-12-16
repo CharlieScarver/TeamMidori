@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Midori.Camera;
 using Midori.Core;
 using Midori.Core.TextureLoading;
 using Midori.DebugSystem;
@@ -12,6 +13,7 @@ using Midori.GameObjects.Units.PlayableCharacters;
 using System.Collections.Generic;
 using System.Linq;
 using Midori.GameObjects.Items;
+using System;
 
 namespace Midori
 {
@@ -25,7 +27,7 @@ namespace Midori
         PlayableCharacter player;
         MidoriDebug debug;
         private Camera2D camera;
-        private float bonusTimer;
+        bool gameOver;
 
         public Game1()
         {
@@ -34,7 +36,6 @@ namespace Midori
             this.Window.AllowUserResizing = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
-            this.bonusTimer = 0;
 
         }
 
@@ -62,6 +63,10 @@ namespace Midori
             camera.SetSceneBounds(new Rectangle(50, 50, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height));
             camera.SetChaseTarget(player);
             debug = new MidoriDebug(Content, spriteBatch);
+
+            gameOver = false;
+            player.PlayerIsDead += (sender, evArgs) => { gameOver = true; };
+            
         }
 
         /// <summary>
@@ -93,7 +98,7 @@ namespace Midori
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || !player.IsActive)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))// || !player.IsActive)
                 Exit();
 
             foreach (Interfaces.IUpdatable item in Engine.UpdatableObjects)
@@ -163,53 +168,68 @@ namespace Midori
             
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.White);
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+
+            if (!gameOver)
             {
-                debug.DisplayObjectProps(player);
-            }
-            debug.MouseStats();
-
-            spriteBatch.End();
-
-            spriteBatch.Begin(transformMatrix: camera.Transform, blendState: BlendState.AlphaBlend);
-
-            foreach (Tile tile in Engine.Tiles)
-            {
-                tile.Draw(spriteBatch);
-                //tile.DrawBB(spriteBatch, Color.Crimson);
-            }
-            
-
-            //player.DrawBB(spriteBatch, Color.Orange);
-
-            foreach (Enemy en in Engine.Enemies)
-            {
-                en.Draw(spriteBatch);
-                //en.DrawBB(spriteBatch, Color.LightGreen);
-            }
-
-            foreach (Projectile proj in Engine.Projectiles)
-            {
-                proj.Draw(spriteBatch);
-                //proj.DrawBB(spriteBatch, Color.Aqua);
-            }
-
-            foreach (Item item in Engine.Items)
-            {
-                if (item.IsActive)
+                spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.White);
+                if (Keyboard.GetState().IsKeyDown(Keys.Z))
                 {
-                    item.Draw(spriteBatch);
+                    debug.DisplayObjectProps(player);
                 }
-            }
-            player.Draw(spriteBatch);
+                debug.MouseStats();
 
-            debug.SetCameraPosition(camera.Position);
-            debug.StatsOnHover();
+                spriteBatch.End();
+
+                spriteBatch.Begin(transformMatrix: camera.Transform);//, blendState: BlendState.AlphaBlend);
+
+                foreach (Tile tile in Engine.Tiles)
+                {
+                    tile.Draw(spriteBatch);
+                    //tile.DrawBB(spriteBatch, Color.Crimson);
+                }
+          
+                //player.DrawBB(spriteBatch, Color.Orange);
+
+                foreach (Enemy en in Engine.Enemies)
+                {
+                    en.Draw(spriteBatch);
+                    //en.DrawBB(spriteBatch, Color.LightGreen);
+                }
+
+                foreach (Projectile proj in Engine.Projectiles)
+                {
+                    proj.Draw(spriteBatch);
+                    //proj.DrawBB(spriteBatch, Color.Aqua);
+                }
+
+                foreach (Item item in Engine.Items)
+                {
+                    if (item.IsActive)
+                    {
+                        item.Draw(spriteBatch);
+                    }
+                }
+                player.Draw(spriteBatch);
+
+                debug.SetCameraPosition(camera.Position);
+                debug.StatsOnHover();
+            }
+            else
+            {
+                var gameOverMsg = "Game Over";
+             
+                spriteBatch.DrawString(
+                    TextureLoader.Font, 
+                    gameOverMsg,
+                    new Vector2((graphics.GraphicsDevice.Viewport.Width / 2.0f) - TextureLoader.Font.MeasureString(gameOverMsg).X / 2,
+                        (graphics.GraphicsDevice.Viewport.Height / 2.0f) - TextureLoader.Font.MeasureString(gameOverMsg).Y / 2), 
+                    Color.Black);
+            }
 
             spriteBatch.End();
-
+           
             base.Draw(gameTime);
         }
+
     }
 }

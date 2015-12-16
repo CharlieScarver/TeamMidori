@@ -13,7 +13,6 @@ namespace Midori.Core
     {
         private static KeyboardState previousKeyboardState;
         private static KeyboardState currentKeyboardState;
-        private static Rectangle futurePosition;
 
         public static void HandleInput(GameTime gameTime, Aya unit)
         {
