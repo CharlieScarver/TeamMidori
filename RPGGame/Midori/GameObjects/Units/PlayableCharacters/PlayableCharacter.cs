@@ -135,7 +135,6 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             var itemType = item.Type;
             if (itemType == ItemTypes.Heal)
             {
-                MathHelper.Clamp(this.Health, 0, 100);
                 this.Health += 10;
             }
             else if (itemType == ItemTypes.MoveBonus)

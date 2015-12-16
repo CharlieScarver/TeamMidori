@@ -10,7 +10,7 @@ using Midori.Interfaces;
 
 namespace Midori.GameObjects.Items
 {
-    public class MoveBonusItem : TimedBonusItem, ITimeOutable
+    public class MoveBonusItem : TimedBonusItem
     {
         public MoveBonusItem(Texture2D sprite, Vector2 position) : base(sprite, position, ItemTypes.MoveBonus)
         {
