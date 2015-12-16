@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Midori.GameObjects.Items;
 
 namespace Midori.GameObjects.Units.PlayableCharacters
 {
@@ -52,7 +53,6 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         # region Properties
-
         #endregion
 
         # region Methods
@@ -68,7 +68,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 InputHandler.HandleInput(gameTime, this);
                 this.ManageMovement(gameTime);
                 this.ManageAnimation(gameTime);
-                this.CheckCollisionWithItems(gameTime);
+                this.PickUpItem(Collision.IsCollidingWithItem(), gameTime);
                 this.RemoveTimedOutBonuses();
                 this.UpdateBoundingBox();
             }
@@ -90,6 +90,15 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 healthBarWidth,
                 10);
             spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
+            var indent = 5;
+            foreach (var item in Engine.PlayerTimedBonuses)
+            {
+                spriteBatch.Draw(item.SpriteSheet,
+                    new Rectangle(healthBar.Right + indent, healthBar.Top, 10, 10),
+                    new Rectangle(0, 0, 40, 40),
+                    item.Color);
+                indent += 12;
+            }
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 

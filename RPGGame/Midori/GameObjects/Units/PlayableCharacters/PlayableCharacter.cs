@@ -19,7 +19,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         #region Properties 
-
+        protected List<ItemTypes> AffectedBy { get; set; }
 
         #endregion
 
@@ -106,40 +106,38 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             }
         }
 
-        protected void CheckCollisionWithItems(GameTime gameTime)
-        {
-            foreach (var item in Engine.Items)
-            {
-                if (this.BoundingBox.Intersects(item.BoundingBox))
-                {
-                    this.PickUpItem(item, gameTime);
-                    item.Nullify();
-                }
-            }
-        }
+       
 
-        private void PickUpItem(Item item, GameTime gameTime)
+        protected void PickUpItem(Item item, GameTime gameTime)
         {
-            if (item is TimedBonusItem)
+            if (item != null)
             {
-                Engine.PlayerTimedBonuses.Add((TimedBonusItem)item);
-                foreach (var bonus in Engine.PlayerTimedBonuses)
+                if (item is TimedBonusItem)
                 {
-                    if (bonus == item)
+                    Engine.PlayerTimedBonuses.Add((TimedBonusItem)item);
+                    foreach (var bonus in Engine.PlayerTimedBonuses)
                     {
-                        bonus.CountDownTimer.SetTimer(gameTime, bonus.Duration);
+                        if (bonus == item)
+                        {
+                            bonus.CountDownTimer.SetTimer(gameTime, bonus.Duration);
+                        }
                     }
                 }
-            }
 
-            var itemType = item.Type;
-            if (itemType == ItemTypes.Heal)
-            {
-                this.Health += 10;
-            }
-            else if (itemType == ItemTypes.MoveBonus)
-            {
-                this.MovementSpeed += 10;
+                var itemType = item.Type;
+
+                if (itemType == ItemTypes.Heal)
+                {
+                    this.Health += 10;
+                }
+                else if (itemType == ItemTypes.MoveBonus)
+                {
+                    this.MovementSpeed += 10;
+                }
+                else if (itemType == ItemTypes.AttackBonus)
+                {
+                    this.DamageRanged += 10;
+                }
             }
         }
 

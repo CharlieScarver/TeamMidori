@@ -35,7 +35,7 @@ namespace Midori.GameObjects.Items
             this.Type = type;
             this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
             this.SourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
-            this.delay = 60;
+            this.delay = 100;
         }
         #endregion
 

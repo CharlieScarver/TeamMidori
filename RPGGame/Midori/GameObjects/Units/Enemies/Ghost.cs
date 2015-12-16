@@ -21,6 +21,7 @@ namespace Midori.GameObjects.Units.Enemies
         private const int attackMeleeFrameCount = 1111111;
         private const float defaultMovementSpeed = 3;
         private const float defaultJumpSpeed = 21;
+        private const int defaultHealth = 50;
 
         public Ghost(Vector2 position)
             : base()
@@ -61,7 +62,7 @@ namespace Midori.GameObjects.Units.Enemies
         # region Methods
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if (this.Health < 0)
+            if (this.Health <= 0)
             {
                 this.Nullify();
                 Engine.SpawnItem(this.Position);
@@ -136,6 +137,13 @@ namespace Midori.GameObjects.Units.Enemies
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            var healthPercent = (float)this.Health / Ghost.defaultHealth;
+            var healthBarWidth = (int)(100 * healthPercent);
+            var healthBar = new Rectangle(((int)this.BoundingBoxX + this.BoundingBox.Width / 2) - 50,
+                (int)this.Position.Y - 20,
+                healthBarWidth,
+                10);
+            spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 

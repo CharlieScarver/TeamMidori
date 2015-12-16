@@ -34,6 +34,8 @@ namespace Midori.Core.TextureLoading
         public static Texture2D GhostSheet { get; private set; }
         public static Texture2D GhostProjectile { get; private set; }
         public static Texture2D Box { get; private set; }
+        public static Texture2D GreenHealthBox { get; private set; }
+        public static Texture2D HealthBox { get; private set; }
 
         public static SpriteFont Font { get; private set; }
         
@@ -64,6 +66,8 @@ namespace Midori.Core.TextureLoading
             GhostSheet = content.Load<Texture2D>("Sprites/ghost 128 x 128");
             GhostProjectile = content.Load<Texture2D>("Sprites/blob 100 x 50");
             Box = content.Load<Texture2D>("Sprites/Box");
+            GreenHealthBox = content.Load<Texture2D>("Sprites/GreenHealthBox");
+            HealthBox = content.Load<Texture2D>("Sprites/HealthBox");
             Font = content.Load<SpriteFont>("Fonts/Font");
         }
     }

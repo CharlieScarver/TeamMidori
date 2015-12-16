@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Core;
 using Midori.Core.TextureLoading;
-using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
 
 namespace Midori.GameObjects.Items
 {
-    public class MoveBonusItem : TimedBonusItem
+    public class AttackBonusItem : TimedBonusItem
     {
-        public MoveBonusItem(Vector2 position) : base(TextureLoader.Box, position, ItemTypes.MoveBonus)
+        public AttackBonusItem( Vector2 position) : base(TextureLoader.Box, position, ItemTypes.AttackBonus)
         {
+            this.Color = Color.Red;
             this.Duration = 10;
-            this.Color = Color.DeepSkyBlue;
             this.IsTimedOut = false;
         }
-
     }
 }

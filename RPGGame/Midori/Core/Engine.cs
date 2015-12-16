@@ -81,9 +81,9 @@ namespace Midori.Core
 
         public static void InitializeItems()
         {
-            items.Add(new HealingItem(TextureLoader.Box, new Vector2(600, 100)));
-            items.Add(new HealingItem(TextureLoader.Box, new Vector2(780, 100)));
-            items.Add(new MoveBonusItem(TextureLoader.Box, new Vector2(860, 100)));
+            items.Add(new HealingItem(new Vector2(600, 100)));
+            items.Add(new AttackBonusItem(new Vector2(780, 100)));
+            items.Add(new MoveBonusItem(new Vector2(860, 100)));
         }
 
 
@@ -100,10 +100,13 @@ namespace Midori.Core
             switch (type)
             {
                 case ItemTypes.Heal:
-                    items.Add(new HealingItem(TextureLoader.Box, position));
+                    items.Add(new HealingItem(position));
                     break;
                 case ItemTypes.MoveBonus:
-                    items.Add(new MoveBonusItem(TextureLoader.Box, position));
+                    items.Add(new MoveBonusItem(position));
+                    break;
+                case ItemTypes.AttackBonus:
+                    items.Add(new AttackBonusItem(position));
                     break;
             }
         }
@@ -111,8 +114,8 @@ namespace Midori.Core
         public static void InitializeEnemies()
         {
             //enemies.Add(new Bush(new Vector2(1700, 600)));
-            enemies.Add(new Ghost(new Vector2(1000, 600)));
-            enemies.Add(new Ghost(new Vector2(120, 30)));
+            //enemies.Add(new Ghost(new Vector2(1000, 600)));
+            //enemies.Add(new Ghost(new Vector2(120, 30)));
         }
 
         public static void InitializeObjects()
@@ -153,11 +156,19 @@ namespace Midori.Core
                         }
                         else if (line[i] == '6' || line[i] == '7' || line[i] == 'A')
                         {
-                            tiles.Add(new GroundTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
+                            tiles.Add(new WallTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
                         }                        
-                        else if (line[i] != '0')
+                        else if (line[i] != '0' && line[i] != 'g')
                         {
                             tiles.Add(new GroundTile(new Vector2(i*128, lineCount*128), line[i].ToString()));
+                        }
+                        else if (line[i] == 'g')
+                        {
+                            enemies.Add(new Ghost(new Vector2(i*128, lineCount*128)));
+                        }
+                        else if (line[i] == 'e')
+                        {
+                            //TODO: spawn a random enemy type
                         }
                     }
                     lineCount++;
@@ -177,6 +188,7 @@ namespace Midori.Core
             projectiles.Add(proj);
             objects.Add(proj);
         }
+
 
         public static void CleanInactiveObjects()
         {

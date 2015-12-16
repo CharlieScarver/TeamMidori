@@ -10,7 +10,7 @@
   <Class Name="Midori.Core.Engine" Collapsed="true">
     <Position X="19" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAEAAAACgCAABgAAkAAA4UQEFMBEABAAQCAAAA=</HashCode>
+      <HashCode>AAAIIAAEAAAAKgCAABgAAkAAI4UQEFMBEABAAQCAAAA=</HashCode>
       <FileName>Core\Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -52,14 +52,14 @@
   <Class Name="Midori.DebugSystem.MidoriDebug" Collapsed="true">
     <Position X="19" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAEACgAEAAAIBAAAAQAAABAEAAAQQAAAAAASAAA=</HashCode>
+      <HashCode>QAAAAAEACgAEAAAIBAAAAQAAABAEAAAQQAAAAAASIAA=</HashCode>
       <FileName>DebugSystem\MidoriDebug.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Game1" Collapsed="true">
     <Position X="15.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAQIEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -81,7 +81,7 @@
   <Class Name="Midori.GameObjects.Items.Item" Collapsed="true">
     <Position X="8.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAEAAAiAAAAgAAEAAAIBgACEAJAADABQAAAAAEAAA=</HashCode>
+      <HashCode>AASAEAAAiAAAAgAAEAAAIAgACEAJAADAAQAAgAAEAAA=</HashCode>
       <FileName>GameObjects\Items\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="1.008" />
@@ -115,13 +115,6 @@
       <FileName>GameObjects\Tiles\GroundTile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.GameObjects.Tiles.WallTile" Collapsed="true">
-    <Position X="6.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Tiles\WallBorderTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Midori.GameObjects.Units.Enemies.Bush" Collapsed="true">
     <Position X="9" Y="5.5" Width="1.5" />
     <TypeIdentifier>
@@ -146,14 +139,14 @@
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.Aya" Collapsed="true">
     <Position X="13.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAACAMgQAhKACQAEGAgAAAAAAAAQAAAAAARAAIA=</HashCode>
+      <HashCode>AAQAAAACAMgQAhaACQAEGAgAAAAAAAAQAAAAAARAAIA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacters\Aya.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.PlayableCharacter" Collapsed="true">
     <Position X="13.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAAAAIEAAAAAAAACAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>BAAAAAAAAAAAAAAIEAAAAAAAACAAAAAAADAgACAAAAA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacters\PlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -164,6 +157,13 @@
       <FileName>GameObjects\Units\Unit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="1.048" />
+  </Class>
+  <Class Name="Midori.GameObjects.Tiles.WallTile" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Tiles\WallBorderTile.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="Midori.Interfaces.IAnimatable" Collapsed="true">
     <Position X="18.25" Y="4.75" Width="1.5" />

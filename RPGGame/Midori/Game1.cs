@@ -172,7 +172,7 @@ namespace Midori
 
             spriteBatch.End();
 
-            spriteBatch.Begin(transformMatrix: camera.Transform);
+            spriteBatch.Begin(transformMatrix: camera.Transform, blendState: BlendState.AlphaBlend);
 
             foreach (Tile tile in Engine.Tiles)
             {
@@ -181,7 +181,6 @@ namespace Midori
             }
             
 
-            player.Draw(spriteBatch);
             //player.DrawBB(spriteBatch, Color.Orange);
 
             foreach (Enemy en in Engine.Enemies)
@@ -203,6 +202,8 @@ namespace Midori
                     item.Draw(spriteBatch);
                 }
             }
+            player.Draw(spriteBatch);
+
             debug.SetCameraPosition(camera.Position);
             debug.StatsOnHover();
 

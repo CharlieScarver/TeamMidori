@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Midori.GameObjects.Items;
 using Midori.Interfaces;
 using Midori.GameObjects.Tiles;
 
@@ -13,6 +14,19 @@ namespace Midori.Core
 {
     public static class Collision
     {
+        public static Item IsCollidingWithItem()
+        {
+            foreach (var item in Engine.Items)
+            {
+                if (Engine.Player.BoundingBox.Intersects(item.BoundingBox))
+                {
+                    item.Nullify();
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public static bool CheckForCollisionWithWorldBounds(GameObject obj)
         {
             if (obj.X > Engine.LevelBounds.Width)
