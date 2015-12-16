@@ -96,7 +96,7 @@ namespace Midori.GameObjects.Units
                 if (this.JumpSpeed == 0)
                 {
                     // if unit is inside a tile => gain free pathing
-                    if (World.CheckForCollisionWithTiles(this.BoundingBox))
+                    if (Collision.CheckForCollisionWithTiles(this.BoundingBox))
                     {
                         this.HasFreePathing = true;
                     }
@@ -108,7 +108,7 @@ namespace Midori.GameObjects.Units
             {
                 if (this.HasFreePathing)
                 { 
-                    if (!World.CheckForCollisionWithTiles(this.BoundingBox))                    
+                    if (!Collision.CheckForCollisionWithTiles(this.BoundingBox))                    
                     {
                         // if unit is already not inside a tile => lose free pathing
                         this.HasFreePathing = false;
@@ -123,7 +123,7 @@ namespace Midori.GameObjects.Units
                 {
                     if (!this.ValidateLowerPosition())
                     {
-                        if (!World.CheckForCollisionWithTiles(this.BoundingBox))
+                        if (!Collision.CheckForCollisionWithTiles(this.BoundingBox))
                         {
                             // if the lower position is invalid and the current is valid => unit is on ground
                             this.ApplyOnGroundEffect();
@@ -153,7 +153,7 @@ namespace Midori.GameObjects.Units
             // Left & Right Movement
             if (this.IsMovingLeft)
             {
-                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
                 {
                     this.X -= this.MovementSpeed;
                 }
@@ -164,7 +164,7 @@ namespace Midori.GameObjects.Units
                             (int)this.BoundingBox.Y,
                             this.BoundingBox.Width,
                             this.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
                     {
                         this.X -= this.MovementSpeed;
                     }
@@ -177,7 +177,7 @@ namespace Midori.GameObjects.Units
             }
             else if (this.IsMovingRight)
             {
-                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
                 {
                     this.X += this.MovementSpeed;
                 }
@@ -188,7 +188,7 @@ namespace Midori.GameObjects.Units
                                 (int)this.BoundingBox.Y,
                                 this.BoundingBox.Width,
                                 this.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
                     {
                         this.X += this.MovementSpeed;
                     }
@@ -201,7 +201,7 @@ namespace Midori.GameObjects.Units
             }
 
             // Return from opposite side if left the field
-            if (World.CheckForCollisionWithWorldBounds(this))
+            if (Collision.CheckForCollisionWithWorldBounds(this))
             {
                 ReturnFromOppositeSide();
             }
@@ -216,7 +216,7 @@ namespace Midori.GameObjects.Units
                 (int)(this.BoundingBox.Y + gravity),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
-            if (World.CheckForCollisionWithTiles(this.FuturePosition))
+            if (Collision.CheckForCollisionWithTiles(this.FuturePosition))
             {
                 return false;
             }

@@ -125,7 +125,7 @@ namespace Midori.GameObjects.Items
                 (int)(this.BoundingBox.Y + 13),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
-            if (World.CheckForCollisionWithTiles(this.FuturePosition))
+            if (Collision.CheckForCollisionWithTiles(this.FuturePosition))
             {
                 return false;
             }

@@ -11,7 +11,7 @@ using Midori.GameObjects.Tiles;
 
 namespace Midori.Core
 {
-    public static class World
+    public static class Collision
     {
         public static bool CheckForCollisionWithWorldBounds(GameObject obj)
         {

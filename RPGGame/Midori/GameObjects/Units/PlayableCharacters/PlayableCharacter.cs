@@ -29,7 +29,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             if (!this.IsAttackingRanged)
             {
-                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
                 {
                     this.IsMovingLeft = true;
                     this.IsFacingLeft = true;
@@ -41,7 +41,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             (int)this.BoundingBox.Y,
                             this.BoundingBox.Width,
                             this.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
                     {
                         this.IsMovingLeft = true;
                         this.IsFacingLeft = true;
@@ -54,7 +54,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             if (!this.IsAttackingRanged)
             {
-                if (this.HasFreePathing || World.CheckForCollisionWithTiles(this.BoundingBox))
+                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
                 {
                     this.IsMovingRight = true;
                     this.IsFacingLeft = false;
@@ -67,7 +67,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                                 (int)this.BoundingBox.Y,
                                 this.BoundingBox.Width,
                                 this.BoundingBox.Height);
-                    if (!World.CheckForCollisionWithTiles(this.FuturePosition))
+                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
                     {
                         this.IsMovingRight = true;
                         this.IsFacingLeft = false;
