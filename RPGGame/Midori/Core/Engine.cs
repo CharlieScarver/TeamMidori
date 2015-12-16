@@ -153,7 +153,7 @@ namespace Midori.Core
                         switch (line[i])
                         {
                             case 's':
-                                player = new Aya(new Vector2(i * 128, lineCount * 128));
+                                player = new Midori(new Vector2(i * 128, lineCount * 128));
                                 break;
                             case '6':
                             case '7':

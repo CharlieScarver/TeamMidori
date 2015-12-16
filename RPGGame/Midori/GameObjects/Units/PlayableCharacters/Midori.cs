@@ -14,7 +14,7 @@ using Midori.GameObjects.Items;
 
 namespace Midori.GameObjects.Units.PlayableCharacters
 {
-    public class Aya : PlayableCharacter
+    public class Midori : PlayableCharacter
     {
         private const int textureWidth = 236;
         private const int textureHeight = 130;
@@ -25,7 +25,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         private const float defaultJumpSpeed = 21;
         private const int defaultHealth = 100;
  
-        public Aya(Vector2 position)
+        public Midori(Vector2 position)
             : base()
         {
             this.Position = position;
@@ -34,22 +34,22 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             this.IsAttackingRanged = false;
 
             this.BoundingBox = new Rectangle(
-                (int)this.X + (Aya.textureWidth - 45) / 2,
+                (int)this.X + (Midori.textureWidth - 45) / 2,
                 (int)this.Y + 5,
                 45,
                 110);
 
             this.SpriteSheet = TextureLoader.AyaSheet;
-            this.TextureWidth = Aya.textureWidth;
-            this.TextureHeight = Aya.textureHeight;
+            this.TextureWidth = Midori.textureWidth;
+            this.TextureHeight = Midori.textureHeight;
 
-            this.BasicAnimationFrameCount = Aya.basicAnimationFrameCount;
-            this.Delay = Aya.delay;
+            this.BasicAnimationFrameCount = Midori.basicAnimationFrameCount;
+            this.Delay = Midori.delay;
 
-            this.DefaultMovementSpeed = Aya.defaultMovementSpeed;
-            this.DefaultJumpSpeed = Aya.defaultJumpSpeed;
-            this.MovementSpeed = Aya.defaultMovementSpeed;
-            this.JumpSpeed = Aya.defaultJumpSpeed;
+            this.DefaultMovementSpeed = Midori.defaultMovementSpeed;
+            this.DefaultJumpSpeed = Midori.defaultJumpSpeed;
+            this.MovementSpeed = Midori.defaultMovementSpeed;
+            this.JumpSpeed = Midori.defaultJumpSpeed;
         }
 
         # region Properties
@@ -79,13 +79,13 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         protected override void UpdateBoundingBox()
         {
             // update bounding box
-            this.BoundingBoxX = (int)this.X + (Aya.textureWidth - 45) / 2 + 5;
+            this.BoundingBoxX = (int)this.X + (Midori.textureWidth - 45) / 2 + 5;
             this.BoundingBoxY = (int)this.Y + 5;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var healthPercent = (float) this.Health/Aya.defaultHealth;
+            var healthPercent = (float) this.Health/Midori.defaultHealth;
             var healthBarWidth = (int) (100*healthPercent);
             var healthBar = new Rectangle(((int)this.BoundingBoxX + this.BoundingBox.Width/2) - 50, 
                 (int)this.Position.Y - 20,
@@ -158,46 +158,46 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         // Idle and running Animations
         public override void AnimateIdle(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 0, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 0, Midori.textureWidth, Midori.textureHeight);
         }
 
         public override void AnimateRunningRight(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 1, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 1, Midori.textureWidth, Midori.textureHeight);
         }
 
         public override void AnimateRunningLeft(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 2, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 2, Midori.textureWidth, Midori.textureHeight);
         }                
         
         // Jumping Animation
         public override void AnimateJumpRight(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 3, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 3, Midori.textureWidth, Midori.textureHeight);
         }
 
         public override void AnimateJumpLeft(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 4, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 4, Midori.textureWidth, Midori.textureHeight);
         }
 
         // Falling Animation
         public override void AnimateFallRight(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 5, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 5, Midori.textureWidth, Midori.textureHeight);
         }
 
         public override void AnimateFallLeft(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Aya.delay, Aya.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 6, Aya.textureWidth, Aya.textureHeight);
+            this.BasicAnimationLogic(gameTime, Midori.delay, Midori.basicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 6, Midori.textureWidth, Midori.textureHeight);
         }
 
         // Ranged Attack
@@ -205,7 +205,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= Aya.delay)
+            if (this.Timer >= Midori.delay)
             {
                 this.CurrentFrame++;
                 if (this.CurrentFrame == 2)
@@ -216,7 +216,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             (!this.IsFacingLeft ? true : false),
                             this));
                 }
-                else if (this.CurrentFrame >= Aya.attackRangedFrameCount)
+                else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {
                     this.CurrentFrame = 0;
                     this.IsAttackingRanged = false;
@@ -225,14 +225,14 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 this.Timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 7, Aya.textureWidth, Aya.textureHeight);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 7, Midori.textureWidth, Midori.textureHeight);
         }
 
         private void AnimateAttackRangedLeft(GameTime gameTime)
         {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= Aya.delay)
+            if (this.Timer >= Midori.delay)
             {
                 this.CurrentFrame++;
 
@@ -244,7 +244,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                             (!this.IsFacingLeft ? true : false),
                             this));
                 }
-                else if (this.CurrentFrame >= Aya.attackRangedFrameCount)
+                else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {
                     this.CurrentFrame = 0;
                     this.IsAttackingRanged = false;
@@ -253,7 +253,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 this.Timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * Aya.textureWidth, Aya.textureHeight * 8, Aya.textureWidth, Aya.textureHeight);
+            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 8, Midori.textureWidth, Midori.textureHeight);
         }
         # endregion
 
