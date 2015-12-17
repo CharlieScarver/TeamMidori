@@ -48,7 +48,7 @@ namespace Midori.GameObjects.Units.Enemies
 
         #region Methods
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (this.Health < 0)
             {
@@ -77,13 +77,13 @@ namespace Midori.GameObjects.Units.Enemies
             throw new NotImplementedException();
         }
 
-        public override void AnimateRunningLeft(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void AnimateRunningLeft(GameTime gameTime)
         {
             this.BasicAnimationLogic(gameTime, Bush.delay, Bush.basicAnimationFrameCount);
             this.SourceRect = new Rectangle(this.CurrentFrame * Bush.textureWidth, Bush.textureHeight * 1, Bush.textureWidth, Bush.textureHeight);
         }
 
-        public override void AnimateIdle(Microsoft.Xna.Framework.GameTime gameTime)
+        public override void AnimateIdle(GameTime gameTime)
         {
             this.BasicAnimationLogic(gameTime, Bush.delay, Bush.idleAnimationFrameCount);
             this.SourceRect = new Rectangle(this.CurrentFrame * Bush.textureWidth, Bush.textureHeight * 0, Bush.textureWidth, Bush.textureHeight);

@@ -42,6 +42,7 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\InputHandler.cs" />
     <Compile Include="Camera\Camera2D.cs" />
+    <Compile Include="GameObjects\Projectiles\RayParticle.cs" />
     <Compile Include="TextureLoading\TextureLoader.cs" />
     <Compile Include="Core\Vector.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="GameObjects\Items\ItemTypes.cs" />
     <Compile Include="GameObjects\Items\MoveBonusItem.cs" />
     <Compile Include="GameObjects\Items\TimedBonusItem.cs" />
-    <Compile Include="GameObjects\Projectiles\AyaSmallProjectile.cs" />
+    <Compile Include="GameObjects\Projectiles\MidoriSmallProjectile.cs" />
     <Compile Include="GameObjects\Projectiles\GhostProjectile.cs" />
     <Compile Include="GameObjects\Projectiles\Projectile.cs" />
     <Compile Include="GameObjects\Tiles\GroundTile.cs" />
@@ -97,10 +98,10 @@
     </Content>
     <Content Include="Content\Sprites\attack crate 40 x 40.png" />
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
+    <Content Include="Content\Sprites\beam 15 x 130.png" />
     <Content Include="Content\Sprites\blob both ways 100 x 50.png" />
     <Content Include="Content\Sprites\box.jpg" />
     <Content Include="Content\Sprites\bush 128 x 128.png" />
-    <Content Include="Content\Sprites\death ray 13 x 98.png" />
     <Content Include="Content\Sprites\enemy.png" />
     <Content Include="Content\Sprites\ghost 128 x 128.png" />
     <Content Include="Content\Sprites\GreenHealthBox.png" />

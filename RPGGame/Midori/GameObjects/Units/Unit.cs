@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Midori.Core;
+using Midori.GameObjects.Projectiles;
 using Midori.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -283,9 +284,16 @@ namespace Midori.GameObjects.Units
             this.IsMovingLeft = false;
         }
 
-        public void GetHitByProjectile(Unit projectileOwner)
+        public void GetHitByProjectile(Projectile projectile)
         {
-            this.Health -= projectileOwner.DamageRanged;
+            if (projectile is RayParticle)
+            {
+                this.Health -= 3;
+            }
+            else
+            {
+                this.Health -= projectile.Owner.DamageRanged;
+            }
         }
 
         # endregion

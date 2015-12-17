@@ -10,7 +10,7 @@ using Midori.GameObjects.Units;
 
 namespace Midori.GameObjects.Projectiles
 {
-    public class AyaSmallProjectile : Projectile
+    public class MidoriSmallProjectile : Projectile
     {
         private const int textureWidth = 100;
         private const int textureHeight = 36;
@@ -18,26 +18,26 @@ namespace Midori.GameObjects.Projectiles
         private const int basicAnimationFrameCount = 2;
         private const float defaultMovementSpeed = 22;
 
-        public AyaSmallProjectile(Vector2 position, bool movingRight, Unit owner)
+        public MidoriSmallProjectile(Vector2 position, bool movingRight, Unit owner)
             : base()
         {
             this.Position = position;
 
-            this.SpriteSheet = TextureLoader.SmallAyaProjectileSheet;
-            this.TextureWidth = AyaSmallProjectile.textureWidth;
-            this.TextureHeight = AyaSmallProjectile.textureHeight;
+            this.SpriteSheet = TextureLoader.SmallMidoriProjectileSheet;
+            this.TextureWidth = MidoriSmallProjectile.textureWidth;
+            this.TextureHeight = MidoriSmallProjectile.textureHeight;
 
             this.IsMovingRight = movingRight;
             if (this.IsMovingRight)
             { 
-                this.SourceRect = new Rectangle(0 * AyaSmallProjectile.textureWidth, AyaSmallProjectile.textureHeight * 0, AyaSmallProjectile.textureWidth, AyaSmallProjectile.textureHeight);
+                this.SourceRect = new Rectangle(0 * MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight * 0, MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight);
             }
             else
             {
-                this.SourceRect = new Rectangle(0 * AyaSmallProjectile.textureWidth, AyaSmallProjectile.textureHeight * 1, AyaSmallProjectile.textureWidth, AyaSmallProjectile.textureHeight);
+                this.SourceRect = new Rectangle(0 * MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight * 1, MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight);
             }
 
-            this.MovementSpeed = AyaSmallProjectile.defaultMovementSpeed;
+            this.MovementSpeed = MidoriSmallProjectile.defaultMovementSpeed;
 
             this.BoundingBox = new Rectangle(
                 (int)this.X,

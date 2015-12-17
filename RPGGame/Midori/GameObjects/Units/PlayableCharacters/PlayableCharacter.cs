@@ -21,7 +21,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         #region Properties 
-        protected List<ItemTypes> AffectedBy { get; set; }
+
+        protected CountDownTimer ComboTimer { get; set; }
 
         #endregion
 
@@ -141,6 +142,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 else if (itemType == ItemTypes.MoveBonus)
                 {
                     this.MovementSpeed += 10;
+                    this.Delay -= 25;
                 }
                 else if (itemType == ItemTypes.AttackBonus)
                 {
@@ -159,6 +161,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                     {
                         case ItemTypes.MoveBonus:
                             this.MovementSpeed -= 10;
+                            this.Delay += 25;
                             break;
                         case ItemTypes.AttackBonus:
                             this.DamageRanged -= 10;

@@ -45,7 +45,7 @@
   <Class Name="Midori.TextureLoading.TextureLoader" Collapsed="true">
     <Position X="6.5" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAkAgIAABAEAACAAABYAAQBAAAIAAEAAQELgAQECABA=</HashCode>
+      <HashCode>EAgAgIAAAAkAACAAABYAAQBAAAIAAEAAAELoAQFCABA=</HashCode>
       <FileName>TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -122,11 +122,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Midori.GameObjects.Projectiles.AyaSmallProjectile" Collapsed="true">
+  <Class Name="Midori.GameObjects.Projectiles.MidoriSmallProjectile" Collapsed="true">
     <Position X="18.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAIAAAhAAAAAEEAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Projectiles\AyaSmallProjectile.cs</FileName>
+      <FileName>GameObjects\Projectiles\MidoriSmallProjectile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Projectiles.GhostProjectile" Collapsed="true">
@@ -182,14 +182,14 @@
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.Midori" Collapsed="true">
     <Position X="11.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAACAMgQAhaACQAEGAgAAAAAAAAQAAAAAARAAIA=</HashCode>
+      <HashCode>AAQAAAACAMgQAhaACQAEGAgCAAAAAAAQAAAAAARAAIA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacters\Midori.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.PlayableCharacter" Collapsed="true">
     <Position X="11.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BARAAAAAAAAAAAAIEAAAAAAAICAAAAAAADAAACAAAgA=</HashCode>
+      <HashCode>BARAAAAAAAAAAAAIEAAAAAAAICAAAAAAgDAAACAAAAA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacters\PlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Class>

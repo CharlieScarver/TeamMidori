@@ -115,12 +115,15 @@ namespace Midori
                     {
                         if (projectile.Owner is PlayableCharacter && unit is Enemy)
                         {
-                            unit.GetHitByProjectile(projectile.Owner);
-                            projectile.Nullify();
+                            unit.GetHitByProjectile(projectile);
+                            if (!(projectile is RayParticle))
+                            {
+                                projectile.Nullify();
+                            }
                         }
                         if (projectile.Owner is Enemy && unit is PlayableCharacter)
                         {
-                            unit.GetHitByProjectile(projectile.Owner);
+                            unit.GetHitByProjectile(projectile);
                             projectile.Nullify();
                         }
                     }
@@ -179,6 +182,7 @@ namespace Midori
                 debug.MouseStats();
 
                 spriteBatch.End();
+
 
                 spriteBatch.Begin(transformMatrix: camera.Transform);//, blendState: BlendState.AlphaBlend);
 
