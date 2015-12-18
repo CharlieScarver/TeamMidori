@@ -226,7 +226,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 }
                 else if (this.CurrentFrame == 11)
                 {
-                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + Midori.textureWidth - 1.5f, this.Y - 2), (!this.IsFacingLeft ? true : false), this));
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + Midori.textureWidth - 80, this.Y + 25), (!this.IsFacingLeft ? true : false), this));
                 }
                 else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {                    
@@ -274,7 +274,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 }
                 else if (this.CurrentFrame == 11)
                 {
-                    //Engine.AddProjectile(new RayParticle(new Vector2(this.X + 1.5f, this.Y - 2), (!this.IsFacingLeft ? true : false), this));
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + 80, this.Y + 25), (!this.IsFacingLeft ? true : false), this));
                 }
                 else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {

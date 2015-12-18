@@ -62,9 +62,9 @@ namespace Midori.TextureLoading
 
             TempEnemySheet = content.Load<Texture2D>("Sprites/enemy");
 
-            MidoriSheet = content.Load<Texture2D>("Sprites/AyaSheet 236x130");
+            MidoriSheet = content.Load<Texture2D>("Sprites/testSprites/AyaSheet 236x130");
             SmallMidoriProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
-            RaySprite = content.Load<Texture2D>("Sprites/beam 15 x 130");
+            RaySprite = content.Load<Texture2D>("Sprites/testSprites/lazor");
             
             BushSheet = content.Load<Texture2D>("Sprites/bush 128 x 128");
             
