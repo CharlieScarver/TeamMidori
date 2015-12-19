@@ -11,7 +11,7 @@ namespace Midori.GameObjects.Items
 {
     public class TimedBonusItem : Item, ITimeOutable
     {
-        public TimedBonusItem(Texture2D sprite, Vector2 position, ItemTypes type) : base(sprite, position, type)
+        public TimedBonusItem(Texture2D sprite, Vector2 position, ItemType type) : base(sprite, position, type)
         {
             this.CountDownTimer = new CountDownTimer();
         }

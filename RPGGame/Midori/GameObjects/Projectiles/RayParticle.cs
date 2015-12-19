@@ -12,70 +12,65 @@ namespace Midori.GameObjects.Projectiles
 {
     public class RayParticle : Projectile
     {
-        private const int textureWidth = 4;
-        private const int textureHeight = 130;
+        private const int textureWidth = 137;
+        private const int textureHeight = 120;
         private const int delay = 100;
-        private const int MaxOffset = 1100;
+        private const int MaxOffset = 1300;
+
         public RayParticle(Vector2 position, bool movingRight, Unit owner)
         {
             this.Position = position;
+            
             this.SpriteSheet = TextureLoader.RaySprite;
-            this.SourceRect = new Rectangle(0, 0, RayParticle.textureWidth, RayParticle.textureHeight);
-            if (movingRight)
+            this.TextureWidth = RayParticle.textureWidth;
+            this.TextureHeight = RayParticle.textureHeight;
+
+            this.SourceRect = new Rectangle(0, 0, this.TextureWidth, this.TextureHeight);
+
+            this.OffsetX = 0;
+            this.OffsetY = 200;
+            this.IsMovingRight = movingRight;
+
+            if (this.IsMovingRight)
             {
-                this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, 13 * this.Offset, RayParticle.textureHeight);
+                this.BoundingBox = new Rectangle(
+                    (int)this.X, 
+                    (int)this.Y, 
+                    this.OffsetX, 
+                    this.OffsetY);
             }
             else
             {
-                this.BoundingBox = new Rectangle((int)this.Position.X - RayParticle.MaxOffset, (int)this.Position.Y, 0, this.OffsetY);
+                this.BoundingBox = new Rectangle(
+                    (int)this.Position.X - RayParticle.MaxOffset, 
+                    (int)this.Position.Y, 
+                    this.OffsetX, 
+                    this.OffsetY);
             }
-
-            this.Offset = 0;
-            this.OffsetY = 128;
-            this.SpriteSwitch = true;
-            this.Rotation = 0;
-            this.IsMovingRight = movingRight;
+                        
             this.Owner = owner;
-            this.CurrentFrame = 0;
-
 
         }
         private int OffsetY { get; set; }
 
-        private int Offset { get; set; }
-
-        private float Rotation { get; set; }
-        private bool SpriteSwitch { get; set; }
+        private int OffsetX { get; set; }
 
         public override void Update(GameTime gameTime)
-        {
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            if (this.Timer >= RayParticle.delay)
-            {
-                CurrentFrame++;
-                if (CurrentFrame > 0)
-                {
-                    this.CurrentFrame = 0;
-                }
-                this.Timer = 0.0;
-            }
-
+        {            
             if (!this.IsMovingRight)
             {
-                this.BoundingBox = new Rectangle((int)this.Position.X - this.Offset, (int)this.Y, this.Offset, this.OffsetY);
+                this.BoundingBox = new Rectangle((int)this.Position.X - this.OffsetX, (int)this.Y, this.OffsetX, this.OffsetY);
             }
             else
             {
-                this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.Offset, this.OffsetY);
+                this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.OffsetX, this.OffsetY);
             }
-            this.SourceRect = new Rectangle(this.CurrentFrame * 128, 0, 128, 128);
 
-            this.Offset += 100;
-            this.OffsetY -= 2;
-            if (this.Offset > RayParticle.MaxOffset)
+            this.OffsetX += 100;
+            this.OffsetY -= 5;
+            if (this.OffsetX > RayParticle.MaxOffset)
             {
-                this.Offset = RayParticle.MaxOffset;
+                this.OffsetX = RayParticle.MaxOffset;
             }
         }
 

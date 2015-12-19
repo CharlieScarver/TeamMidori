@@ -51,13 +51,68 @@ namespace Midori.Core
         }
 
         // return true if the position collides with a tile
-        public static bool CheckForCollisionWithTiles(Rectangle boundingBox)
+        public static bool CheckForCollisionWithAnyTiles(Rectangle boundingBox)
         {
             foreach (Tile tile in Engine.Tiles)
             {
-                if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
+                if (tile.Type != TileType.InnerGroundTile)
                 {
-                    return true;
+                    if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CheckForCollisionWithWalls(Rectangle boundingBox)
+        {
+            foreach (Tile tile in Engine.Tiles)
+            {
+                if (tile is WallTile && tile.Type != TileType.InnerGroundTile)
+                {
+                    if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CheckForCollisionWithPlatform(Rectangle boundingBox)
+        {
+            foreach (Tile tile in Engine.Tiles)
+            {
+                if (tile.Type == TileType.StartPlatformTile 
+                    || tile.Type == TileType.MiddlePlatformTile
+                    || tile.Type == TileType.EndPlatformTile)
+                {
+                    if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CheckForCollisionWithOtherThanPlatform(Rectangle boundingBox)
+        {
+            foreach (Tile tile in Engine.Tiles)
+            {
+                if (tile.Type != TileType.StartPlatformTile
+                    && tile.Type != TileType.MiddlePlatformTile
+                    && tile.Type != TileType.EndPlatformTile)
+                {
+                    if (boundingBox.Intersects(tile.BoundingBox) && tile.IsSolid)
+                    {
+                        return true;
+                    }
                 }
             }
 

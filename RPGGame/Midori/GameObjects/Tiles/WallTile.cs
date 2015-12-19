@@ -10,9 +10,9 @@ namespace Midori.GameObjects.Tiles
 {
     public class WallTile : Tile
     {
-        private const int BoundingBoxOffset = 40;
+        private const int BoundingBoxOffset = 50;
 
-        public WallTile(Vector2 position, string type)
+        public WallTile(Vector2 position, TileType type)
         {
             this.Position = position;
             
@@ -21,17 +21,21 @@ namespace Midori.GameObjects.Tiles
 
             switch (type)
             {
-                case "6":
+                case TileType.LeftWallTile:
                     this.SpriteSheet = TextureLoader.LeftWallTile;
-                    this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.TextureWidth - WallTile.BoundingBoxOffset, this.TextureHeight);
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X, 
+                        (int)this.Position.Y, 
+                        this.TextureWidth - WallTile.BoundingBoxOffset, 
+                        this.TextureHeight);
                     break;
-                case "7":
+                case TileType.RightWallTile:
                     this.SpriteSheet = TextureLoader.RightWallTile;
-                    this.BoundingBox = new Rectangle((int)this.Position.X + (this.TextureWidth - (this.TextureWidth - WallTile.BoundingBoxOffset)), (int)this.Position.Y, this.TextureWidth - WallTile.BoundingBoxOffset, this.TextureHeight);
-                    break;
-                case "A":
-                    this.SpriteSheet = TextureLoader.InnerGroundTile;
-                    this.BoundingBox = new Rectangle();
+                    this.BoundingBox = new Rectangle(
+                        (int)this.Position.X + (this.TextureWidth - (this.TextureWidth - WallTile.BoundingBoxOffset)), 
+                        (int)this.Position.Y, 
+                        this.TextureWidth - WallTile.BoundingBoxOffset, 
+                        this.TextureHeight);
                     break;
                 default:
                     throw new ArgumentException("Invalid tile type");

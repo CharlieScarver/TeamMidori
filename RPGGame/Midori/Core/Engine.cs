@@ -96,16 +96,16 @@ namespace Midori.Core
         public static void SpawnItem(Vector2 position)
         {
             Random rand = new Random();
-            ItemTypes type = (ItemTypes)rand.Next(3);
+            ItemType type = (ItemType)rand.Next(3);
             switch (type)
             {
-                case ItemTypes.Heal:
+                case ItemType.Heal:
                     items.Add(new HealingItem(position));
                     break;
-                case ItemTypes.MoveBonus:
+                case ItemType.MoveBonus:
                     items.Add(new MoveBonusItem(position));
                     break;
-                case ItemTypes.AttackBonus:
+                case ItemType.AttackBonus:
                     items.Add(new AttackBonusItem(position));
                     break;
             }
@@ -152,13 +152,9 @@ namespace Midori.Core
                     {
                         switch (line[i])
                         {
+                            // Player and Enemies
                             case 's':
                                 player = new Midori.GameObjects.Units.PlayableCharacters.Midori(new Vector2(i * 128, lineCount * 128));
-                                break;
-                            case '6':
-                            case '7':
-                            case 'A':
-                                tiles.Add(new WallTile(new Vector2(i * 128, lineCount * 128), line[i].ToString()));
                                 break;
                             case 'g':
                                 enemies.Add(new Ghost(new Vector2(i * 128, lineCount * 128)));
@@ -166,13 +162,39 @@ namespace Midori.Core
                             case 'b':
                                 enemies.Add(new Bush(new Vector2(i * 128, lineCount * 128)));
                                 break;
-                            case 'e':
+                            // Tiles                               
+                            case '!':
+                                tiles.Add(new WallTile(new Vector2(i * 128, lineCount * 128), TileType.LeftWallTile));
                                 break;
-                            default:
-                                if (line[i] != '0')
-                                {
-                                    tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), line[i].ToString()));
-                                }
+                            case 'i':
+                                tiles.Add(new WallTile(new Vector2(i * 128, lineCount * 128), TileType.RightWallTile));
+                                break;
+                            case '\'':
+                                tiles.Add(new InnerGroundTile(new Vector2(i * 128, lineCount * 128)));
+                                break;                            
+                            case '(':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.StartPlatformTile));
+                                break;
+                            case '_':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.MiddlePlatformTile));
+                                break;
+                            case ')':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.EndPlatformTile));
+                                break;
+                            case '-':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.MiddleGroundTile));
+                                break;
+                            case '[':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.StartGroundTile));
+                                break;
+                            case ']':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.EndGroundTile));
+                                break;
+                            case '}':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.LeftCornerGroundTile));
+                                break;
+                            case '{':
+                                tiles.Add(new GroundTile(new Vector2(i * 128, lineCount * 128), TileType.RightCornerGroundTile));
                                 break;
                         }
                     }

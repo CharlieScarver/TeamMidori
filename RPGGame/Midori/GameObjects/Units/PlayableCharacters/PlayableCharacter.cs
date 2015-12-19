@@ -39,51 +39,18 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         public void ValidateMovementLeft()
         {
             if (!this.IsAttackingRanged)
-            {
-                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
-                {
-                    this.IsMovingLeft = true;
-                    this.IsFacingLeft = true;
-                }
-                else
-                {
-                    this.FuturePosition = new Rectangle(
-                            (int)(this.BoundingBox.X - this.MovementSpeed),
-                            (int)this.BoundingBox.Y,
-                            this.BoundingBox.Width,
-                            this.BoundingBox.Height);
-                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
-                    {
-                        this.IsMovingLeft = true;
-                        this.IsFacingLeft = true;
-                    }
-                }
+            {                
+                this.IsMovingLeft = true;
+                this.IsFacingLeft = true;                
             }
         }
 
         public void ValidateMovementRight()
         {
             if (!this.IsAttackingRanged)
-            {
-                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
-                {
-                    this.IsMovingRight = true;
-                    this.IsFacingLeft = false;
-                }
-                else
-                {
-                    // compensating because origin is in the left top corner
-                    this.FuturePosition = new Rectangle(
-                                (int)(this.BoundingBox.X + this.BoundingBox.Width + this.MovementSpeed),
-                                (int)this.BoundingBox.Y,
-                                this.BoundingBox.Width,
-                                this.BoundingBox.Height);
-                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
-                    {
-                        this.IsMovingRight = true;
-                        this.IsFacingLeft = false;
-                    }
-                }
+            {                
+                this.IsMovingRight = true;
+                this.IsFacingLeft = false;                
             }
         }
 
@@ -135,16 +102,16 @@ namespace Midori.GameObjects.Units.PlayableCharacters
 
                 var itemType = item.Type;
 
-                if (itemType == ItemTypes.Heal)
+                if (itemType == ItemType.Heal)
                 {
                     this.Health += 10;
                 }
-                else if (itemType == ItemTypes.MoveBonus)
+                else if (itemType == ItemType.MoveBonus)
                 {
                     this.MovementSpeed += 10;
                     this.Delay -= 25;
                 }
-                else if (itemType == ItemTypes.AttackBonus)
+                else if (itemType == ItemType.AttackBonus)
                 {
                     this.DamageRanged += 10;
                 }
@@ -159,11 +126,11 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 {
                     switch (bonus.Type)
                     {
-                        case ItemTypes.MoveBonus:
+                        case ItemType.MoveBonus:
                             this.MovementSpeed -= 10;
                             this.Delay += 25;
                             break;
-                        case ItemTypes.AttackBonus:
+                        case ItemType.AttackBonus:
                             this.DamageRanged -= 10;
                             break;
                     }

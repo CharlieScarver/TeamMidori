@@ -43,6 +43,8 @@
     <Compile Include="Core\InputHandler.cs" />
     <Compile Include="Camera\Camera2D.cs" />
     <Compile Include="GameObjects\Projectiles\RayParticle.cs" />
+    <Compile Include="GameObjects\Tiles\InnerGroundTile.cs" />
+    <Compile Include="GameObjects\Tiles\TileType.cs" />
     <Compile Include="TextureLoading\TextureLoader.cs" />
     <Compile Include="Core\Vector.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
@@ -50,7 +52,7 @@
     <Compile Include="GameObjects\Items\AttackBonusItem.cs" />
     <Compile Include="GameObjects\Items\HealingItem.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
-    <Compile Include="GameObjects\Items\ItemTypes.cs" />
+    <Compile Include="GameObjects\Items\ItemType.cs" />
     <Compile Include="GameObjects\Items\MoveBonusItem.cs" />
     <Compile Include="GameObjects\Items\TimedBonusItem.cs" />
     <Compile Include="GameObjects\Projectiles\MidoriSmallProjectile.cs" />
@@ -61,7 +63,7 @@
     <Compile Include="Core\Collision.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\Tiles\WallBorderTile.cs" />
+    <Compile Include="GameObjects\Tiles\WallTile.cs" />
     <Compile Include="GameObjects\Units\Enemies\Bush.cs" />
     <Compile Include="GameObjects\Units\Enemies\Enemy.cs" />
     <Compile Include="GameObjects\Units\Enemies\Ghost.cs" />
@@ -98,29 +100,26 @@
     </Content>
     <Content Include="Content\Sprites\attack crate 40 x 40.png" />
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
-    <Content Include="Content\Sprites\beam 15 x 130.png" />
+    <Content Include="Content\Sprites\beam 137 x 120.png" />
     <Content Include="Content\Sprites\blob both ways 100 x 50.png" />
     <Content Include="Content\Sprites\box.jpg" />
     <Content Include="Content\Sprites\bush 128 x 128.png" />
-    <Content Include="Content\Sprites\enemy.png" />
     <Content Include="Content\Sprites\ghost 128 x 128.png" />
-    <Content Include="Content\Sprites\GreenHealthBox.png" />
     <Content Include="Content\Sprites\health crate new 40 x 40.png" />
-    <Content Include="Content\Sprites\old_guy.png" />
     <Content Include="Content\Sprites\projectiles 101 x 36.png" />
     <Content Include="Content\Sprites\speed crate blue 40 x 40.png" />
     <Content Include="Content\Sprites\TheOnePixel.png" />
+    <Content Include="Content\Tiles\!.png" />
+    <Content Include="Content\Tiles\%27.png" />
     <Content Include="Content\Tiles\%28.png" />
     <Content Include="Content\Tiles\%29.png" />
-    <Content Include="Content\Tiles\2.png" />
-    <Content Include="Content\Tiles\4.png" />
-    <Content Include="Content\Tiles\5.png" />
-    <Content Include="Content\Tiles\6.png" />
-    <Content Include="Content\Tiles\7.png" />
-    <Content Include="Content\Tiles\8.png" />
-    <Content Include="Content\Tiles\9.png" />
-    <Content Include="Content\Tiles\A.png" />
+    <Content Include="Content\Tiles\-.png" />
+    <Content Include="Content\Tiles\i.png" />
+    <Content Include="Content\Tiles\[.png" />
+    <Content Include="Content\Tiles\].png" />
     <Content Include="Content\Tiles\_.png" />
+    <Content Include="Content\Tiles\{.png" />
+    <Content Include="Content\Tiles\}.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

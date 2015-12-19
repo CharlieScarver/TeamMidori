@@ -51,7 +51,7 @@ namespace Midori.GameObjects.Projectiles
 
         public override void Update(GameTime gameTime)
         {
-            if (Collision.CheckForCollisionWithWorldBounds(this) || Collision.CheckForCollisionWithTiles(this.BoundingBox))
+            if (Collision.CheckForCollisionWithWorldBounds(this) || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
             {
                 this.Nullify();
             }

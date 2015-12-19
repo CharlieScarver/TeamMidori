@@ -12,9 +12,9 @@ namespace Midori.GameObjects.Tiles
     public class GroundTile : Tile
     {
         private const int DefaultBoundingBoxHeight = 30;
-        private const int StartEndBoundingBoxOffset = 40;
+        private const int StartEndBoundingBoxOffset = 30;
 
-        public GroundTile(Vector2 position, string type)
+        public GroundTile(Vector2 position, TileType type)
         {
             this.Position = position;
 
@@ -29,10 +29,7 @@ namespace Midori.GameObjects.Tiles
             
             switch (type)
             {
-                case "A":
-                    this.SpriteSheet = TextureLoader.InnerGroundTile;
-                    break;
-                case "(":
+                case TileType.StartPlatformTile:
                     this.SpriteSheet = TextureLoader.GreenTileStart;
                     this.BoundingBox = new Rectangle(
                         (int)this.Position.X + GroundTile.StartEndBoundingBoxOffset, 
@@ -40,10 +37,10 @@ namespace Midori.GameObjects.Tiles
                         this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
                         GroundTile.DefaultBoundingBoxHeight);
                     break;
-                case "_":
+                case TileType.MiddlePlatformTile:
                     this.SpriteSheet = TextureLoader.GreenTileMiddle;
                     break;
-                case ")":
+                case TileType.EndPlatformTile:
                     this.SpriteSheet = TextureLoader.GreenTileEnd;
                     this.BoundingBox = new Rectangle(
                         (int)this.Position.X, 
@@ -51,19 +48,13 @@ namespace Midori.GameObjects.Tiles
                         this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
                         GroundTile.DefaultBoundingBoxHeight);
                     break;
-                case "6":
-                    this.SpriteSheet = TextureLoader.LeftWallTile;
-                    break;
-                case "7":
-                    this.SpriteSheet = TextureLoader.RightWallTile;
-                    break;
-                case "4":
+                case TileType.LeftCornerGroundTile:
                     this.SpriteSheet = TextureLoader.CornerTileLeft;
                     break;
-                case "5":
+                case TileType.RightCornerGroundTile:
                     this.SpriteSheet = TextureLoader.CornerTileRight;
                     break;
-                case "8":
+                case TileType.StartGroundTile:
                     this.SpriteSheet = TextureLoader.GroundTileStart;
                     this.BoundingBox = new Rectangle(
                         (int)this.Position.X + GroundTile.StartEndBoundingBoxOffset, 
@@ -71,7 +62,7 @@ namespace Midori.GameObjects.Tiles
                         this.TextureWidth - GroundTile.StartEndBoundingBoxOffset, 
                         GroundTile.DefaultBoundingBoxHeight);
                     break;
-                case "9":
+                case TileType.EndGroundTile:
                     this.SpriteSheet = TextureLoader.GroundTileEnd;
                     this.BoundingBox = new Rectangle(
                         (int)this.Position.X, 
@@ -79,7 +70,7 @@ namespace Midori.GameObjects.Tiles
                         this.TextureWidth - GroundTile.StartEndBoundingBoxOffset,
                         GroundTile.DefaultBoundingBoxHeight);
                     break;
-                case "2":
+                case TileType.MiddleGroundTile:
                     this.SpriteSheet = TextureLoader.GroundTileMiddle;
                     break;
                 default:

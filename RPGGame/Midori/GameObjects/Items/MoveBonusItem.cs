@@ -12,7 +12,7 @@ namespace Midori.GameObjects.Items
 {
     public class MoveBonusItem : TimedBonusItem
     {
-        public MoveBonusItem(Vector2 position) : base(TextureLoader.SpeedBox, position, ItemTypes.MoveBonus)
+        public MoveBonusItem(Vector2 position) : base(TextureLoader.SpeedBox, position, ItemType.MoveBonus)
         {
             this.Duration = 10;
             this.IsTimedOut = false;

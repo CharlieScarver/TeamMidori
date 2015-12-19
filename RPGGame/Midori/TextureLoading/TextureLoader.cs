@@ -48,23 +48,23 @@ namespace Midori.TextureLoading
             GreenTileMiddle = content.Load<Texture2D>("Tiles/_");
             GreenTileStart = content.Load<Texture2D>("Tiles/(");
             GreenTileEnd = content.Load<Texture2D>("Tiles/)");
-            GroundTileMiddle = content.Load<Texture2D>("Tiles/2");
-            GroundTileEnd = content.Load<Texture2D>("Tiles/9");
-            GroundTileStart = content.Load<Texture2D>("Tiles/8");
-            CornerTileRight = content.Load<Texture2D>("Tiles/5");
-            CornerTileLeft = content.Load<Texture2D>("Tiles/4");
-            RightWallTile = content.Load<Texture2D>("Tiles/7");
-            LeftWallTile = content.Load<Texture2D>("Tiles/6");
-            InnerGroundTile = content.Load<Texture2D>("Tiles/A");
+            GroundTileMiddle = content.Load<Texture2D>("Tiles/-");
+            GroundTileEnd = content.Load<Texture2D>("Tiles/]");
+            GroundTileStart = content.Load<Texture2D>("Tiles/[");
+            CornerTileRight = content.Load<Texture2D>("Tiles/{");
+            CornerTileLeft = content.Load<Texture2D>("Tiles/}");
+            RightWallTile = content.Load<Texture2D>("Tiles/i");
+            LeftWallTile = content.Load<Texture2D>("Tiles/!");
+            InnerGroundTile = content.Load<Texture2D>("Tiles/'");
 
             Background = content.Load<Texture2D>("Background/bg edit");
             TheOnePixel = content.Load<Texture2D>("Sprites/TheOnePixel");
 
             TempEnemySheet = content.Load<Texture2D>("Sprites/enemy");
 
-            MidoriSheet = content.Load<Texture2D>("Sprites/testSprites/AyaSheet 236x130");
+            MidoriSheet = content.Load<Texture2D>("Sprites/AyaSheet 236x130");
             SmallMidoriProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
-            RaySprite = content.Load<Texture2D>("Sprites/testSprites/lazor");
+            RaySprite = content.Load<Texture2D>("Sprites/beam 137 x 120");
             
             BushSheet = content.Load<Texture2D>("Sprites/bush 128 x 128");
             

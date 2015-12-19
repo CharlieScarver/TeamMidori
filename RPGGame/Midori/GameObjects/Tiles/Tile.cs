@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Midori.GameObjects;
 using Midori.TextureLoading;
+using Midori.GameObjects.Tiles;
 
 namespace Midori.Core
 {
@@ -21,7 +22,7 @@ namespace Midori.Core
 
         public bool IsSolid { get; protected set; }
 
-        public string Type { get; protected set; }
+        public TileType Type { get; protected set; }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

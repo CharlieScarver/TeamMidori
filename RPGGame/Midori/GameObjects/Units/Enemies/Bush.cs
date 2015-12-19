@@ -50,7 +50,7 @@ namespace Midori.GameObjects.Units.Enemies
 
         public override void Update(GameTime gameTime)
         {
-            if (this.Health < 0)
+            if (this.Health <= 0)
             {
                 this.Nullify();
             }

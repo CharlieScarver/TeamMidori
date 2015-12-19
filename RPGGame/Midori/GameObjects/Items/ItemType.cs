@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Midori.GameObjects.Items
 {
-    public enum ItemTypes
+    public enum ItemType
     {
         AttackBonus,
         Heal,

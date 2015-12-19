@@ -18,7 +18,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
     {
         private const int textureWidth = 236;
         private const int textureHeight = 130;
-        private const int delay = 100;
+        private const int basicAnimationDelay = 100;
+        private const int attackDelay = 100;
         private const int basicAnimationFrameCount = 6;
         private const int attackRangedFrameCount = 17;//4;
         private const float defaultMovementSpeed = 10;
@@ -44,7 +45,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             this.TextureHeight = Midori.textureHeight;
 
             this.BasicAnimationFrameCount = Midori.basicAnimationFrameCount;
-            this.Delay = Midori.delay;
+            this.Delay = Midori.basicAnimationDelay;
 
             this.DefaultMovementSpeed = Midori.defaultMovementSpeed;
             this.DefaultJumpSpeed = Midori.defaultJumpSpeed;
@@ -103,6 +104,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 indent += 12;
             }
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
+            //spriteBatch.Draw(TextureLoader.TheOnePixel, new Rectangle((int)(this.BoundingBox.X + this.MovementSpeed), (int)this.BoundingBox.Y, this.BoundingBox.Width, this.BoundingBox.Height), Color.Yellow);
+            //spriteBatch.DrawString(TextureLoader.Font, this.FuturePosition.ToString(), new Vector2(this.X, this.Y - 50), Color.Black);
         }
 
         # region Animaitons
@@ -205,14 +208,14 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= this.Delay)
+            if (this.Timer >= Midori.attackDelay)
             {
                 this.CurrentFrame++;
                 if (this.CurrentFrame == 2)
                 {
                     Engine.AddProjectile(
                         new MidoriSmallProjectile(
-                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
+                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
                             (!this.IsFacingLeft ? true : false),
                             this));
                 }
@@ -220,13 +223,13 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 {
                     Engine.AddProjectile(
                         new MidoriSmallProjectile(
-                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
+                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
                             (!this.IsFacingLeft ? true : false),
                             this));
                 }
                 else if (this.CurrentFrame == 11)
                 {
-                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + Midori.textureWidth - 80, this.Y + 25), (!this.IsFacingLeft ? true : false), this));
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + Midori.textureWidth - 100, this.Y + 32), (!this.IsFacingLeft ? true : false), this));
                 }
                 else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {                    
@@ -252,7 +255,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= this.Delay)
+            if (this.Timer >= Midori.attackDelay)
             {
                 this.CurrentFrame++;
 
@@ -274,7 +277,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 }
                 else if (this.CurrentFrame == 11)
                 {
-                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + 80, this.Y + 25), (!this.IsFacingLeft ? true : false), this));
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + 80, this.Y + 32), (!this.IsFacingLeft ? true : false), this));
                 }
                 else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
                 {

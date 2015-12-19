@@ -14,7 +14,7 @@ namespace Midori.GameObjects.Items
     public abstract class Item : GameObject, Interfaces.IUpdatable, IAnimatable
     {
         #region fields
-        private ItemTypes type;
+        private ItemType type;
         private Rectangle futurePosition;
         private int delay;
         private double timer;
@@ -24,7 +24,7 @@ namespace Midori.GameObjects.Items
         #endregion
 
         #region Constructor
-        protected Item(Texture2D sprite, Vector2 position, ItemTypes type)
+        protected Item(Texture2D sprite, Vector2 position, ItemType type)
         {
             this.TextureWidth = 40;
             this.TextureHeight = 40;
@@ -47,7 +47,7 @@ namespace Midori.GameObjects.Items
             protected set { this.futurePosition = value; }
         }
 
-        public ItemTypes Type
+        public ItemType Type
         {
             get
             {
@@ -123,7 +123,7 @@ namespace Midori.GameObjects.Items
                 (int)(this.BoundingBox.Y + 13),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
-            if (Collision.CheckForCollisionWithTiles(this.FuturePosition))
+            if (Collision.CheckForCollisionWithAnyTiles(this.FuturePosition))
             {
                 return false;
             }

@@ -91,14 +91,23 @@ namespace Midori.GameObjects.Units
             
             if (this.IsJumping)
             {
-                this.Y -= this.JumpSpeed;
-                this.JumpSpeed--;
+                if (this.ValidateUpperPosition())
+                {
+                    // if upper position is valid continue jumping
+                    this.Y -= this.JumpSpeed;
+                    this.JumpSpeed--;
+                }
+                else
+                {
+                    // else stop the jump; start falling
+                    this.JumpSpeed = 0;
+                }
 
                 // if jump is over
                 if (this.JumpSpeed == 0)
                 {
                     // if unit is inside a tile => gain free pathing
-                    if (Collision.CheckForCollisionWithTiles(this.BoundingBox))
+                    if (Collision.CheckForCollisionWithPlatform(this.BoundingBox))
                     {
                         this.HasFreePathing = true;
                     }
@@ -110,7 +119,7 @@ namespace Midori.GameObjects.Units
             {
                 if (this.HasFreePathing)
                 { 
-                    if (!Collision.CheckForCollisionWithTiles(this.BoundingBox))                    
+                    if (!Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))                    
                     {
                         // if unit is already not inside a tile => lose free pathing
                         this.HasFreePathing = false;
@@ -125,7 +134,7 @@ namespace Midori.GameObjects.Units
                 {
                     if (!this.ValidateLowerPosition())
                     {
-                        if (!Collision.CheckForCollisionWithTiles(this.BoundingBox))
+                        if (!Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
                         {
                             // if the lower position is invalid and the current is valid => unit is on ground
                             this.ApplyOnGroundEffect();
@@ -155,23 +164,29 @@ namespace Midori.GameObjects.Units
             // Left & Right Movement
             if (this.IsMovingLeft)
             {
-                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
-                {
-                    this.X -= this.MovementSpeed;
-                }
-                else
-                {
-                    this.FuturePosition = new Rectangle(
+                this.FuturePosition = new Rectangle(
                             (int)(this.BoundingBox.X - this.MovementSpeed),
                             (int)this.BoundingBox.Y,
                             this.BoundingBox.Width,
                             this.BoundingBox.Height);
-                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
+
+                if ((this.HasFreePathing || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
+                    && !Collision.CheckForCollisionWithWalls(this.FuturePosition))
+                {
+                    // if unit has free pathing OR is in a tile
+                    // AND will not collide with a wall => move
+                    this.X -= this.MovementSpeed;
+                }
+                else
+                {                    
+                    if (!Collision.CheckForCollisionWithAnyTiles(this.FuturePosition))
                     {
+                        // if next position is valid => move
                         this.X -= this.MovementSpeed;
                     }
                     else
                     {
+                        // else => stop
                         this.IsMovingLeft = false;
                     }
                 }
@@ -179,23 +194,29 @@ namespace Midori.GameObjects.Units
             }
             else if (this.IsMovingRight)
             {
-                if (this.HasFreePathing || Collision.CheckForCollisionWithTiles(this.BoundingBox))
-                {
-                    this.X += this.MovementSpeed;
-                }
-                else
-                {
-                    this.FuturePosition = new Rectangle(
+                this.FuturePosition = new Rectangle(
                                 (int)(this.BoundingBox.X + this.BoundingBox.Width + this.MovementSpeed),
                                 (int)this.BoundingBox.Y,
                                 this.BoundingBox.Width,
                                 this.BoundingBox.Height);
-                    if (!Collision.CheckForCollisionWithTiles(this.FuturePosition))
+
+                if ((this.HasFreePathing || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
+                    && !Collision.CheckForCollisionWithWalls(this.FuturePosition))
+                {
+                    // if unit has free pathing OR is in a tile
+                    // AND will not collide with a wall => move
+                    this.X += this.MovementSpeed;
+                }
+                else
+                {                    
+                    if (!Collision.CheckForCollisionWithAnyTiles(this.FuturePosition))
                     {
+                        // if next position is valid => move
                         this.X += this.MovementSpeed;
                     }
                     else
                     {
+                        // else => stop
                         this.IsMovingRight = false;
                     }
                 }
@@ -218,7 +239,24 @@ namespace Midori.GameObjects.Units
                 (int)(this.BoundingBox.Y + gravity),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
-            if (Collision.CheckForCollisionWithTiles(this.FuturePosition))
+            if (Collision.CheckForCollisionWithAnyTiles(this.FuturePosition))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private bool ValidateUpperPosition()
+        {
+            this.FuturePosition = new Rectangle(
+                (int)this.BoundingBox.X,
+                (int)(this.BoundingBox.Y - this.JumpSpeed),
+                this.BoundingBox.Width,
+                this.BoundingBox.Height);
+            if (Collision.CheckForCollisionWithOtherThanPlatform(this.FuturePosition))
             {
                 return false;
             }

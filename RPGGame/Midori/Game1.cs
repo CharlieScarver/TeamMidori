@@ -171,29 +171,19 @@ namespace Midori
             
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.White);
+            spriteBatch.End();
 
             if (!gameOver)
-            {
-                spriteBatch.Draw(TextureLoader.Background, new Rectangle(0, 0, graphics.GraphicsDevice.DisplayMode.Width, graphics.GraphicsDevice.DisplayMode.Height), Color.White);
-                if (Keyboard.GetState().IsKeyDown(Keys.Z))
-                {
-                    debug.DisplayObjectProps(player);
-                }
-                debug.MouseStats();
-
-                spriteBatch.End();
-
-
+            {                 
                 spriteBatch.Begin(transformMatrix: camera.Transform);//, blendState: BlendState.AlphaBlend);
 
                 foreach (Tile tile in Engine.Tiles)
                 {
                     tile.Draw(spriteBatch);
-                    //tile.DrawBB(spriteBatch, Color.Crimson);
+                    tile.DrawBB(spriteBatch, Color.Crimson);
                 }
-          
-                //player.DrawBB(spriteBatch, Color.Orange);
-
+                
                 foreach (Enemy en in Engine.Enemies)
                 {
                     en.Draw(spriteBatch);
@@ -214,6 +204,7 @@ namespace Midori
                     }
                 }
                 player.Draw(spriteBatch);
+                player.DrawBB(spriteBatch, Color.Orange);
 
                 debug.SetCameraPosition(camera.Position);
                 debug.StatsOnHover();
@@ -229,6 +220,16 @@ namespace Midori
                         (graphics.GraphicsDevice.Viewport.Height / 2.0f) - TextureLoader.Font.MeasureString(gameOverMsg).Y / 2), 
                     Color.Black);
             }
+                        
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                debug.DisplayObjectProps(player);
+            }
+            debug.MouseStats();
 
             spriteBatch.End();
            
