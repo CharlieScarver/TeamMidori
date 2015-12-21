@@ -51,6 +51,7 @@ namespace Midori.GameObjects.Projectiles
             this.Owner = owner;
 
         }
+
         private int OffsetY { get; set; }
 
         private int OffsetX { get; set; }

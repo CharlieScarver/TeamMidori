@@ -49,28 +49,6 @@ namespace Midori.GameObjects.Projectiles
 
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            if (Collision.CheckForCollisionWithWorldBounds(this) || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
-            {
-                this.Nullify();
-            }
-            else
-            {
-                if (this.IsMovingRight)
-                {
-                     this.X += this.MovementSpeed;
-                }
-                else
-                {
-                    this.X -= this.MovementSpeed;
-                }
-
-                this.BoundingBoxX = (int)this.X;
-                this.BoundingBoxY = (int)this.Y;
-            }
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);

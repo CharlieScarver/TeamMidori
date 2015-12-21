@@ -110,7 +110,7 @@ namespace Midori.GameObjects.Items
             {
                 return this.sourceRect;
             }
-            set { this.sourceRect = value; }
+            protected set { this.sourceRect = value; }
         }
         #endregion
 

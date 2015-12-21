@@ -128,6 +128,7 @@ namespace Midori
                         }
                     }
                 }
+                
             }
 
             foreach (var bonus in Engine.PlayerTimedBonuses)
@@ -149,11 +150,11 @@ namespace Midori
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.B))
-            {
-                Engine.ChangeLevel("Level2");
-                camera.SetSceneBounds(new Rectangle(50, 50, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height));
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.B))
+            //{
+            //    Engine.ChangeLevel("Level2");
+            //    camera.SetSceneBounds(new Rectangle(50, 50, Engine.LevelBounds.Width - 200, Engine.LevelBounds.Height));
+            //}
 
             camera.Chase(gameTime);
             camera.Update(gameTime);
@@ -208,20 +209,24 @@ namespace Midori
 
                 debug.SetCameraPosition(camera.Position);
                 debug.StatsOnHover();
+
+                spriteBatch.End();
             }
             else
             {
                 var gameOverMsg = "Game Over";
-             
+
+                spriteBatch.Begin();
                 spriteBatch.DrawString(
                     TextureLoader.Font, 
                     gameOverMsg,
                     new Vector2((graphics.GraphicsDevice.Viewport.Width / 2.0f) - TextureLoader.Font.MeasureString(gameOverMsg).X / 2,
                         (graphics.GraphicsDevice.Viewport.Height / 2.0f) - TextureLoader.Font.MeasureString(gameOverMsg).Y / 2), 
                     Color.Black);
+
+                spriteBatch.End();
             }
-                        
-            spriteBatch.End();
+                                   
 
             spriteBatch.Begin();
 

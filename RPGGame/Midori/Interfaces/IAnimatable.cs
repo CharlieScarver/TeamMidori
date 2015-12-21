@@ -18,6 +18,5 @@ namespace Midori.Interfaces
         int Delay { get; }
 
         Rectangle SourceRect { get; }
-
     }
 }

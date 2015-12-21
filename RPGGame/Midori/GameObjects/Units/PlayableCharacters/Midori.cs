@@ -54,6 +54,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         }
 
         # region Properties
+
         #endregion
 
         # region Methods
@@ -92,17 +93,25 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 (int)this.Position.Y - 20,
                 healthBarWidth,
                 10);
+            var healthBarEmpty = new Rectangle(
+                this.BoundingBox.X + (this.BoundingBox.Width / 2) - 50,
+                (int)this.Position.Y - 20,
+                100,
+                10);
+
+            spriteBatch.Draw(TextureLoader.TheOnePixel, healthBarEmpty, Color.LightBlue * 0.8f);
             spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
 
             var indent = 5;
             foreach (var item in Engine.PlayerTimedBonuses)
             {
                 spriteBatch.Draw(item.SpriteSheet,
-                    new Rectangle(healthBar.Right + indent, healthBar.Top, 10, 10),
+                    new Rectangle(healthBarEmpty.Right + indent, healthBarEmpty.Top, 10, 10),
                     new Rectangle(0, 0, 40, 40),
                     item.Color);
                 indent += 12;
             }
+
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
             //spriteBatch.Draw(TextureLoader.TheOnePixel, new Rectangle((int)(this.BoundingBox.X + this.MovementSpeed), (int)this.BoundingBox.Y, this.BoundingBox.Width, this.BoundingBox.Height), Color.Yellow);
             //spriteBatch.DrawString(TextureLoader.Font, this.FuturePosition.ToString(), new Vector2(this.X, this.Y - 50), Color.Black);

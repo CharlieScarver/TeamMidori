@@ -238,6 +238,7 @@ namespace Midori.Core
                     else if (item is PlayableCharacter)
                     {
                         player.Nullify();
+                        Engine.updatableObjects.Remove((IUpdatable)item);
                     }
                 }
             }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Midori.GameObjects.Projectiles
 {
@@ -45,22 +46,7 @@ namespace Midori.GameObjects.Projectiles
             this.Owner = owner;
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            if (Collision.CheckForCollisionWithWorldBounds(this) || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
-            {
-                this.Nullify();
-            }
-            else
-            {
-                this.ManageMovement(gameTime);
-
-                this.BoundingBoxX = (int)this.X;
-                this.BoundingBoxY = (int)this.Y;
-            }
-        }
-
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }

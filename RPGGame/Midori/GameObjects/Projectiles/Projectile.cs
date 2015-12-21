@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Midori.Core;
 using Midori.GameObjects.Units;
+using Midori.GameObjects.Units.Enemies;
+using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -54,8 +57,20 @@ namespace Midori.GameObjects.Projectiles
             }
         }
 
-        // Abstract Methods
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            if (Collision.CheckForCollisionWithWorldBounds(this) || Collision.CheckForCollisionWithAnyTiles(this.BoundingBox))
+            {
+                this.Nullify();
+            }
+            else
+            {
+                this.ManageMovement(gameTime);
+
+                this.BoundingBoxX = (int)this.X;
+                this.BoundingBoxY = (int)this.Y;
+            }            
+        }
 
         # endregion
     }
