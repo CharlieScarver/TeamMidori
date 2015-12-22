@@ -4,6 +4,6 @@ namespace Midori.Interfaces
 {
     public interface IOwned
     {
-        Unit Owner { get; }
+        Unit Owner { get; } // IUnit
     }
 }

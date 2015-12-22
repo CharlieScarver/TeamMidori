@@ -5,16 +5,17 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Midori.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Interfaces;
 
 namespace Midori.DebugSystem
 {
     public class DebugObject
     {
         private List<System.Reflection.PropertyInfo> attributes;
-        public GameObject item;
+        public IGameObject item;
         private int id;
 
-        public DebugObject(GameObject item)
+        public DebugObject(IGameObject item)
         {
             this.item = item;
             this.Attributes = new List<System.Reflection.PropertyInfo>(item.GetType().GetProperties());

@@ -3,7 +3,7 @@ using Midori.Enumerations;
 
 namespace Midori.Interfaces
 {
-    public interface IItem : IAnimatable, IUpdatable
+    public interface IItem : IGameObject, IAnimatable, IUpdatable
     {
         Color Color { get; }
 

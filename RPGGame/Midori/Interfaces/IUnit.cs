@@ -2,7 +2,7 @@
 
 namespace Midori.Interfaces
 {
-    public interface IUnit : IDestroyable, IMoveable, IMultiJumper, INeedToKnowWhereImFacing, IAnimatable, IUpdatable
+    public interface IUnit : IGameObject, IDestroyable, IMoveable, IMultiJumper, INeedToKnowWhereImFacing, IAnimatable, IUpdatable
     {
         bool IsMovingRight { get; }
 

@@ -2,7 +2,7 @@
 
 namespace Midori.Interfaces
 {
-    interface ITile
+    public interface ITile : IGameObject
     {
         bool IsSolid { get; }
 

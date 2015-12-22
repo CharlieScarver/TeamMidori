@@ -11,6 +11,7 @@ using Midori.GameObjects.Projectiles;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Units.PlayableCharacters;
+using Midori.Interfaces;
 
 namespace Midori
 {
@@ -29,8 +30,10 @@ namespace Midori
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            
+            //this.Window.IsBorderless = true;
+            //this.graphics.IsFullScreen = true;
             this.Window.AllowUserResizing = true;
+            this.Window.AllowAltF4 = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
 

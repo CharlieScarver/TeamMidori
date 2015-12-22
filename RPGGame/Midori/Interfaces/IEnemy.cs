@@ -1,6 +1,6 @@
 ﻿namespace Midori.Interfaces
 {
-    public interface IEnemy
+    public interface IEnemy : IUnit
     {
 
     }

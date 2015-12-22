@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework.Content;
 using Midori.GameObjects;
 using Midori.TextureLoading;
 using Midori.Enumerations;
+using Midori.Interfaces;
 
 namespace Midori.Core
 {
-    public abstract class Tile : GameObject
+    public abstract class Tile : GameObject, ITile
     {
         private const int TileTextureWidth = 128;
         private const int TileTextureHeight = 128;

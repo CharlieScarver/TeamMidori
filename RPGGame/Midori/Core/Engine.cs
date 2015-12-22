@@ -22,13 +22,13 @@ namespace Midori.Core
 {
     public static class Engine
     {
-        private static List<Tile> tiles = new List<Tile>();
+        private static List<ITile> tiles = new List<ITile>();
         private static PlayableCharacter player;
-        private static List<Unit> enemies = new List<Unit>();
-        private static List<Projectile> projectiles = new List<Projectile>();
+        private static List<IEnemy> enemies = new List<IEnemy>();
+        private static List<IProjectile> projectiles = new List<IProjectile>();
         private static List<Item> items = new List<Item>();
 
-        private static List<GameObject> objects = new List<GameObject>();
+        private static List<IGameObject> objects = new List<IGameObject>();
         private static List<Interfaces.IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
         private static List<TimedBonusItem> playerTimedBonuses = new List<TimedBonusItem>();
@@ -44,7 +44,7 @@ namespace Midori.Core
             get { return Engine.items; }
         } 
 
-        public static IEnumerable<Tile> Tiles
+        public static IEnumerable<ITile> Tiles
         {
             get { return Engine.tiles; }
         }
@@ -54,12 +54,12 @@ namespace Midori.Core
             get { return Engine.player; }
         }
         
-        public static IEnumerable<Unit> Enemies
+        public static IEnumerable<IEnemy> Enemies
         {
             get { return Engine.enemies; }
         }
 
-        public static IEnumerable<Projectile> Projectiles 
+        public static IEnumerable<IProjectile> Projectiles 
         {
             get { return Engine.projectiles;  } 
         }
@@ -74,7 +74,7 @@ namespace Midori.Core
             get { return Engine.drawableObjects; }
         }
 
-        public static IEnumerable<GameObject> Objects
+        public static IEnumerable<IGameObject> Objects
         {
             get { return Engine.objects; }
         }
@@ -123,7 +123,7 @@ namespace Midori.Core
             objects.Add(player);
             objects.AddRange(tiles);
             objects.AddRange(enemies);
-            objects.AddRange(projectiles);
+            objects.AddRange(Engine.Projectiles);
         }
 
         public static void InitializeUpdatableObjects()
@@ -134,7 +134,7 @@ namespace Midori.Core
 
         public static void ChangeLevel(string level)
         {
-            tiles = new List<Tile>();
+            tiles = new List<ITile>();
             InitializeLevel(level);
         }
 
@@ -210,7 +210,7 @@ namespace Midori.Core
             drawableObjects.AddRange(enemies);
         }
 
-        public static void AddProjectile(Projectile proj)
+        public static void AddProjectile(IProjectile proj)
         {
             projectiles.Add(proj);
             objects.Add(proj);
@@ -219,7 +219,7 @@ namespace Midori.Core
 
         public static void CleanInactiveObjects()
         {
-            var temp = new List<GameObject>(objects);
+            var temp = new List<IGameObject>(objects);
             foreach (var item in temp)
             {
                 if (!item.IsActive)
@@ -228,7 +228,7 @@ namespace Midori.Core
                     objects.Remove(item);
                     if (projectiles.Contains(item))
                     {
-                        projectiles.Remove((Projectile)item);
+                        projectiles.Remove((IProjectile)item);
                     }
                     else if (enemies.Contains(item))
                     {

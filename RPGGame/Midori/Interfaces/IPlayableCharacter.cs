@@ -1,6 +1,6 @@
 ﻿namespace Midori.Interfaces
 {
-    public interface IPlayableCharacter : IAnimatableIdle, IAnimatableFalling, IAnimatableMovable, IAnimatableJumper
+    public interface IPlayableCharacter : IUnit, IAnimatableIdle, IAnimatableFalling, IAnimatableMovable, IAnimatableJumper
     {
         int ComboStageCounter { get; set; }
     }

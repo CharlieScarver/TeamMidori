@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using Midori.GameObjects;
 using System;
 using Midori.GameObjects.Units;
+using Midori.Interfaces;
 
 namespace Midori.DebugSystem
 {
@@ -23,7 +24,7 @@ namespace Midori.DebugSystem
         {
             this.Content = content;
             this.SpriteBatch = spriteBatch;
-            List<GameObject> gameObjects = new List<GameObject>(Engine.Objects);
+            List<IGameObject> gameObjects = new List<IGameObject>(Engine.Objects);
             this.AnchoredObjects = new LinkedList<DebugObject>();
             this.indent = 10;
         }
@@ -41,7 +42,7 @@ namespace Midori.DebugSystem
             this.cameraPosition = cameraBounds;
         }
 
-        public void HoverDrawing(GameObject obj)
+        public void HoverDrawing(IGameObject obj)
         {
             SpriteBatch.DrawString(TextureLoader.Font, DebugObject.toString(obj), obj.Position, Color.White);
         }
@@ -128,7 +129,7 @@ namespace Midori.DebugSystem
             }
         }
 
-        public void DisplayObjectProps(GameObject obj)
+        public void DisplayObjectProps(IGameObject obj)
         {
             var toDraw = new DebugObject(obj);
             toDraw.Position = new Vector2(0,0);
