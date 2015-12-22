@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Midori.Interfaces;
 using Midori.TextureLoading;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.GameObjects.Units.Enemies
 {
-    public abstract class Enemy : Unit
+    public abstract class Enemy : Unit, IEnemy
     {
-        public Enemy()
+        protected Enemy()
             : base()
         { }
 

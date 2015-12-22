@@ -1,28 +1,57 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Midori.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Midori.GameObjects.Items;
 using Midori.Interfaces;
+using Midori.Enumerations;
+using System;
+using Midori.Timer;
 
 namespace Midori.GameObjects.Units.PlayableCharacters
 {
-    public abstract class PlayableCharacter : Unit
+    public abstract class PlayableCharacter : Unit, IPlayableCharacter
     {
         public event EventHandler PlayerIsDead;
+        private int comboStageCounter;
+        private CountDownTimer comboTimer;
 
-        public PlayableCharacter()
+        protected PlayableCharacter()
             : base()
         {
-  
+            this.ComboTimer = new CountDownTimer();
+            this.ComboStageCounter = 0;
         }
 
         #region Properties 
 
-        protected CountDownTimer ComboTimer { get; set; }
+        public CountDownTimer ComboTimer
+        {
+            get { return this.comboTimer; }
+            protected set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Combo timer shouldn't be null");
+                }
+
+                this.comboTimer = value;
+            }
+        }
+
+        public int ComboStageCounter 
+        {
+            get { return this.comboStageCounter; }
+            set // protected
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Combo counter shouldn't be negative");
+                }
+
+                this.comboStageCounter = value;
+            }
+        }
+
 
         #endregion
 
@@ -80,7 +109,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             {
                 this.IsMovingRight = false;
                 this.IsMovingLeft = false;
-                this.IsAttackingRanged = true;
+                this.IsAttackingRanged = true;                
             }
         }
 
@@ -138,9 +167,7 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             }
             Engine.PlayerTimedBonuses.RemoveAll(bonus => bonus.IsTimedOut);
         }
-
-        #endregion
-
+                
         public override void Update(GameTime gameTime)
         {
             if (this.Health <= 0)
@@ -148,7 +175,21 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 this.OnPlayerDeath();
                 this.Nullify();
             }
-        }
+        }        
+
+        #endregion
+
+        # region Abstract Methods
+
+        public abstract void AnimateIdle(GameTime gameTime);
+
+        public abstract void AnimateFall(GameTime gameTime);
+
+        public abstract void AnimateRunning(GameTime gameTime);
+
+        public abstract void AnimateJump(GameTime gameTime);
+
+        #endregion
 
     }
 }

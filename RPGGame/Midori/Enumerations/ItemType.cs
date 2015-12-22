@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Midori.GameObjects.Items
+namespace Midori.Enumerations
 {
     public enum ItemType
     {

@@ -38,21 +38,38 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Core\CountDownTimer.cs" />
+    <Compile Include="Interfaces\IMultiJumper.cs" />
+    <Compile Include="Structures\Rectangle.cs" />
+    <Compile Include="Timer\CountDownTimer.cs" />
     <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\InputHandler.cs" />
+    <Compile Include="Input\InputHandler.cs" />
     <Compile Include="Camera\Camera2D.cs" />
     <Compile Include="GameObjects\Projectiles\RayParticle.cs" />
     <Compile Include="GameObjects\Tiles\InnerGroundTile.cs" />
-    <Compile Include="GameObjects\Tiles\TileType.cs" />
+    <Compile Include="Enumerations\TileType.cs" />
+    <Compile Include="Interfaces\IAnimatableFalling.cs" />
+    <Compile Include="Interfaces\IAnimatableJumper.cs" />
+    <Compile Include="Interfaces\IAnimatableRangedAttacker.cs" />
+    <Compile Include="Interfaces\IDestroyable.cs" />
+    <Compile Include="Interfaces\IEnemy.cs" />
+    <Compile Include="Interfaces\IJumper.cs" />
+    <Compile Include="Interfaces\IAnimatableMovable.cs" />
+    <Compile Include="Interfaces\INeedToKnowWhereImFacing.cs" />
+    <Compile Include="Interfaces\IItem.cs" />
+    <Compile Include="Interfaces\IOwned.cs" />
+    <Compile Include="Interfaces\IProjectile.cs" />
+    <Compile Include="Interfaces\IRangedAttacker.cs" />
+    <Compile Include="Interfaces\IPlayableCharacter.cs" />
+    <Compile Include="Interfaces\ITile.cs" />
+    <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="TextureLoading\TextureLoader.cs" />
-    <Compile Include="Core\Vector.cs" />
+    <Compile Include="Structures\Vector.cs" />
     <Compile Include="DebugSystem\DebugObject.cs" />
     <Compile Include="DebugSystem\MidoriDebug.cs" />
     <Compile Include="GameObjects\Items\AttackBonusItem.cs" />
     <Compile Include="GameObjects\Items\HealingItem.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
-    <Compile Include="GameObjects\Items\ItemType.cs" />
+    <Compile Include="Enumerations\ItemType.cs" />
     <Compile Include="GameObjects\Items\MoveBonusItem.cs" />
     <Compile Include="GameObjects\Items\TimedBonusItem.cs" />
     <Compile Include="GameObjects\Projectiles\MidoriSmallProjectile.cs" />
@@ -72,7 +89,7 @@
     <Compile Include="GameObjects\Units\PlayableCharacters\TempHero.cs" />
     <Compile Include="GameObjects\Units\Unit.cs" />
     <Compile Include="Interfaces\IAnimatable.cs" />
-    <Compile Include="Interfaces\IAnimatableUnit.cs" />
+    <Compile Include="Interfaces\IAnimatableIdle.cs" />
     <Compile Include="Interfaces\ICollidable.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
@@ -88,13 +105,13 @@
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Background\bg edit.png" />
-    <Content Include="Content\Levels\Level2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Levels\Level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -128,7 +145,7 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="MidoriDiagram.cd" />
     <None Include="Content\Fonts\Font.spritefont" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

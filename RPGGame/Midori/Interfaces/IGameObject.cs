@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.Interfaces
 {
-    public interface IGameObject
+    public interface IGameObject : ICollidable, IDrawable
     {
         int Id { get; set; }
 
@@ -14,8 +10,10 @@ namespace Midori.Interfaces
 
         Vector2 Position { get; }
 
-        float X { get; set; } // protected
+        float X { get; set; }
 
-        float Y { get; set; } // protected
+        float Y { get; set; }
+
+        void Nullify();
     }
 }

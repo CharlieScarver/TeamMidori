@@ -4,16 +4,12 @@ using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.GameObjects.Projectiles
 {
-    public abstract class Projectile : GameObject, IAnimatable, Interfaces.IUpdatable, IMoveable
+    public abstract class Projectile : GameObject, IProjectile
     {
-        public Projectile()
+        protected Projectile()
             : base()
         {
             this.Timer = 0.0;
@@ -22,10 +18,19 @@ namespace Midori.GameObjects.Projectiles
         }
 
         # region Properties
+        // IMovable
+        public float MovementSpeed { get; protected set; }
 
-        public bool IsMovingRight { get; set; }
+        public float DefaultMovementSpeed { get; protected set; }
 
-        public int CurrentFrame { get; set; } //protected
+        // INeedToKnowEhereImFacing
+        public bool IsFacingLeft { get; protected set; }
+
+        // IOwned
+        public Unit Owner { get; protected set; }
+
+        // IAnimatable
+        public int CurrentFrame { get; protected set; }
 
         public int BasicAnimationFrameCount { get; protected set; }
 
@@ -33,11 +38,7 @@ namespace Midori.GameObjects.Projectiles
 
         public int Delay { get; protected set; }
 
-        public Rectangle SourceRect { get; protected set; }
-
-        public float MovementSpeed { get; set; }
-
-        public Unit Owner { get; protected set; }
+        public Rectangle SourceRect { get; protected set; }                   
 
         #endregion 
 
@@ -47,13 +48,13 @@ namespace Midori.GameObjects.Projectiles
         protected void ManageMovement(GameTime gameTime)
         {
             // Left & Right Movement
-            if (this.IsMovingRight)
+            if (this.IsFacingLeft)
             {
-                this.X += this.MovementSpeed;
+                this.X -= this.MovementSpeed;
             }
             else
             {
-                this.X -= this.MovementSpeed;
+                this.X += this.MovementSpeed;
             }
         }
 
@@ -73,5 +74,8 @@ namespace Midori.GameObjects.Projectiles
         }
 
         # endregion
+
+
+        
     }
 }

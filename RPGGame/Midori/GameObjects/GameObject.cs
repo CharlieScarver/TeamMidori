@@ -4,19 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Midori.TextureLoading;
 using Midori.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.GameObjects
 {
-    public abstract class GameObject : IGameObject, Interfaces.IDrawable, Interfaces.ICollidable
+    public abstract class GameObject : IGameObject
     {
         private Vector2 position;
         private Texture2D spriteSheet;
         private Rectangle boundingBox;
+        private  int textureWidth;
+        private int textureHeight;
 
-        public GameObject()
+        protected GameObject()
         {
             this.Id = this.GetHashCode();
             this.IsActive = true;
@@ -24,7 +23,7 @@ namespace Midori.GameObjects
         }
 
         # region Properties
-
+        // IGameObject
         public int Id { get; set; }
 
         public bool IsActive { get; set; }
@@ -32,7 +31,15 @@ namespace Midori.GameObjects
         public Vector2 Position
         {
             get { return this.position; }
-            set { this.position = value; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Position should not be null");
+                }
+
+                this.position = value;
+            }
         }
 
         public float X
@@ -47,24 +54,50 @@ namespace Midori.GameObjects
             set { this.position.Y = value; } // protected
         }
 
+        // IDrawable
         public Texture2D SpriteSheet
         {
             get { return this.spriteSheet; }
-            protected set 
+            protected set
             {
                 if (value == null)
                 {
                     throw new ArgumentNullException("Sprite sheet shouldn't be null");
                 }
-                
+
                 this.spriteSheet = value;
             }
         }
 
-        public int TextureWidth { get; protected set; }
+        public int TextureWidth
+        {
+            get { return this.textureWidth; }
+            protected set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Texture width should not be negative or zero");
+                }
 
-        public int TextureHeight { get; protected set; }
+                this.textureWidth = value;
+            }
+        }
 
+        public int TextureHeight
+        {
+            get { return this.textureHeight; }
+            protected set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Texture height should not be negative or zero");
+                }
+
+                this.textureHeight = value;
+            }
+        }
+
+        // ICollidable
         public Rectangle BoundingBox
         {
             get { return this.boundingBox; }
@@ -93,7 +126,7 @@ namespace Midori.GameObjects
 
         #endregion
 
-        // Methods
+        #region Methods
         public void Nullify()
         {
             this.IsActive = false;
@@ -106,7 +139,8 @@ namespace Midori.GameObjects
         }
 
         // Abstract Methods        
-        public abstract void Draw(SpriteBatch spriteBatch);     
+        public abstract void Draw(SpriteBatch spriteBatch);
 
+        #endregion
     }
 }

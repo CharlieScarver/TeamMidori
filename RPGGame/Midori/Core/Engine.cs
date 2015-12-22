@@ -11,11 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Midori.GameObjects.Items;
 using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Tiles;
 using IDrawable = Midori.Interfaces.IDrawable;
+using Midori.Enumerations;
 
 
 namespace Midori.Core

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Midori.Core;
+using Midori.Enumerations;
 using Midori.TextureLoading;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.GameObjects.Tiles
 {
@@ -12,10 +9,7 @@ namespace Midori.GameObjects.Tiles
     {
         public InnerGroundTile(Vector2 position)
         {
-            this.Position = position;
-            
-            this.TextureWidth = 128;
-            this.TextureHeight = 128;
+            this.Position = position;          
 
             this.SpriteSheet = TextureLoader.InnerGroundTile;
             

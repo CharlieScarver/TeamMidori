@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Midori.Core
+namespace Midori.Structures
 {
     public struct Vector
     {

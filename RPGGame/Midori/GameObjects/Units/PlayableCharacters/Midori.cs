@@ -6,51 +6,50 @@ using Midori.TextureLoading;
 using Midori.GameObjects.Projectiles;
 using Midori.GameObjects.Units.Enemies;
 using Midori.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Midori.GameObjects.Items;
+using Midori.Input;
 
 namespace Midori.GameObjects.Units.PlayableCharacters
 {
-    public class Midori : PlayableCharacter
+    public class Midori : PlayableCharacter, IRangedAttacker, IAnimatableRangedAttacker
     {
-        private const int textureWidth = 236;
-        private const int textureHeight = 130;
-        private const int basicAnimationDelay = 100;
-        private const int attackDelay = 100;
-        private const int basicAnimationFrameCount = 6;
-        private const int attackRangedFrameCount = 17;//4;
-        private const float defaultMovementSpeed = 10;
-        private const float defaultJumpSpeed = 21;
-        private const int defaultHealth = 100;
+        private const int MidoriTextureWidth = 236;
+        private const int MidoriTextureHeight = 130;
+        private const int MidoriBasicAnimationDelay = 100;
+        private const int MidoriAttackDelay = 100;
+        private const int MidoriBasicAnimationFrameCount = 6;
+        private const int MidoriAttackRangedFrameCount = 4;
+        private const int MidoriRayComboFrameCount = 17;
+        private const float MidoriDefaultMovementSpeed = 10;
+        private const float MidoriDefaultJumpSpeed = 21;
+        private const int MidoriDefaultHealth = 100;
  
         public Midori(Vector2 position)
             : base()
         {
             this.Position = position;
-            this.Health = 100;
+            this.MaxHealth = MidoriDefaultHealth;
+            this.Health = this.MaxHealth;
             this.DamageRanged = 20;
             this.IsAttackingRanged = false;
 
             this.BoundingBox = new Rectangle(
-                (int)this.X + (Midori.textureWidth - 45) / 2,
+                (int)this.X + (MidoriTextureWidth - 45) / 2,
                 (int)this.Y + 5,
                 45,
                 110);
 
             this.SpriteSheet = TextureLoader.MidoriSheet;
-            this.TextureWidth = Midori.textureWidth;
-            this.TextureHeight = Midori.textureHeight;
+            this.TextureWidth = MidoriTextureWidth;
+            this.TextureHeight = MidoriTextureHeight;
 
-            this.BasicAnimationFrameCount = Midori.basicAnimationFrameCount;
-            this.Delay = Midori.basicAnimationDelay;
+            this.BasicAnimationFrameCount = MidoriBasicAnimationFrameCount;
+            this.Delay = MidoriBasicAnimationDelay;
 
-            this.DefaultMovementSpeed = Midori.defaultMovementSpeed;
-            this.DefaultJumpSpeed = Midori.defaultJumpSpeed;
-            this.MovementSpeed = Midori.defaultMovementSpeed;
-            this.JumpSpeed = Midori.defaultJumpSpeed;
+            this.DefaultMovementSpeed = MidoriDefaultMovementSpeed;
+            this.DefaultJumpSpeed = MidoriDefaultJumpSpeed;
+            this.MovementSpeed = MidoriDefaultMovementSpeed;
+            this.JumpSpeed = MidoriDefaultJumpSpeed;
         }
 
         # region Properties
@@ -81,14 +80,14 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         protected override void UpdateBoundingBox()
         {
             // update bounding box
-            this.BoundingBoxX = (int)this.X + (Midori.textureWidth - 45) / 2 + 5;
+            this.BoundingBoxX = (int)this.X + (MidoriTextureWidth - 45) / 2 + 5;
             this.BoundingBoxY = (int)this.Y + 5;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var healthPercent = (float) this.Health/Midori.defaultHealth;
-            var healthBarWidth = (int) (100*healthPercent);
+            var healthPercent = (float) this.Health / this.MaxHealth;
+            var healthBarWidth = (int) (100 * healthPercent);
             var healthBar = new Rectangle(((int)this.BoundingBoxX + this.BoundingBox.Width/2) - 50, 
                 (int)this.Position.Y - 20,
                 healthBarWidth,
@@ -122,44 +121,19 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         {
             if (this.IsJumping)
             {
-                if (this.IsFacingLeft)
-                {
-                    this.AnimateJumpLeft(gameTime);
-                }
-                else
-                {
-                    this.AnimateJumpRight(gameTime);
-                }
+                this.AnimateJump(gameTime);
             }
             else if (this.IsFalling)
             {
-                if (this.IsFacingLeft)
-                {
-                    this.AnimateFallLeft(gameTime);
-                }
-                else
-                {
-                    this.AnimateFallRight(gameTime);
-                }
+                this.AnimateFall(gameTime);                
             } 
             else if (this.IsAttackingRanged)
             {
-                if (this.IsFacingLeft)
-                {
-                    this.AnimateAttackRangedLeft(gameTime);
-                }
-                else
-                {
-                    this.AnimateAttackRangedRight(gameTime);
-                }
+                this.AnimateAttackRanged(gameTime);
             }
-            else if (this.IsMovingLeft)
-            {
-                this.AnimateRunningLeft(gameTime);
-            }
-            else if (this.IsMovingRight)
-            {
-                this.AnimateRunningRight(gameTime);
+            else if (this.IsMovingLeft || this.IsMovingRight)
+            {                
+                this.AnimateRunning(gameTime);
             }
             else
             {
@@ -170,171 +144,164 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         // Idle and running Animations
         public override void AnimateIdle(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 0, Midori.textureWidth, Midori.textureHeight);
+            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount);
+            this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 0, MidoriTextureWidth, MidoriTextureHeight);
         }
 
-        public override void AnimateRunningRight(GameTime gameTime)
+        public override void AnimateRunning(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 1, Midori.textureWidth, Midori.textureHeight);
-        }
-
-        public override void AnimateRunningLeft(GameTime gameTime)
-        {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 2, Midori.textureWidth, Midori.textureHeight);
-        }                
+            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 2, MidoriTextureWidth, MidoriTextureHeight);
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 1, MidoriTextureWidth, MidoriTextureHeight);
+            }
+        }           
         
         // Jumping Animation
-        public override void AnimateJumpRight(GameTime gameTime)
+        public override void AnimateJump(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 3, Midori.textureWidth, Midori.textureHeight);
-        }
-
-        public override void AnimateJumpLeft(GameTime gameTime)
-        {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 4, Midori.textureWidth, Midori.textureHeight);
+            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 4, MidoriTextureWidth, MidoriTextureHeight);                
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 3, MidoriTextureWidth, MidoriTextureHeight);
+            }
         }
 
         // Falling Animation
-        public override void AnimateFallRight(GameTime gameTime)
+        public override void AnimateFall(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 5, Midori.textureWidth, Midori.textureHeight);
-        }
-
-        public override void AnimateFallLeft(GameTime gameTime)
-        {
-            this.BasicAnimationLogic(gameTime, this.Delay, Midori.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 6, Midori.textureWidth, Midori.textureHeight);
+            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount); if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 6, MidoriTextureWidth, MidoriTextureHeight);
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 5, MidoriTextureWidth, MidoriTextureHeight);
+            }
         }
         
         // Ranged Attack
-        public void AnimateAttackRangedRight(GameTime gameTime)
+        public void AnimateAttackRanged(GameTime gameTime)
         {
             this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= Midori.attackDelay)
+            if (this.Timer >= MidoriAttackDelay)
             {
                 this.CurrentFrame++;
+
+                if (this.ComboStageCounter > 1 && this.CurrentFrame > 3)
+                {                    
+                    this.AnimateRayCombo();
+                    this.Timer = 0.0;
+                    return;
+                }
+
                 if (this.CurrentFrame == 2)
                 {
-                    Engine.AddProjectile(
+                    if (this.IsFacingLeft)
+                    {
+                        Engine.AddProjectile(
+                         new MidoriSmallProjectile(
+                             new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
+                             (this.IsFacingLeft ? true : false),
+                             this)); 
+                    }
+                    else
+                    {
+                        Engine.AddProjectile(
                         new MidoriSmallProjectile(
-                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
-                            (!this.IsFacingLeft ? true : false),
+                            new Vector2(this.BoundingBoxX - 10, this.BoundingBoxY + 22),
+                            (this.IsFacingLeft ? true : false),
                             this));
-                }
-                else if (this.CurrentFrame == 6)
-                {
-                    Engine.AddProjectile(
-                        new MidoriSmallProjectile(
-                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
-                            (!this.IsFacingLeft ? true : false),
-                            this));
-                }
-                else if (this.CurrentFrame == 11)
-                {
-                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + Midori.textureWidth - 100, this.Y + 32), (!this.IsFacingLeft ? true : false), this));
-                }
-                else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
+                    }                    
+                }                
+                else if (this.CurrentFrame >= MidoriAttackRangedFrameCount)
                 {                    
                     this.CurrentFrame = 0;
-                    this.IsAttackingRanged = false;
-
-                    foreach (var proj in Engine.Projectiles)
-                    {
-                        if (proj is RayParticle)
-                        {
-                            proj.Nullify();
-                        }
-                    }
+                    this.ComboStageCounter = 0;
+                    this.IsAttackingRanged = false;                    
                 }
 
                 this.Timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 7, Midori.textureWidth, Midori.textureHeight);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 8, MidoriTextureWidth, MidoriTextureHeight);
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 7, MidoriTextureWidth, MidoriTextureHeight);
+            }
+            
         }
 
-        private void AnimateAttackRangedLeft(GameTime gameTime)
+        private void AnimateRayCombo()
         {
-            this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.Timer >= Midori.attackDelay)
+            if (this.CurrentFrame == 6)
             {
-                this.CurrentFrame++;
-
-                if (this.CurrentFrame == 2)
+                if (this.IsFacingLeft)
                 {
                     Engine.AddProjectile(
                         new MidoriSmallProjectile(
-                            new Vector2(this.BoundingBoxX - 10, this.BoundingBoxY + 22),
-                            (!this.IsFacingLeft ? true : false),
+                            new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 15),
+                            (this.IsFacingLeft ? true : false),
                             this));
                 }
-                else if (this.CurrentFrame == 6)
+                else
                 {
                     Engine.AddProjectile(
                         new MidoriSmallProjectile(
                             new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
-                            (!this.IsFacingLeft ? true : false),
+                            (this.IsFacingLeft ? true : false),
                             this));
                 }
-                else if (this.CurrentFrame == 11)
+            }
+            else if (this.CurrentFrame == 11)
+            {
+                if (this.IsFacingLeft)
                 {
-                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + 80, this.Y + 32), (!this.IsFacingLeft ? true : false), this));
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + 80, this.Y + 32), (this.IsFacingLeft ? true : false), this));
                 }
-                else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
+                else
                 {
-                    this.CurrentFrame = 0;
-                    this.IsAttackingRanged = false;
+                    Engine.AddProjectile(new RayParticle(new Vector2(this.X + MidoriTextureWidth - 100, this.Y + 32), (this.IsFacingLeft ? true : false), this));
+                }
+            }
+            else if (this.CurrentFrame >= MidoriRayComboFrameCount)
+            {
+                this.ComboStageCounter = 0;
+                this.CurrentFrame = 0;
+                this.IsAttackingRanged = false;
 
-                    foreach (var proj in Engine.Projectiles)
+                foreach (var proj in Engine.Projectiles)
+                {
+                    if (proj is RayParticle)
                     {
-                        if (proj is RayParticle)
-                        {
-                            proj.Nullify();
-                        }
+                        proj.Nullify();
                     }
                 }
-
-                this.Timer = 0.0;
             }
 
-            this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 8, Midori.textureWidth, Midori.textureHeight);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 8, MidoriTextureWidth, MidoriTextureHeight);
+            }
+            else 
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 7, MidoriTextureWidth, MidoriTextureHeight);
+            }
         }
 
-
-        //public void AnimateAttackRangedRight(GameTime gameTime)
-        //{
-        //    this.Timer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-        //    if (this.Timer >= this.Delay)
-        //    {
-        //        this.CurrentFrame++;
-        //        if (this.CurrentFrame == 2)
-        //        {
-        //            Engine.AddProjectile(
-        //                new AyaSmallProjectile(
-        //                    new Vector2(this.BoundingBoxX - 25, this.BoundingBoxY + 22),
-        //                    (!this.IsFacingLeft ? true : false),
-        //                    this));
-        //        }
-        //        else if (this.CurrentFrame >= Midori.attackRangedFrameCount)
-        //        {
-        //            this.CurrentFrame = 0;
-        //            this.IsAttackingRanged = false;
-        //        }
-
-        //        this.Timer = 0.0;
-        //    }
-
-        //    this.SourceRect = new Rectangle(this.CurrentFrame * Midori.textureWidth, Midori.textureHeight * 7, Midori.textureWidth, Midori.textureHeight);
-        //}
         # endregion
 
 #endregion

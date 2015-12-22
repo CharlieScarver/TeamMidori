@@ -1,39 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Midori.Interfaces;
 using Midori.Core;
 using Midori.TextureLoading;
 using Midori.GameObjects.Units.PlayableCharacters;
+using System;
+using Midori.Enumerations;
 
 namespace Midori.GameObjects.Items
 {
-    public abstract class Item : GameObject, Interfaces.IUpdatable, IAnimatable
+    public abstract class Item : GameObject, IItem
     {
         #region fields
+        private const int ItemDefaultAnimationFrameCount = 3;
+        private const int ItemDelay = 100;
+        private const int ItemTextureWidth = 40;
+        private const int ItemTextureHeight = 40;
+
         private ItemType type;
         private Rectangle futurePosition;
-        private int delay;
-        private double timer;
-        private Color color;
+
         private int currentFrame;
+        private int basicAnimationFrameCount;
+        private double timer;
+        private int delay; 
         private Rectangle sourceRect;
         #endregion
 
         #region Constructor
         protected Item(Texture2D sprite, Vector2 position, ItemType type)
         {
-            this.TextureWidth = 40;
-            this.TextureHeight = 40;
             this.Position = position;
+
+            this.TextureWidth = ItemTextureWidth;
+            this.TextureHeight = ItemTextureHeight;
+            
             this.SpriteSheet = sprite;
+
+            this.CurrentFrame = 0;
+            this.Timer = 0.0;
+            this.BasicAnimationFrameCount = ItemDefaultAnimationFrameCount;
+            this.delay = ItemDelay;
+           
             this.Type = type;
+
             this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight);
             this.SourceRect = new Rectangle(this.currentFrame*this.TextureWidth, this.TextureHeight, this.TextureWidth, this.TextureHeight);
-            this.delay = 100;
+            
         }
         #endregion
 
@@ -44,7 +57,15 @@ namespace Midori.GameObjects.Items
         public Rectangle FuturePosition
         {
             get { return this.futurePosition; }
-            protected set { this.futurePosition = value; }
+            protected set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Future position shouldn't be null");
+                }
+
+                this.futurePosition = value;
+            }
         }
 
         public ItemType Type
@@ -59,15 +80,20 @@ namespace Midori.GameObjects.Items
             }
         }
 
+        // IAnimatable
         public int CurrentFrame
         {
-            get { return currentFrame; }
-            private set
+            get
+            {
+                return this.currentFrame;
+            }
+            protected set
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("CurrentFrame cannot be negative.");
+                    throw new ArgumentOutOfRangeException("Current Frame should not be negative");
                 }
+
                 this.currentFrame = value;
             }
         }
@@ -76,7 +102,16 @@ namespace Midori.GameObjects.Items
         {
             get
             {
-                return 3;
+                return this.basicAnimationFrameCount;
+            }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Basic animation frame count Frame should not be negative");
+                }
+
+                this.basicAnimationFrameCount = value;
             }
         }
 
@@ -86,8 +121,13 @@ namespace Midori.GameObjects.Items
             {
                 return this.timer;
             }
-            private set
+            protected set
             {
+                if (value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("Timer should not be negative");
+                }
+
                 this.timer = value;
             }
         }
@@ -98,20 +138,31 @@ namespace Midori.GameObjects.Items
             {
                 return this.delay;
             }
-            set
+            protected set
             {
+                if (value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("Delay should not be negative");
+                }
+
                 this.delay = value;
             }
         }
 
         public Rectangle SourceRect
         {
-            get
+            get { return this.sourceRect; }
+            protected set
             {
-                return this.sourceRect;
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Source rectangle shouldn't be null");
+                }
+
+                this.sourceRect = value;
             }
-            protected set { this.sourceRect = value; }
         }
+
         #endregion
 
         #region Methods

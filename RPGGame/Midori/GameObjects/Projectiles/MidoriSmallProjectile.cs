@@ -12,32 +12,33 @@ namespace Midori.GameObjects.Projectiles
 {
     public class MidoriSmallProjectile : Projectile
     {
-        private const int textureWidth = 100;
-        private const int textureHeight = 36;
-        private const int delay = 100;
-        private const int basicAnimationFrameCount = 2;
-        private const float defaultMovementSpeed = 22;
+        private const int MidoriSmallProjectileTextureWidth = 100;
+        private const int MidoriSmallProjectileTextureHeight = 36;
+        private const int MidoriSmallProjectileDelay = 100;
+        private const int MidoriSmallProjectileBasicAnimationFrameCount = 2;
+        private const float MidoriSmallProjectileDefaultMovementSpeed = 22;
 
-        public MidoriSmallProjectile(Vector2 position, bool movingRight, Unit owner)
+        public MidoriSmallProjectile(Vector2 position, bool moveLeft, Unit owner)
             : base()
         {
             this.Position = position;
 
-            this.SpriteSheet = TextureLoader.SmallMidoriProjectileSheet;
-            this.TextureWidth = MidoriSmallProjectile.textureWidth;
-            this.TextureHeight = MidoriSmallProjectile.textureHeight;
+            this.SpriteSheet = TextureLoader.MidoriSmallProjectileSheet;
+            this.TextureWidth = MidoriSmallProjectileTextureWidth;
+            this.TextureHeight = MidoriSmallProjectileTextureHeight;
 
-            this.IsMovingRight = movingRight;
-            if (this.IsMovingRight)
+            this.IsFacingLeft = moveLeft;
+            if (this.IsFacingLeft)
             { 
-                this.SourceRect = new Rectangle(0 * MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight * 0, MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight);
+                this.SourceRect = new Rectangle(0 * MidoriSmallProjectileTextureWidth, MidoriSmallProjectileTextureHeight * 1, MidoriSmallProjectileTextureWidth, MidoriSmallProjectileTextureHeight);
             }
             else
             {
-                this.SourceRect = new Rectangle(0 * MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight * 1, MidoriSmallProjectile.textureWidth, MidoriSmallProjectile.textureHeight);
+                this.SourceRect = new Rectangle(0 * MidoriSmallProjectileTextureWidth, MidoriSmallProjectileTextureHeight * 0, MidoriSmallProjectileTextureWidth, MidoriSmallProjectileTextureHeight);
             }
 
-            this.MovementSpeed = MidoriSmallProjectile.defaultMovementSpeed;
+            this.DefaultMovementSpeed = MidoriSmallProjectileDefaultMovementSpeed;
+            this.MovementSpeed = this.DefaultMovementSpeed;
 
             this.BoundingBox = new Rectangle(
                 (int)this.X,

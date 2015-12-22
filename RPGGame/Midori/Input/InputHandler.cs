@@ -2,12 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Midori.Core
+namespace Midori.Input
 {
     public static class InputHandler
     {
@@ -59,9 +55,17 @@ namespace Midori.Core
                 unit.ValidateJump();
             }
 
-            // RangedAttack
+            // RangedAttack          
+
             if (currentKeyboardState.IsKeyDown(Keys.A)
-                && previousKeyboardState.IsKeyUp(Keys.A))                
+                && currentKeyboardState.IsKeyDown(Keys.S)
+                && previousKeyboardState.IsKeyUp(Keys.S))
+            {
+                unit.ComboStageCounter += 2;
+                unit.ValidateRangedAttack();
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.A)
+               && previousKeyboardState.IsKeyUp(Keys.A))
             {
                 unit.ValidateRangedAttack();
             }

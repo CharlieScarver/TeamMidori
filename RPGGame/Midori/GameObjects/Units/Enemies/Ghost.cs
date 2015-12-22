@@ -6,30 +6,28 @@ using Midori.GameObjects.Projectiles;
 using Midori.GameObjects.Units.PlayableCharacters;
 using Midori.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Midori.Timer;
 
 namespace Midori.GameObjects.Units.Enemies
 {
-    public class Ghost : Enemy
+    public class Ghost : Enemy, IAnimatableMovable, IRangedAttacker, IAnimatableRangedAttacker
     {
-        private const int textureWidth = 128;
-        private const int textureHeight = 128;
-        private const int delay = 160;
-        private const int basicAnimationFrameCount = 2;//11;
-        private const int attackRangedFrameCount = 4;
-        private const int attackMeleeFrameCount = 1111111;
-        private const float defaultMovementSpeed = 3;
-        private const float defaultJumpSpeed = 21;
-        private const int defaultHealth = 50;
+        private const int GhostTextureWidth = 128;
+        private const int GhostTextureHeight = 128;
+        private const int GhostDelay = 160;
+        private const int GhostBasicAnimationFrameCount = 2;
+        private const int GhostAttackRangedFrameCount = 4;
+        private const int GhostAttackMeleeFrameCount = 0;
+        private const float GhostDefaultMovementSpeed = 3;
+        private const float GhostDefaultJumpSpeed = 21;
+        private const int GhostDefaultHealth = 50;
 
         public Ghost(Vector2 position)
             : base()
         {
             this.Position = position;
 
-            this.MaxHealth = Ghost.defaultHealth;
+            this.MaxHealth = GhostDefaultHealth;
             this.Health = this.MaxHealth;
 
             this.DamageRanged = 15;
@@ -42,16 +40,16 @@ namespace Midori.GameObjects.Units.Enemies
                 86);
 
             this.SpriteSheet = TextureLoader.GhostSheet;
-            this.TextureWidth = Ghost.textureWidth;
-            this.TextureHeight = Ghost.textureHeight;
+            this.TextureWidth = GhostTextureWidth;
+            this.TextureHeight = GhostTextureHeight;
 
-            this.BasicAnimationFrameCount = Ghost.basicAnimationFrameCount;
-            this.Delay = Ghost.delay;
+            this.BasicAnimationFrameCount = GhostBasicAnimationFrameCount;
+            this.Delay = GhostDelay;
 
-            this.DefaultMovementSpeed = Ghost.defaultMovementSpeed;
-            this.DefaultJumpSpeed = Ghost.defaultJumpSpeed;
-            this.MovementSpeed = Ghost.defaultMovementSpeed;
-            this.JumpSpeed = Ghost.defaultJumpSpeed;
+            this.DefaultMovementSpeed = GhostDefaultMovementSpeed;
+            this.DefaultJumpSpeed = GhostDefaultJumpSpeed;
+            this.MovementSpeed = GhostDefaultMovementSpeed;
+            this.JumpSpeed = GhostDefaultJumpSpeed;
 
             this.AttackCounter = 0;
 
@@ -74,7 +72,7 @@ namespace Midori.GameObjects.Units.Enemies
             if (this.Health <= 0)
             {
                 this.Nullify();
-                Engine.SpawnItem(this.Position);
+                Engine.SpawnItem(new Vector2(this.X + this.TextureWidth / 2, this.Y));
             }
             else
             {
@@ -103,18 +101,16 @@ namespace Midori.GameObjects.Units.Enemies
                     this.IsMovingLeft = false;
                     this.IsFacingLeft = false;
                     this.IsMovingRight = true;
-                    this.AnimateRunningRight(gameTime);
                 }
                 else
-                {
-                    
+                {                    
                     this.IsMovingRight = false;
                     this.IsFacingLeft = true;
                     this.IsMovingLeft = true;
-                    this.AnimateRunningLeft(gameTime);
+                    
                 }
 
-
+                this.AnimateRunning(gameTime);
                 this.MovementTimer.SetTimer(gameTime, r.Next(1, 4));
             }
 
@@ -134,30 +130,7 @@ namespace Midori.GameObjects.Units.Enemies
             }
 
         }
-
-        protected override void ManageAnimation(GameTime gameTime)
-        {
-            if (this.IsAttackingRanged)
-            {
-                if (this.IsFacingLeft)
-                {
-                    this.AnimateAttackRangedLeft(gameTime);
-                }
-                else
-                {
-                    this.AnimateAttackRangedRight(gameTime);
-                }
-            }
-            else if (this.IsMovingRight)
-            {
-                this.AnimateRunningRight(gameTime);
-            }
-            else
-            {
-                this.AnimateRunningLeft(gameTime);
-            }
-        }
-
+                
         protected override void UpdateBoundingBox()
         {
             // update bounding box
@@ -166,72 +139,64 @@ namespace Midori.GameObjects.Units.Enemies
         }
 
         # region Animations
-        
-        public override void AnimateRunningRight(GameTime gameTime)
+        protected override void ManageAnimation(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Ghost.delay, Ghost.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Ghost.textureWidth, Ghost.textureHeight * 1, Ghost.textureWidth, Ghost.textureHeight);
+            if (this.IsAttackingRanged)
+            {                
+                this.AnimateAttackRanged(gameTime);
+            }
+            else
+            {
+                this.AnimateRunning(gameTime);
+            }
         }
 
-        public override void AnimateRunningLeft(GameTime gameTime)
+        public void AnimateRunning(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, Ghost.delay, Ghost.basicAnimationFrameCount);
-            this.SourceRect = new Rectangle(this.CurrentFrame * Ghost.textureWidth, Ghost.textureHeight * 0, Ghost.textureWidth, Ghost.textureHeight);
-        }
-
-        public override void AnimateIdle(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void AnimateJumpRight(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void AnimateJumpLeft(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void AnimateFallRight(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void AnimateFallLeft(Microsoft.Xna.Framework.GameTime gameTime)
-        {
-            throw new NotImplementedException();
+            this.BasicAnimationLogic(gameTime, GhostDelay, GhostBasicAnimationFrameCount);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * GhostTextureWidth, GhostTextureHeight * 0, GhostTextureWidth, GhostTextureHeight);                
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(this.CurrentFrame * GhostTextureWidth, GhostTextureHeight * 1, GhostTextureWidth, GhostTextureHeight);
+            }
         }
 
         // Ranged Attack
-        public void AnimateAttackRangedRight(GameTime gameTime)
+        public void AnimateAttackRanged(GameTime gameTime)
         {
             this.AttackCounter++;
             if (this.AttackCounter == 10)
             {
-                Engine.AddProjectile(
-                        new GhostProjectile(
-                            new Vector2(this.BoundingBoxX - 10, this.BoundingBoxY + 10),
-                            true,
-                            this));
-            }
-            this.SourceRect = new Rectangle(0 * Ghost.textureWidth, Ghost.textureHeight * 3, Ghost.textureWidth, Ghost.textureHeight);
-        }
-
-        private void AnimateAttackRangedLeft(GameTime gameTime)
-        {
-            this.AttackCounter++;
-            if (this.AttackCounter == 10)
-            {
-                Engine.AddProjectile(
+                if (this.IsFacingLeft)
+                {
+                    Engine.AddProjectile(
                         new GhostProjectile(
                             new Vector2(this.BoundingBoxX - 50, this.BoundingBoxY + 10),
+                            true,
+                            this));
+                }
+                else
+                {
+                    Engine.AddProjectile(
+                        new GhostProjectile(
+                            new Vector2(this.BoundingBoxX - 10, this.BoundingBoxY + 10),
                             false,
                             this));
+                }                
             }
 
-            this.SourceRect = new Rectangle(0 * Ghost.textureWidth, Ghost.textureHeight * 2, Ghost.textureWidth, Ghost.textureHeight);
+            if (this.IsFacingLeft)
+            {
+                this.SourceRect = new Rectangle(0 * GhostTextureWidth, GhostTextureHeight * 2, GhostTextureWidth, GhostTextureHeight);
+            }
+            else
+            {
+                this.SourceRect = new Rectangle(0 * GhostTextureWidth, GhostTextureHeight * 3, GhostTextureWidth, GhostTextureHeight);
+            }
+            
         }
 
         # endregion
@@ -239,6 +204,8 @@ namespace Midori.GameObjects.Units.Enemies
         #endregion
 
 
-        
+
+
+       
     }
 }

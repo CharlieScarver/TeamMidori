@@ -6,14 +6,11 @@ using Midori.Core;
 using Midori.TextureLoading;
 using Midori.DebugSystem;
 using Midori.GameObjects;
+using Midori.GameObjects.Items;
 using Midori.GameObjects.Projectiles;
 using Midori.GameObjects.Units;
 using Midori.GameObjects.Units.Enemies;
 using Midori.GameObjects.Units.PlayableCharacters;
-using System.Collections.Generic;
-using System.Linq;
-using Midori.GameObjects.Items;
-using System;
 
 namespace Midori
 {
@@ -182,7 +179,7 @@ namespace Midori
                 foreach (Tile tile in Engine.Tiles)
                 {
                     tile.Draw(spriteBatch);
-                    tile.DrawBB(spriteBatch, Color.Crimson);
+                    //tile.DrawBB(spriteBatch, Color.Crimson);
                 }
                 
                 foreach (Enemy en in Engine.Enemies)
@@ -205,7 +202,7 @@ namespace Midori
                     }
                 }
                 player.Draw(spriteBatch);
-                player.DrawBB(spriteBatch, Color.Orange);
+                //player.DrawBB(spriteBatch, Color.Orange);
 
                 debug.SetCameraPosition(camera.Position);
                 debug.StatsOnHover();

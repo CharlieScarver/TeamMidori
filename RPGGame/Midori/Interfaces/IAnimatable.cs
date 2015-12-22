@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Midori.GameObjects.Units;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.Interfaces
 {
@@ -18,5 +13,6 @@ namespace Midori.Interfaces
         int Delay { get; }
 
         Rectangle SourceRect { get; }
+               
     }
 }

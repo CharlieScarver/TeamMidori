@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Midori.GameObjects;
 using Midori.GameObjects.Units;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Midori.GameObjects.Items;
 using Midori.Interfaces;
+using Midori.Enumerations;
 using Midori.GameObjects.Tiles;
-
 
 namespace Midori.Core
 {

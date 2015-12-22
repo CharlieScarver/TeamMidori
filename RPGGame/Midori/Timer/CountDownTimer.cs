@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Midori.Core
+namespace Midori.Timer
 {
     public class CountDownTimer
     {

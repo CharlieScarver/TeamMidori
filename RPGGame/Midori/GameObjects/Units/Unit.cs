@@ -6,18 +6,30 @@ using Midori.Core;
 using Midori.GameObjects.Projectiles;
 using Midori.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Midori.GameObjects.Units
 {
-    public abstract class Unit : GameObject, IAnimatableUnit, Interfaces.IUpdatable, IMoveable
+    public abstract class Unit : GameObject, IUnit
     {
-        private const int gravity = 13;
-        private const int consequentJumps = 2;
+        private const int UnitGravity = 13;
+        private const int UnitConsequentJumps = 2;
 
-        public Unit()
+        private int currentFrame;
+        private int basicAnimationFrameCount;
+        private double timer;
+        private int delay;
+        private Rectangle sourceRect;
+        private int health;
+        private int maxHealth;
+        private float movementSpeed;
+        private float defaultMovementSpeed;
+        private float jumpSpeed;
+        private float defaultJumpSpeed;
+        private int jumpCounter;
+        private int damageRanged;
+        private Rectangle futurePosition;        
+
+        protected Unit()
             : base()
         {
             this.Timer = 0.0;
@@ -38,48 +50,237 @@ namespace Midori.GameObjects.Units
         }
 
         # region Properties
-        // Properties
-        public int Health { get; protected set; }
+        // IAnimatable
+        public int CurrentFrame
+        {
+            get
+            {
+                return this.currentFrame;
+            }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Current Frame should not be negative");
+                }
 
-        protected int MaxHealth { get; set; }
+                this.currentFrame = value;
+            }
+        }
 
-        public int CurrentFrame { get; protected set; }
+        public int BasicAnimationFrameCount
+        {
+            get
+            {
+                return this.basicAnimationFrameCount;
+            }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Basic animation frame count Frame should not be negative");
+                }
 
-        public int BasicAnimationFrameCount { get; protected set; }
+                this.basicAnimationFrameCount = value;
+            }
+        }
 
-        public double Timer { get; protected set; }
+        public double Timer
+        {
+            get
+            {
+                return this.timer;
+            }
+            protected set
+            {
+                if (value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("Timer should not be negative");
+                }
 
-        public int Delay { get; protected set; }
+                this.timer = value;
+            }
+        }
 
-        public Rectangle SourceRect { get; protected set; }
+        public int Delay
+        {
+            get
+            {
+                return this.delay;
+            }
+            protected set
+            {
+                if (value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("Delay should not be negative");
+                }
 
-        public float MovementSpeed { get; protected set; }
+                this.delay = value;
+            }
+        }
 
-        public float JumpSpeed { get; protected set; }
+        public Rectangle SourceRect
+        {
+            get { return this.sourceRect; }
+            protected set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Source rectangle shouldn't be null");
+                }
 
-        public float DefaultMovementSpeed { get; protected set; }
+                this.sourceRect = value;
+            }
+        }
 
-        public float DefaultJumpSpeed { get; protected set; }
+        // IDestroyable
+        public int Health
+        {
+            get { return this.health; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    this.health = 0;
+                }
+                else
+                {
+                    this.health = value;
+                }                
+            }
+        }
 
-        public int JumpCounter { get; protected set; }
+        public int MaxHealth
+        {
+            get { return this.maxHealth; }
+            protected set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Max health should not be negative or zero");
+                }
 
-        public Rectangle FuturePosition { get; set; }
+                this.maxHealth = value;
+            }
+        }
+
+        // IMovable
+        public float MovementSpeed
+        {
+            get { return this.movementSpeed; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Movement speed should not be negative");
+                }
+                
+                this.movementSpeed = value;
+            }
+        }
+
+        public float DefaultMovementSpeed
+        {
+            get { return this.defaultMovementSpeed; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Default movement speed should not be negative");
+                }
+
+                this.defaultMovementSpeed = value;
+            }
+        }
+
+        // IJumper
+        public float JumpSpeed
+        {
+            get { return this.jumpSpeed; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Jump speed should not be negative");
+                }
+
+                this.jumpSpeed = value;
+            }
+        }
+
+        public float DefaultJumpSpeed
+        {
+            get { return this.defaultJumpSpeed; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Default jump speed should not be negative");
+                }
+
+                this.defaultJumpSpeed = value;
+            }
+        }
+
+        // IMultiJumper
+        public int JumpCounter
+        {
+            get { return this.jumpCounter; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Jump counter should not be negative");
+                }
+
+                this.jumpCounter = value;
+            }
+        }
         
+        // INeedToKnowEhereImFacing
+        public bool IsFacingLeft { get; protected set; }
+
+        // IRangedAttacker
+        public bool IsAttackingRanged { get; protected set; }
+
+        public int DamageRanged
+        {
+            get { return this.damageRanged; }
+            protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Ranged damage should not be negative");
+                }
+
+                this.damageRanged = value;
+            }
+        }
+        
+        // IUnit
+        public bool IsMovingRight { get; protected set; }
+
+        public bool IsMovingLeft { get; protected set; }
+
         public bool IsJumping { get; protected set; }
 
         public bool IsFalling { get; protected set; }
 
         public bool HasFreePathing { get; protected set; }
 
-        public bool IsMovingRight { get; protected set; }
+        public Rectangle FuturePosition
+        {
+            get { return this.futurePosition; }
+            protected set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Future position shouldn't be null");
+                }
 
-        public bool IsMovingLeft { get; protected set; }
-
-        public bool IsFacingLeft { get; protected set; }
-
-        public bool IsAttackingRanged { get; protected set; }
-
-        public int DamageRanged { get; protected set; }
+                this.futurePosition = value;
+            }
+        }
 
 
 # endregion 
@@ -236,7 +437,7 @@ namespace Midori.GameObjects.Units
         {
             this.FuturePosition = new Rectangle(
                 (int)this.BoundingBox.X,
-                (int)(this.BoundingBox.Y + gravity),
+                (int)(this.BoundingBox.Y + UnitGravity),
                 this.BoundingBox.Width,
                 this.BoundingBox.Height);
             if (Collision.CheckForCollisionWithAnyTiles(this.FuturePosition))
@@ -268,7 +469,7 @@ namespace Midori.GameObjects.Units
 
         private void ApplyGravity()
         {
-            this.Y += gravity;
+            this.Y += UnitGravity;
         }
 
         private void ApplyOnGroundEffect()
@@ -343,20 +544,6 @@ namespace Midori.GameObjects.Units
         protected abstract void UpdateBoundingBox();
 
         protected abstract void ManageAnimation(GameTime gameTime);
-
-        public abstract void AnimateRunningRight(GameTime gameTime);
-
-        public abstract void AnimateRunningLeft(GameTime gameTime);
-
-        public abstract void AnimateIdle(GameTime gameTime);
-
-        public abstract void AnimateJumpRight(GameTime gameTime);
-
-        public abstract void AnimateJumpLeft(GameTime gameTime);
-
-        public abstract void AnimateFallRight(GameTime gameTime);
-
-        public abstract void AnimateFallLeft(GameTime gameTime);
 
         # endregion
     }

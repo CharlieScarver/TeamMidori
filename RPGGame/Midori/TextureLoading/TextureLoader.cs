@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
 
 namespace Midori.TextureLoading
 {
@@ -28,11 +23,11 @@ namespace Midori.TextureLoading
         public static Texture2D TheOnePixel { get; private set; }
         public static Texture2D TempEnemySheet { get; private set; }
         public static Texture2D MidoriSheet { get; private set; }
-        public static Texture2D SmallMidoriProjectileSheet { get; private set; }
+        public static Texture2D MidoriSmallProjectileSheet { get; private set; }
         public static Texture2D RaySprite { get; private set; }
         public static Texture2D BushSheet { get; private set; }
         public static Texture2D GhostSheet { get; private set; }
-        public static Texture2D GhostProjectile { get; private set; }
+        public static Texture2D GhostProjectileSheet { get; private set; }
         public static Texture2D Box { get; private set; }
         public static Texture2D AttackBox { get; private set; }
         public static Texture2D SpeedBox { get; private set; }
@@ -63,13 +58,13 @@ namespace Midori.TextureLoading
             TempEnemySheet = content.Load<Texture2D>("Sprites/enemy");
 
             MidoriSheet = content.Load<Texture2D>("Sprites/AyaSheet 236x130");
-            SmallMidoriProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
+            MidoriSmallProjectileSheet = content.Load<Texture2D>("Sprites/projectiles 101 x 36");
             RaySprite = content.Load<Texture2D>("Sprites/beam 137 x 120");
             
             BushSheet = content.Load<Texture2D>("Sprites/bush 128 x 128");
             
             GhostSheet = content.Load<Texture2D>("Sprites/ghost 128 x 128");
-            GhostProjectile = content.Load<Texture2D>("Sprites/blob both ways 100 x 50");
+            GhostProjectileSheet = content.Load<Texture2D>("Sprites/blob both ways 100 x 50");
             
             Box = content.Load<Texture2D>("Sprites/box");
             SpeedBox = content.Load<Texture2D>("Sprites/speed crate blue 40 x 40");
