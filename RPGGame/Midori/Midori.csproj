@@ -115,6 +115,7 @@
     <Content Include="Content\Levels\Level1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Splash\Midori Splash art.jpg" />
     <Content Include="Content\Sprites\attack crate 40 x 40.png" />
     <Content Include="Content\Sprites\AyaSheet 236x130.png" />
     <Content Include="Content\Sprites\beam 137 x 120.png" />
