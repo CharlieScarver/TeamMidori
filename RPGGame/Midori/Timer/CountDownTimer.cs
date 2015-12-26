@@ -9,8 +9,8 @@ namespace Midori.Timer
 {
     public class CountDownTimer
     {
-        private int startCount;
-        private int endCount;
+        private double startCount;
+        private double endCount;
 
         public CountDownTimer()
         {
@@ -20,9 +20,9 @@ namespace Midori.Timer
             this.endCount = 0;
         }
 
-        public void SetTimer(GameTime gameTime, int seconds)
+        public void SetTimer(GameTime gameTime, double seconds)
         {
-            this.startCount = (int)gameTime.TotalGameTime.TotalSeconds;
+            this.startCount = gameTime.TotalGameTime.TotalSeconds;
             this.endCount = this.startCount + seconds;
             this.IsActive = true;
             this.IsComplete = false;
