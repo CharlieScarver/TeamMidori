@@ -22,7 +22,7 @@ namespace Midori.Timer
 
         public void SetTimer(GameTime gameTime, int seconds)
         {
-            this.startCount = gameTime.TotalGameTime.Seconds;
+            this.startCount = (int)gameTime.TotalGameTime.TotalSeconds;
             this.endCount = this.startCount + seconds;
             this.IsActive = true;
             this.IsComplete = false;
@@ -32,9 +32,9 @@ namespace Midori.Timer
         {
             if (!this.IsComplete)
             {
-                if (gameTime.TotalGameTime.Seconds > this.startCount)
+                if (gameTime.TotalGameTime.TotalSeconds > this.startCount)
                 {
-                    if (gameTime.TotalGameTime.Seconds >= this.endCount)
+                    if (gameTime.TotalGameTime.TotalSeconds >= this.endCount)
                     {
                         this.endCount = 0;
                         this.IsComplete = true;

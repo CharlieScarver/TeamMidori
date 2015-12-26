@@ -55,9 +55,12 @@ namespace Midori.GameObjects.Units.Enemies
 
             this.AttackTimer = new CountDownTimer();
             this.MovementTimer = new CountDownTimer();
+            this.Randomizer = new Random(1000000 * this.Id);
         }
 
         # region Properties
+        private Random Randomizer { get; set; }
+
         public int AttackCounter { get; set; }
 
         protected CountDownTimer AttackTimer { get; set; }
@@ -89,31 +92,33 @@ namespace Midori.GameObjects.Units.Enemies
 
         private void AI(GameTime gameTime)
         {
-            var r = new Random((int)gameTime.TotalGameTime.TotalMilliseconds * 1000000 * this.Id);
 
             // Movement
 
             if (this.MovementTimer.CheckTimer(gameTime))
             {
-                if (r.Next(0,2) == 1)
+                if (this.Randomizer.Next(0, 2) == 1)
                 {
-                    
                     this.IsMovingLeft = false;
                     this.IsFacingLeft = false;
                     this.IsMovingRight = true;
                 }
                 else
-                {                    
+                {
                     this.IsMovingRight = false;
                     this.IsFacingLeft = true;
                     this.IsMovingLeft = true;
-                    
+
                 }
 
                 this.AnimateRunning(gameTime);
-                this.MovementTimer.SetTimer(gameTime, r.Next(1, 4));
+                this.MovementTimer.SetTimer(gameTime, this.Randomizer.Next(1, 4));
             }
-
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("wtffasdfasdf");
+            }
+            
 
             // Attacking
 
@@ -126,7 +131,7 @@ namespace Midori.GameObjects.Units.Enemies
             if (this.AttackTimer.CheckTimer(gameTime))
             {
                 this.IsAttackingRanged = true;
-                this.AttackTimer.SetTimer(gameTime, 2);
+                this.AttackTimer.SetTimer(gameTime, this.Randomizer.Next(2,5));
             }
 
         }

@@ -99,7 +99,17 @@ namespace Midori.GameObjects.Units.PlayableCharacters
                 10);
 
             spriteBatch.Draw(TextureLoader.TheOnePixel, healthBarEmpty, Color.LightBlue * 0.8f);
-            spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
+
+            if (healthPercent < 0.4f)
+            {
+                spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
+
+            }
+            else
+            {
+                spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Green);
+            }
+
 
             var indent = 5;
             foreach (var item in Engine.PlayerTimedBonuses)

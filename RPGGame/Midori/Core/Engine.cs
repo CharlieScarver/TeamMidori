@@ -81,9 +81,9 @@ namespace Midori.Core
 
         public static void InitializeItems()
         {
-            items.Add(new HealingItem(new Vector2(600, 100)));
-            items.Add(new AttackBonusItem(new Vector2(780, 100)));
-            items.Add(new MoveBonusItem(new Vector2(860, 100)));
+            items.Add(new HealingItem(new Vector2(2000, 300)));
+            items.Add(new AttackBonusItem(new Vector2(3000, 300)));
+            items.Add(new MoveBonusItem(new Vector2(4000, 300)));
         }
 
 
