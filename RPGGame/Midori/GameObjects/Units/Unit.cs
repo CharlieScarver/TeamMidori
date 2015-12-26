@@ -139,7 +139,11 @@ namespace Midori.GameObjects.Units
             get { return this.health; }
             protected set
             {
-                if (value < 0)
+                if (value > this.MaxHealth)
+                {
+                    this.health = this.MaxHealth;   
+                }
+                else if (value < 0)
                 {
                     this.health = 0;
                 }
