@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Midori.Camera.Camera2D" Collapsed="true">
-    <Position X="19" Y="7.75" Width="1.5" />
+    <Position X="17.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CIQAAAADAAAEAIAgFBKAJBUQAAIEAgAAAAQAAAAAAAA=</HashCode>
       <FileName>Camera\Camera2D.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Collision" Collapsed="true">
-    <Position X="20.75" Y="7.75" Width="1.5" />
+    <Position X="19.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAACAAAAAAAAAAAAAAAAACABAAAARAAAAAAAAA=</HashCode>
       <FileName>Core\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Engine" Collapsed="true">
-    <Position X="19" Y="8.75" Width="1.5" />
+    <Position X="17.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIIAAEAAAAKgCAABgAAkAAI4UQEFMBEABAAQCAAAA=</HashCode>
       <FileName>Core\Engine.cs</FileName>
@@ -27,30 +27,31 @@
       <HashCode>AAAAAAAAAAABAgAAAAAAAAAAAAAAAgAAAQCAAAAAAAA=</HashCode>
       <FileName>GameObjects\Tiles\Tile.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Midori.DebugSystem.DebugObject" Collapsed="true">
-    <Position X="24.25" Y="7.75" Width="1.5" />
+    <Position X="23" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAQkAAQABAAQAAAAEAAAAAAAAAAAAgA=</HashCode>
       <FileName>DebugSystem\DebugObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.DebugSystem.MidoriDebug" Collapsed="true">
-    <Position X="24.25" Y="8.75" Width="1.5" />
+    <Position X="23" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAEACgAEAAAIBAAAAQAAABAEAAAQQAAAAAASIAA=</HashCode>
       <FileName>DebugSystem\MidoriDebug.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Game1" Collapsed="true">
-    <Position X="20.75" Y="8.75" Width="1.5" />
+    <Position X="19.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAIQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Program" Collapsed="true">
-    <Position X="19" Y="9.75" Width="1.5" />
+    <Position X="17.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -170,7 +171,7 @@
   <Class Name="Midori.GameObjects.Units.Enemies.Ghost" Collapsed="true">
     <Position X="14" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ARQAEACAAAgAAAQAAAAACAAEAAAAEACAAAAIAoIAABA=</HashCode>
+      <HashCode>ARQAEAiAAAgAAAQAAAAACAAEAAAAEACAAAAIAoIAABA=</HashCode>
       <FileName>GameObjects\Units\Enemies\Ghost.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -178,7 +179,7 @@
   <Class Name="Midori.GameObjects.Units.PlayableCharacters.Midori" Collapsed="true">
     <Position X="18.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ChQCAhAAAEgAAgKAAAgACAAAAAAAKACAAQAAEAQAAAA=</HashCode>
+      <HashCode>ChQCAhAAAEgAAgKAAAgACAAAAAAAKACAAQAAEAAAAAA=</HashCode>
       <FileName>GameObjects\Units\PlayableCharacters\Midori.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -200,217 +201,247 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Midori.Input.InputHandler" Collapsed="true">
-    <Position X="22.5" Y="8.75" Width="1.5" />
+    <Position X="21.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACgAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Input\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.TextureLoading.TextureLoader" Collapsed="true">
-    <Position X="20.75" Y="9.75" Width="1.5" />
+    <Position X="19.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAgEgIAAAAkAACAAAAYAAQBAAIIAAEAAAELoAQECABA=</HashCode>
       <FileName>TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Timer.CountDownTimer" Collapsed="true">
-    <Position X="22.5" Y="7.75" Width="1.5" />
+    <Position X="21.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAIAEAAgAAAAAAAAAAAAAAAAAAAABCA=</HashCode>
       <FileName>Timer\CountDownTimer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="Midori.Structures.Rectangle" Collapsed="true">
-    <Position X="19" Y="11" Width="1.5" />
+    <Position X="17.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAQAQAAAAEAAAAAAAAAAAABgAAAAYAA=</HashCode>
       <FileName>Structures\Rectangle.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Midori.Structures.Vector" Collapsed="true">
-    <Position X="20.75" Y="11" Width="1.5" />
+    <Position X="19.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAYAA=</HashCode>
       <FileName>Structures\Vector.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Midori.Interfaces.IAnimatable" Collapsed="true">
-    <Position X="8.5" Y="9.75" Width="1.5" />
+    <Position X="12.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAEAAAAAAAAAAIAABAAAAAAAAEAAA=</HashCode>
       <FileName>Interfaces\IAnimatable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableFalling" Collapsed="true">
-    <Position X="11.5" Y="11.75" Width="1.5" />
+    <Position X="11.5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableFalling.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableIdle" Collapsed="true">
-    <Position X="7" Y="11.75" Width="1.5" />
+    <Position X="7" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableIdle.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableJumper" Collapsed="true">
-    <Position X="9.25" Y="11.75" Width="1.5" />
+    <Position X="9.25" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableJumper.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableMovable" Collapsed="true">
-    <Position X="5" Y="11.75" Width="1.5" />
+    <Position X="5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableMovable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableRangedAttacker" Collapsed="true">
-    <Position X="19" Y="12.25" Width="1.5" />
+    <Position X="19.5" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableRangedAttacker.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.ICollidable" Collapsed="true">
-    <Position X="12.25" Y="8.25" Width="1.5" />
+    <Position X="6.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ICollidable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IDestroyable" Collapsed="true">
-    <Position X="1.5" Y="9.25" Width="1.5" />
+    <Position X="5.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IDestroyable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IDrawable" Collapsed="true">
-    <Position X="7.5" Y="8.25" Width="1.5" />
+    <Position X="11.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgSAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IEnemy" Collapsed="true">
-    <Position X="20.75" Y="12.25" Width="1.5" />
+    <Position X="7.5" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IEnemy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IGameObject" Collapsed="true">
-    <Position X="10" Y="8.25" Width="1.5" />
+    <Position X="9" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAgEAAACAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Interfaces\IGameObject.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IItem" Collapsed="true">
-    <Position X="14.25" Y="11.25" Width="1.5" />
+    <Position X="9.75" Y="8.75" Width="1.5" />
+    <InheritanceLine Type="Midori.Interfaces.IUpdatable" ManuallyRouted="true">
+      <Path>
+        <Point X="5.25" Y="8.062" />
+        <Point X="5.25" Y="8.672" />
+        <Point X="8.167" Y="8.672" Type="JumpStart" />
+        <Point X="8.333" Y="8.672" Type="JumpEnd" />
+        <Point X="10.5" Y="8.672" />
+        <Point X="10.5" Y="8.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAgAAAAAA=</HashCode>
       <FileName>Interfaces\IItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IJumper" Collapsed="true">
-    <Position X="0.5" Y="12.25" Width="1.5" />
+    <Position X="2.5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IJumper.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IMoveable" Collapsed="true">
-    <Position X="3" Y="11.75" Width="1.5" />
+    <Position X="5.25" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IMoveable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IMultiJumper" Collapsed="true">
-    <Position X="2" Y="13.75" Width="1.5" />
+    <Position X="2.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IMultiJumper.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.INeedToKnowWhereImFacing" Collapsed="true">
-    <Position X="1" Y="11" Width="1.5" />
+    <Position X="4.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\INeedToKnowWhereImFacing.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IOwned" Collapsed="true">
-    <Position X="15.75" Y="9.5" Width="1.5" />
+    <Position X="1.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IOwned.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IPlayableCharacter" Collapsed="true">
-    <Position X="6.5" Y="13.5" Width="1.5" />
+    <Position X="10.25" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IPlayableCharacter.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IProjectile" Collapsed="true">
-    <Position X="13" Y="9.25" Width="1.5" />
+    <Position X="1" Y="8.75" Width="1.5" />
+    <InheritanceLine Type="Midori.Interfaces.IMoveable" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="5.25" Y="10.375" />
+        <Point X="4.875" Y="10.375" />
+        <Point X="4.875" Y="9.454" />
+        <Point X="2.958" Y="9.454" Type="JumpStart" />
+        <Point X="2.792" Y="9.454" Type="JumpEnd" />
+        <Point X="2.5" Y="9.454" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IProjectile.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IRangedAttacker" Collapsed="true">
-    <Position X="22.5" Y="12.25" Width="1.5" />
+    <Position X="19.5" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Interfaces\IRangedAttacker.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.ITile" Collapsed="true">
-    <Position X="24.25" Y="12.25" Width="1.5" />
+    <Position X="9" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ITile.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.ITimeOutable" Collapsed="true">
-    <Position X="19" Y="13" Width="1.5" />
+    <Position X="17.75" Y="12.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ITimeOutable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IUnit" Collapsed="true">
-    <Position X="4" Y="9.25" Width="1.5" />
+    <Position X="7.5" Y="9.25" Width="1.5" />
+    <InheritanceLine Type="Midori.Interfaces.IUpdatable" ManuallyRouted="true">
+      <Path>
+        <Point X="5.25" Y="8.062" />
+        <Point X="5.25" Y="8.893" />
+        <Point X="7.24" Y="8.893" />
+        <Point X="7.24" Y="9.122" />
+        <Point X="8.25" Y="9.122" />
+        <Point X="8.25" Y="9.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAAAAAAAAAAIACAAAAAAAAAAJAAABAAA=</HashCode>
       <FileName>Interfaces\IUnit.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IUpdatable" Collapsed="true">
-    <Position X="4" Y="8.25" Width="1.5" />
+    <Position X="4.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IUpdatable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Midori.Enumerations.ItemType" Collapsed="true">
-    <Position X="19" Y="14" Width="1.5" />
+    <Position X="17.75" Y="13.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enumerations\ItemType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Midori.Enumerations.TileType" Collapsed="true">
-    <Position X="20.75" Y="14" Width="1.5" />
+    <Position X="19.5" Y="13.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AggAAAAAQggAAAAAgAAACABAAAABAAABAAAAAAEAAAA=</HashCode>
       <FileName>Enumerations\TileType.cs</FileName>
