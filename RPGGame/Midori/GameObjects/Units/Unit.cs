@@ -27,7 +27,7 @@ namespace Midori.GameObjects.Units
         private float defaultJumpSpeed;
         private int jumpCounter;
         private int damageRanged;
-        private Rectangle futurePosition;        
+        private Rectangle futurePosition;
 
         protected Unit()
             : base()
@@ -312,7 +312,7 @@ namespace Midori.GameObjects.Units
                 if (this.JumpSpeed == 0)
                 {
                     // if unit is inside a tile => gain free pathing
-                    if (Collision.CheckForCollisionWithPlatform(this.BoundingBox))
+                    if (Collision.CheckForCollisionWithPlatforms(this.BoundingBox))
                     {
                         this.HasFreePathing = true;
                     }
@@ -507,7 +507,7 @@ namespace Midori.GameObjects.Units
             {
                 this.CurrentFrame++;
 
-                if (this.CurrentFrame == basicAnimationFrameCount)
+                if (this.CurrentFrame >= basicAnimationFrameCount)
                 {
                     this.CurrentFrame = 0;
                 }
@@ -516,9 +516,10 @@ namespace Midori.GameObjects.Units
             }
         }
 
-        public void ResetAnimationCounter()
+        public void ResetAnimation()
         {
             this.CurrentFrame = 0;
+            this.Timer = 0.0;
         }
 
         public void MakeUnitIdle()

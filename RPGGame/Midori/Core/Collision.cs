@@ -23,7 +23,7 @@ namespace Midori.Core
             return null;
         }
 
-        public static bool CheckForCollisionWithWorldBounds(GameObject obj)
+        public static bool CheckForCollisionWithWorldBounds(IGameObject obj)
         {
             if (obj.X > Engine.LevelBounds.Width)
             {
@@ -41,12 +41,17 @@ namespace Midori.Core
             return false;
         }
 
-        public static bool CheckForCollisionBetween(ICollidable firstObj, ICollidable secondObj)
+        public static bool CheckForCollisionWithSightRect(ICollidable collidableObj, IHasSight hasSightObj)
+        {
+            return collidableObj.BoundingBox.Intersects(hasSightObj.SightRect);
+        }
+
+        public static bool CheckForCollisionBetweenCollidables(ICollidable firstObj, ICollidable secondObj)
         {
             return firstObj.BoundingBox.Intersects(secondObj.BoundingBox);
         }
 
-        // return true if the position collides with a tile
+        // return true if the bounding box collides with a tile
         public static bool CheckForCollisionWithAnyTiles(Rectangle boundingBox)
         {
             foreach (Tile tile in Engine.Tiles)
@@ -79,7 +84,7 @@ namespace Midori.Core
             return false;
         }
 
-        public static bool CheckForCollisionWithPlatform(Rectangle boundingBox)
+        public static bool CheckForCollisionWithPlatforms(Rectangle boundingBox)
         {
             foreach (Tile tile in Engine.Tiles)
             {

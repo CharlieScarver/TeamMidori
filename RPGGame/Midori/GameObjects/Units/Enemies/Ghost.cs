@@ -59,9 +59,9 @@ namespace Midori.GameObjects.Units.Enemies
         }
 
         # region Properties
-        private Random Randomizer { get; set; }
+        protected Random Randomizer { get; set; }
 
-        public int AttackCounter { get; set; }
+        protected int AttackCounter { get; set; }
 
         protected CountDownTimer AttackTimer { get; set; }
 
@@ -75,7 +75,7 @@ namespace Midori.GameObjects.Units.Enemies
             if (this.Health <= 0)
             {
                 this.Nullify();
-                Engine.SpawnItem(new Vector2(this.X + this.TextureWidth / 2, this.Y));
+                // Engine.SpawnItem(new Vector2(this.X + this.TextureWidth / 2, this.Y));
             }
             else
             {
@@ -108,15 +108,10 @@ namespace Midori.GameObjects.Units.Enemies
                     this.IsMovingRight = false;
                     this.IsFacingLeft = true;
                     this.IsMovingLeft = true;
-
                 }
 
                 this.AnimateRunning(gameTime);
                 this.MovementTimer.SetTimer(gameTime, this.Randomizer.Next(1, 4));
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("wtffasdfasdf");
             }
             
 

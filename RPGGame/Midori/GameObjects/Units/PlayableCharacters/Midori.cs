@@ -188,7 +188,8 @@ namespace Midori.GameObjects.Units.PlayableCharacters
         // Falling Animation
         public override void AnimateFall(GameTime gameTime)
         {
-            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount); if (this.IsFacingLeft)
+            this.BasicAnimationLogic(gameTime, this.Delay, MidoriBasicAnimationFrameCount); 
+            if (this.IsFacingLeft)
             {
                 this.SourceRect = new Rectangle(this.CurrentFrame * MidoriTextureWidth, MidoriTextureHeight * 6, MidoriTextureWidth, MidoriTextureHeight);
             }

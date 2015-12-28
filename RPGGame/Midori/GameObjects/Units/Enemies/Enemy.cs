@@ -9,8 +9,18 @@ namespace Midori.GameObjects.Units.Enemies
     {
         protected Enemy()
             : base()
-        { }
+        {
+        
+        }
 
+        #region Properties
+        public int Sight { get; protected set; }
+
+        public Rectangle SightRect { get; protected set; }
+
+        #endregion
+
+        #region Methods
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (this.Health != this.MaxHealth)
@@ -33,7 +43,6 @@ namespace Midori.GameObjects.Units.Enemies
                 if (healthPercent < 0.4f)
                 {
                     spriteBatch.Draw(TextureLoader.TheOnePixel, healthBar, null, Color.Red);
-
                 }
                 else
                 {
@@ -43,5 +52,6 @@ namespace Midori.GameObjects.Units.Enemies
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.SourceRect, Color.White);
         }
 
+        #endregion
     }
 }

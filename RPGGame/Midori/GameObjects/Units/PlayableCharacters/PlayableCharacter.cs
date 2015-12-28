@@ -109,7 +109,9 @@ namespace Midori.GameObjects.Units.PlayableCharacters
             {
                 this.IsMovingRight = false;
                 this.IsMovingLeft = false;
-                this.IsAttackingRanged = true;                
+                this.IsAttackingRanged = true;
+
+                this.ResetAnimation();
             }
         }
 

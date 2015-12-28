@@ -111,7 +111,7 @@ namespace Midori
                 projectile.Update(gameTime);
                 foreach (Unit unit in Engine.UpdatableObjects)
                 {
-                    if (Collision.CheckForCollisionBetween(projectile, unit))
+                    if (Collision.CheckForCollisionBetweenCollidables(projectile, unit))
                     {
                         if (projectile.Owner is PlayableCharacter && unit is Enemy)
                         {

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Midori.TextureLoading;
 using Midori.Interfaces;
 using System;
+using Midori.Core;
+using Midori.GameObjects.Units.Enemies;
 
 namespace Midori.GameObjects
 {
@@ -131,6 +133,10 @@ namespace Midori.GameObjects
         {
             this.IsActive = false;
             this.BoundingBox = new Rectangle();
+            if (this is Enemy)
+            {
+                Engine.SpawnItem(new Vector2(this.X + this.TextureWidth / 2, this.Y));
+            }
         }
 
         public void DrawBB(SpriteBatch spriteBatch, Color boundingBoxColor)

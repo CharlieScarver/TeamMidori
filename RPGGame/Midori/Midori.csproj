@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IHasSight.cs" />
     <Compile Include="Interfaces\IMultiJumper.cs" />
     <Compile Include="Structures\Rectangle.cs" />
     <Compile Include="Timer\CountDownTimer.cs" />

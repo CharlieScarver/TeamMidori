@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Midori.Camera.Camera2D" Collapsed="true">
-    <Position X="17.75" Y="7.25" Width="1.5" />
+    <Position X="17.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CIQAAAADAAAEAIAgFBKAJBUQAAIEAgAAAAQAAAAAAAA=</HashCode>
       <FileName>Camera\Camera2D.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Collision" Collapsed="true">
-    <Position X="19.5" Y="7.25" Width="1.5" />
+    <Position X="19" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAACAAAAAAAAAAAAAAAAACABAAAARAAAAAAAAA=</HashCode>
       <FileName>Core\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Core.Engine" Collapsed="true">
-    <Position X="17.75" Y="8.25" Width="1.5" />
+    <Position X="17.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIIAAEAAAAKgCAABgAAkAAI4UQEFMBEABAAQCAAAA=</HashCode>
       <FileName>Core\Engine.cs</FileName>
@@ -30,28 +30,28 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Midori.DebugSystem.DebugObject" Collapsed="true">
-    <Position X="23" Y="7.25" Width="1.5" />
+    <Position X="22.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAQkAAQABAAQAAAAEAAAAAAAAAAAAgA=</HashCode>
       <FileName>DebugSystem\DebugObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.DebugSystem.MidoriDebug" Collapsed="true">
-    <Position X="23" Y="8.25" Width="1.5" />
+    <Position X="22.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAEACgAEAAAIBAAAAQAAABAEAAAQQAAAAAASIAA=</HashCode>
       <FileName>DebugSystem\MidoriDebug.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Game1" Collapsed="true">
-    <Position X="19.5" Y="8.25" Width="1.5" />
+    <Position X="19" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAIQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Program" Collapsed="true">
-    <Position X="17.75" Y="9.25" Width="1.5" />
+    <Position X="17.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
@@ -201,35 +201,35 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Midori.Input.InputHandler" Collapsed="true">
-    <Position X="21.25" Y="8.25" Width="1.5" />
+    <Position X="20.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACgAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Input\InputHandler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.TextureLoading.TextureLoader" Collapsed="true">
-    <Position X="19.5" Y="9.25" Width="1.5" />
+    <Position X="19" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAgEgIAAAAkAACAAAAYAAQBAAIIAAEAAAELoAQECABA=</HashCode>
       <FileName>TextureLoading\TextureLoader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Timer.CountDownTimer" Collapsed="true">
-    <Position X="21.25" Y="7.25" Width="1.5" />
+    <Position X="20.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAIAEAAgAAAAAAAAAAAAAAAAAAAABCA=</HashCode>
       <FileName>Timer\CountDownTimer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="Midori.Structures.Rectangle" Collapsed="true">
-    <Position X="17.75" Y="10.5" Width="1.5" />
+    <Position X="20.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAQAQAAAAEAAAAAAAAAAAABgAAAAYAA=</HashCode>
       <FileName>Structures\Rectangle.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Midori.Structures.Vector" Collapsed="true">
-    <Position X="19.5" Y="10.5" Width="1.5" />
+    <Position X="22.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAYAA=</HashCode>
       <FileName>Structures\Vector.cs</FileName>
@@ -271,7 +271,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IAnimatableRangedAttacker" Collapsed="true">
-    <Position X="19.5" Y="12.75" Width="1.5" />
+    <Position X="21.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IAnimatableRangedAttacker.cs</FileName>
@@ -318,8 +318,6 @@
       <Path>
         <Point X="5.25" Y="8.062" />
         <Point X="5.25" Y="8.672" />
-        <Point X="8.167" Y="8.672" Type="JumpStart" />
-        <Point X="8.333" Y="8.672" Type="JumpEnd" />
         <Point X="10.5" Y="8.672" />
         <Point X="10.5" Y="8.75" />
       </Path>
@@ -389,7 +387,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.IRangedAttacker" Collapsed="true">
-    <Position X="19.5" Y="12" Width="1.5" />
+    <Position X="19.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Interfaces\IRangedAttacker.cs</FileName>
@@ -403,7 +401,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Midori.Interfaces.ITimeOutable" Collapsed="true">
-    <Position X="17.75" Y="12.75" Width="1.5" />
+    <Position X="17.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\ITimeOutable.cs</FileName>
@@ -434,14 +432,14 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="Midori.Enumerations.ItemType" Collapsed="true">
-    <Position X="17.75" Y="13.5" Width="1.5" />
+    <Position X="17.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAAAAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enumerations\ItemType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Midori.Enumerations.TileType" Collapsed="true">
-    <Position X="19.5" Y="13.5" Width="1.5" />
+    <Position X="19" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AggAAAAAQggAAAAAgAAACABAAAABAAABAAAAAAEAAAA=</HashCode>
       <FileName>Enumerations\TileType.cs</FileName>

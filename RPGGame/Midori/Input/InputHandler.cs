@@ -15,23 +15,22 @@ namespace Midori.Input
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
-            if (currentKeyboardState.GetPressedKeys().Length == 0)
-            {
-                // Idle
-            }
+            //if (currentKeyboardState.GetPressedKeys().Length == 0)
+            //{
+            //    // Idle
+            //}
 
             //Reset any currently ongoing animation
             if (currentKeyboardState.IsKeyDown(Keys.R) && previousKeyboardState.IsKeyUp(Keys.R))
             {
-                unit.ResetAnimationCounter();
+                unit.ResetAnimation();
             }
 
             if (currentKeyboardState != previousKeyboardState)
             {
-
                 if (!unit.IsAttackingRanged)
                 {
-                    unit.ResetAnimationCounter();
+                    //unit.ResetAnimationCounter();
                 }
                 unit.MakeUnitIdle();
             }
