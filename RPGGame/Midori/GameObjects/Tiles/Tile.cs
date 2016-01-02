@@ -6,7 +6,7 @@ using Midori.TextureLoading;
 using Midori.Enumerations;
 using Midori.Interfaces;
 
-namespace Midori.Core
+namespace Midori.GameObjects.Tiles
 {
     public abstract class Tile : GameObject, ITile
     {
