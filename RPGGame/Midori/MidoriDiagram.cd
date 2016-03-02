@@ -10,7 +10,7 @@
   <Class Name="Midori.Core.Collision" Collapsed="true">
     <Position X="19" Y="7.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAACAAAAAAAAAAAAAAAAACABAAAARAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAiAAAAAAAAgAAAAAAAAAABAAAARAAAAAAAAA=</HashCode>
       <FileName>Core\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -21,7 +21,7 @@
       <FileName>Core\Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Midori.Core.Tile" Collapsed="true">
+  <Class Name="Midori.GameObjects.Tiles.Tile" Collapsed="true">
     <Position X="9.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAgAAAAAAAAAAAAAAAgAAAQCAAAAAAAA=</HashCode>
@@ -41,13 +41,6 @@
     <TypeIdentifier>
       <HashCode>QAAAAAEACgAEAAAIBAAAAQAAABAEAAAQQAAAAAASIAA=</HashCode>
       <FileName>DebugSystem\MidoriDebug.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Midori.Game1" Collapsed="true">
-    <Position X="19" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAIQ=</HashCode>
-      <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Midori.Program" Collapsed="true">
@@ -155,7 +148,7 @@
   <Class Name="Midori.GameObjects.Units.Enemies.Bush" Collapsed="true">
     <Position X="16.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABQBAAAAAEgAQAAAAAAACAAAAAAAAADQgAAAAAAAQQQ=</HashCode>
+      <HashCode>ARRBAAgAAEgAAAQAAAAACECAAgAAAADQgAAAAIIAUwA=</HashCode>
       <FileName>GameObjects\Units\Enemies\Bush.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -163,7 +156,7 @@
   <Class Name="Midori.GameObjects.Units.Enemies.Enemy" Collapsed="true">
     <Position X="15" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAQAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>GameObjects\Units\Enemies\Enemy.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -195,7 +188,7 @@
   <Class Name="Midori.GameObjects.Units.Unit" Collapsed="true">
     <Position X="16.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASBCQIJiAoBCRAAEAQAPQoACEwIIIBIABAJCEAFIJg=</HashCode>
+      <HashCode>AASBCQIJiAoBCRAAEAQAPQoACEwIIIBIABAJCEAFIIg=</HashCode>
       <FileName>GameObjects\Units\Unit.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -219,6 +212,13 @@
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAIAEAAgAAAAAAAAAAAAAAAAAAAABCA=</HashCode>
       <FileName>Timer\CountDownTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Midori.Game1" Collapsed="true">
+    <Position X="19" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAAgAAAwAAAACAAAAAAAAAAAgBAAAAAAAAAIQ=</HashCode>
+      <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="Midori.Structures.Rectangle" Collapsed="true">

@@ -1,16 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Midori.Core;
-using Midori.TextureLoading;
-using Midori.GameObjects.Projectiles;
-using Midori.GameObjects.Units.Enemies;
-using Midori.Interfaces;
-using Midori.GameObjects.Items;
-using Midori.Input;
-
-namespace Midori.GameObjects.Units.PlayableCharacters
+﻿namespace Midori.GameObjects.Units.PlayableCharacters
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Core;
+    using TextureLoading;
+    using Projectiles;
+    using Interfaces;
+    using Input;
+
     public class Midori : PlayableCharacter, IRangedAttacker, IAnimatableRangedAttacker
     {
         private const int MidoriTextureWidth = 236;

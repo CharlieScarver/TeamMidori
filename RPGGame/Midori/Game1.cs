@@ -1,20 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Midori.Camera;
-using Midori.Core;
-using Midori.TextureLoading;
-using Midori.DebugSystem;
-using Midori.GameObjects;
-using Midori.GameObjects.Items;
-using Midori.GameObjects.Projectiles;
-using Midori.GameObjects.Units;
-using Midori.GameObjects.Units.Enemies;
-using Midori.GameObjects.Units.PlayableCharacters;
-using Midori.Interfaces;
-
-namespace Midori
+﻿namespace Midori
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using Camera;
+    using Core;
+    using TextureLoading;
+    using DebugSystem;
+    using GameObjects.Items;
+    using GameObjects.Projectiles;
+    using GameObjects.Units;
+    using GameObjects.Units.Enemies;
+    using GameObjects.Units.PlayableCharacters;
+    using Interfaces;
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -179,7 +178,7 @@ namespace Midori
             {                 
                 spriteBatch.Begin(transformMatrix: camera.Transform);//, blendState: BlendState.AlphaBlend);
 
-                foreach (Tile tile in Engine.Tiles)
+                foreach (ITile tile in Engine.Tiles)
                 {
                     tile.Draw(spriteBatch);
                     //tile.DrawBB(spriteBatch, Color.Crimson);
